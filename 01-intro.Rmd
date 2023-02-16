@@ -1,0 +1,397 @@
+# An Introduction
+
+## Getting Started in R with RStudio {-}
+
+### R {-}
+
+R, like the commercial S-Plus, is based on the statistical programming language S. Unlike S-Plus, it can be downloaded for free from [www.r-project.org](www.r-project.org) [Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then "Download R 3.4.0 for Windows"]. This page also has links to FAQs and other information about R.
+
+### RStudio {-}
+
+RStudio is an IDE (integrated development environment), and a convenient interface for R. Think of R as like a car's engine and RStudio as a car's dashboard. You can download and install Rstudio from the official [Rstudio website](https://rstudio.com/products/rstudio/download/).
+
+
+Once you have both R and Rstudio installed, open Rstudio. You should now see four panels: 
+
+(1) **Source editor**: Docking station for multiple files, Useful shortcuts ("Knit"), Highlighting/Tab-completion, Code-checking (R, HTML, JS), Debugging features
+(2) **Console window**: Highlighting/Tab-completion, Search recent commands
+(3) **Environment pane**: Tools for package development, git, etc
+(4) **Other tabs/panes**: Plots, R documentation, File system navigation/access
+
+![](img/rstudio-panes.png)
+
+
+#### Executing code and R script files {-}
+
+You can start coding by typing commands in the Console panel. This window is also where the output will appear. Because this window is used for so many things it often fills up quickly — and so, if you are doing anything involving a large number of steps, it is often easiest to type them in a script first. 
+
+You can create a new script by clicking on the "File" menu and selecting "New File" then "R Script". A script is a collection of commands that you can save and run again later. To run a command, click in a given line or highlight the text and hit `Ctrl+Enter`, or click the “Run” button at the top of the script window. You can save your scripts for later use. 
+
+Also very useful are the fact that in the main R Console window, the up and down-arrow on the key-board can be used to scroll through previously entered lines in R, and that `history()` will open a window of previously entered commands (which we'll see below after entering some). If the font in this R Console is too small, or if you dislike the color or font, you can change it by selecting "Global Options" under the "Tools" menu and clicking on the "Appearance" tab in the pop up window.
+
+### RMarkdown {-}
+
+```{r fig.cap = "Artwork by allison horst", echo = FALSE}
+knitr::include_graphics("img/rmarkdown_wizards.png")
+```
+
+Markdown is a particular type of markup language. Markup languages are designed to produce documents from plain text. Some of you may be familiar with LaTeX, another (less human friendly) markup language for creating pdf documents. LaTeX gives you much greater control, but it is restricted to pdf and has a much greater learning curve. 
+
+Markdown is becoming a standard and many websites will generate HTML from Markdown (e.g. GitHub, Stack Overflow, reddit, ...). It is also relatively easy:
+
+```
+*italic*
+**bold**
+# Header 1
+## Header 2
+### Header 3
+- List item 1
+- List item 2
+    - item 2a
+    - item 2b
+1. Numbered list item 1
+1. Numbered list item 2
+    - item 2a
+    - item 2b
+```
+
+Have a look at RStudio's [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/).
+
+**RMarkdown** is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. It combines markdown syntax with embedded R code chunks that are run so their output can be included in the final document. 
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/rmarkdown.png")
+```
+
+
+Most importantly, RMarkdown creates fully reproducible reports since each time you knit the analysis is run from the beginning, encouraging transparency. Collaborators (including your future self) will thank you for integrating your analysis and report.
+
+#### Exercise: Create your first Rmarkdown. {-}
+
+1. Open RStudio, create a new project.
+2. Create a new RMarkdown file and knit it.
+3. Make changes to the markdown formatting and knit again (use the [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/))
+4. If you feel adventurous, change some of the R code and knit again.
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/hello-rmarkdown.png")
+```
+
+
+## Objects
+
+At the heart of R are the various objects that you enter. An object could be data (in the form of a single value, a vector, a matrix, an array, a list, or a data frame) or a function that you created. Objects are created by assigning a value to the objects name using either `<-` or `=`. For example
+
+```{r}
+x <- 3
+```
+
+creates an object called `x` that contains the (real) number 3. If you simply cut and paste that command in at the `>` prompt (in the console), R will only give you another prompt. This is because you merely assigned the value... you didn't ask R to do anything with it. Typing
+
+```{r}
+x
+```
+
+will now return the number 3, the value of `x`. R is case sensitive, so entering
+
+```{r}
+X <- 5
+X
+```
+
+will create a separate object. If you reassign an object, say:
+
+```{r}
+X <- 7
+```
+
+the original value is over-written. If you attempt to use the name of a built in function or constant (such as `c()`, `t()`, `t.test()`, or `pi()`) for one of your variable names, you will likely find that future work you are trying to do gives unexpected results. Notice in the name of `t.test()` that periods are allowed in names of objects. Other symbols (except numbers and letters) are not allowed.
+
+Note that the up-arrow and `history()` will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved when you exit R, and this is purposeful: Attachment to your workspace indicates that you have a **non-reproducible** workflow. Any individual R process and the associated workspace is disposable and everything that really matters should be achieved through code that you save in your script.
+
+```{r fig.cap = " Image via Jenny Bryan's 'What They Forgot to Teach You About R'", echo = FALSE}
+knitr::include_graphics("img/if-you-liked-it-you-should-have-saved-the-source-for-it.jpg")
+```
+
+
+## Arithmetic and Parentheses
+
+Using R can be a lot like using a calculator. All of the basic arithmetic operations work in R:
+
+```{r}
+X-x
+7-3
+```
+
+will both return the value 4, one by performing the arithmetic on the objects, and the other on the numbers. The other basic mathematical operators are:
+
+- `+`	addition
+- `-`	subtraction
+- `*`	multiplication
+- `/`	division
+- `^`	exponentiation
+- `%*%` 	matrix multiplication
+
+R will often try to do the "common-sense" thing when using arithmetic arguments. For example, if `Y` is a vector or matrix of values, then `Y + 4` will add `4` to each of the values in `Y`. (So the vector `3, 2, 5` would become `7, 6, 9`).
+
+Parentheses work as usual in mathematical statements, but they do not imply multiplication.
+
+```{r}
+#X(x+5)
+X*(x+5)
+```
+
+Notice that the former returns an error about looking for a function called `X`, while the latter does the arithmetic to return the value `40`.
+
+The other use of parentheses in R are to indicate that you attempting to run a function, and, if the function has any options it will contain those.
+
+```
+objects()
+```
+
+will return the list of all of the objects you currently have in R. Typing it without the parentheses will just show you the function instead of trying to run it! The command:
+
+```{r}
+rnorm(10)
+```
+
+runs the function `rnorm()` with the argument `10`. In this case it is generating a random sample of 10 values from a normal distribution.
+
+## Help!
+
+To see this, we could run the help function on that command.
+
+```
+help(rnorm)
+```
+
+A shortcut, `?rnorm`, would also work.
+
+Every help file in R begins with a brief description of the function (or group of functions) in question, followed by all of the possible options (a.k.a. Arguments) that you can provide. In this case the value `n` (the number of observations) is required. Notice that all of the other options are shown as being = some value -- this indicates the defaults those values take if you do not enter them. The sample we generated above thus has mean 0 and standard deviation 1.
+
+Below the list of arguments are a brief summary of what the function does (called the *Details*), a list of the *Value* (or values) returned by running the function, the *Source* of the algorithm, and general *References* on the topic. *See Also* is often the most useful part of the help for a function as it provides a list of related functions. Finally, there are some *Examples* that you can cut and paste in to observe the function in action.
+
+## Functions
+
+It is always safest to enter the values of functions using the names of the arguments:
+
+```{r}
+rnorm(10, sd = 4)
+```
+
+rather than trusting that the argument you want happens to be first in the list:
+
+```{r}
+rnorm(10, 4)
+```
+
+Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
+
+Typing `objects()` again we see that these values we generated have not been saved as an object, and exist solely on the screen. To save the values we could have assigned the output of our function to an object.
+
+```{r}
+normal.sample <- rnorm(50)
+normal.sample
+```
+
+A few common statistical functions include:
+
+- `mean()`	find the mean
+- `median()`	find the median
+- `sd()`	find the standard deviation
+- `var()`	find the variance
+- `quantile()`	find the quantiles (percentiles);
+  - requires the data and the percentile you want
+  - e.g. `quantile(normal.sample, .5)` is the median
+- `max()`	find the maximum
+- `min()`	find the minimum
+- `summary()`	find the 5-number summary
+- `hist()`	construct a histogram
+- `boxplot()`	construct a boxplot
+- `qqnorm()`	construct a normal quantile-quantile plot
+- `qqline()`	add the line to a normal quantile-quantile plot
+
+Trying a few of these out (like `mean(normal.sample)`) will show us the descriptive statistics and basic graphs for a sample of size 50 from a normal population with mean 0 and standard deviation 1. (Using up arrow can make it quicker to try several in a row.)
+
+As we will see in more detail later, it is possible to create your own functions by using the function function. This one creates a simple measure of skewness.
+
+```{r}
+Skew <- function(x){
+    (mean(x) - median(x))/sd(x)}
+```
+
+Note that braces `{ }` in R are used to group several separate commands together, and also occur when using programming commands like loops or if-then statements. They work the same as parentheses in arithmetic expressions.
+
+After entering or new function, it works like any built in function, except that it appears in our objects list.
+
+```{r}
+# Skew
+# Skew()
+Skew(normal.sample)
+# objects()
+```
+
+There are also a number of mathematical functions as well. Ones common in statistical applications include:
+
+- `sqrt()`	square root
+- `exp()`	exponent (e to the power)
+- `log()`	the natural logarithm by default
+- `abs()`	absolute values
+- `floor()`	round down
+- `ceiling()`	round up
+- `round()`	round to the nearest (even if .5)
+
+
+## Vectors, Matrices, and Arrays
+
+The output from `rnorm()` is different from the `X` and `x` we created as it contains more than just a single value - they are vectors. While we can think of them as vectors in the mathematical sense, we can also think of a vector as simply listing the values of a variable.
+
+Vectors in R are created using the `c()` function (as in concatonate). Thus,
+
+```{r}
+Y <- c(3, 2, 5)
+Y
+Y + 4
+Y * 2
+```
+
+creates a vector of length three (and we can verify that arithmetic works on it componentwise). Given two vectors arithmetic is also done componentwise:
+
+```{r}
+Z <- c(1, 2, 3)
+Y + Z
+Y * Z
+```
+
+Other functions are also evaluated component-wise (if possible):
+
+```{r}
+sqrt(Z)
+```
+
+Multiple vectors can be combined together by using the `c()` function:
+
+```{r}
+YandZ <- c(Y, Z)
+YandZ
+```
+
+However, when asked to combine vectors of two different types, R will try to force them to be of the same type:
+
+```{r}
+nums <- c(1, 2, 3)
+nums
+lttrs <- c("a", "b", "c")
+lttrs
+c(nums, lttrs)
+# c(nums, lttrs) + 2
+```
+
+Once we have our desired vector, an element in the vector can be referred to by using square brackets:
+
+```{r}
+YandZ[2]
+YandZ[2:4]
+YandZ[c(1, 4:6)]
+```
+
+By using the `c()` function, and the `:` to indicate a sequence of numbers, you can quickly refer to the particular portion of the data you are concerned with.
+
+Matrices (two-dimensional) and arrays (more than two dimensions) work similarly - they use brackets to find particular values, and all the values in an array or matrix must be of the same type (e.g. numeric, character, or factor). In the case of matrices, the first values in the brackets indicates the desired rows, and the ones after the comma indicate the desired columns.
+
+```{r}
+Xmat <- matrix(c(3, 2, 5, 1, 2, 3), 
+               ncol = 3, byrow = TRUE)
+Xmat
+Ymat <- rbind(Y, Z)
+Ymat
+Xmat[1, 2:3]
+Zmat <- cbind(nums, lttrs)
+Zmat
+```
+
+In the above code, `matrix()` is the function to form a vector into a matrix, `rbind()` places multiple vectors (or matrices) side-by-side as the rows of a new matrix (if the dimensions match), and `cbind()` does the same for columns.
+
+## Data Frames, Lists, and Attributes
+
+In many cases the data set we wish to analyze will not have all of the rows or columns in the same format. This type of data is stored in R as a data frame. `scdata.txt` is one such data set, and it can be found in the course materials (its description is found in `scdata.pdf`). The data can be read in using code similar to the below (assuming a similar file structure).
+
+```{r}
+sctable <- readr::read_table("data/scdata.txt")
+```
+
+If you don't want to view the entire data set, you can use `head()` and `tail()` to see the first and last rows. This lets you check the variable names as well as the number of observations successfully read in.
+
+```{r}
+head(sctable)
+tail(sctable)
+```
+
+There are a large number of ways to access the rows and columns of a data frame, and one of them is to treat it similarly to a matrix.
+
+```{r}
+County1 <- sctable[1, ]
+Birth.Death <- sctable[ , 3:4]
+```
+
+This simplicity sometimes causes trouble though. While `Birth.Death` may look on the screen like it is a matrix, it is still a data frame and many functions which use matrix operations (like matrix multiplication) will give an error. The attributes function will show us the true status of our object (it returns NULL for a numeric vector and the dimensions if a matrix):
+
+```{r}
+Birth.Death
+attributes(Birth.Death)
+BD.matrix <- as.matrix(Birth.Death)
+attributes(BD.matrix)
+```
+
+The `$` is used to access whatever corresponds to an entry in the names attribute:
+
+```{r}
+Birth.Death$Births
+```
+
+This is particularly useful when trying to access a portion of the output of a function for later use. For example, later we will see a method of doing statistical inference called the t-test. In R, this is performed by the function `t.test()` which can create a great deal of output on the screen.
+
+```{r}
+t.test(normal.sample)
+```
+
+If you only want the part called the "p-value" for later use we can pull that out of the output.
+
+```{r}
+t.out <- t.test(normal.sample)
+t.out
+attributes(t.out)
+t.out$p.value
+```
+
+We could then save the resulting value as part of a vector or matrix of other p-values, for example.
+
+The `$` is also used to access named parts of lists, which we will see can be used to store a variety of kinds of information in a single object.
+
+## Packages
+
+The ability to "easily" write functions in R has lead to an explosion of procedures that researchers have written and made available to the public. Several of these are automatically included with the basic instillation of R. For example, the **MASS** package (or library) contains all of the functions corresponding to the Springer text *Modern Applied Statistics with S* by Venables and Ripley. The command `library()` is used to activate a downloaded package and give access to all of its functions, such as `fractions()` which finds a fraction to approximate any decimal you enter.
+
+```{r}
+# help(fractions)
+library(MASS)
+help(fractions)
+fractions(0.5)
+fractions(pi)
+4272943/1360120
+```
+
+Additional packages can be found by using the "Packages" menu. "Load package..." contains a list of all of the automatically installed packages, and hundreds of others can be accessed using "Install package(s)..." if you are connected to the internet and have administrator rights on your computer.
+
+This large number of available packages makes it very easy to conduct a huge variety of analyses, and impossible to know even a fraction of the possibilities off the top of your head.
+
+For personal use, the source command can be used to read in a text file containing previously written functions that you have stored in a `.txt` file (perhaps on the internet for use by students).
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Karla:400,400i,700,700i|Lora:400,400i,700,700i&display=swap');
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+
+/*____Code Chunks____*/
+
+.sourceCode {
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+}
+
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
+
+
+/* ------------Links------------------ */
+
+/*.book .book-body .page-wrapper .page-inner section.normal a {
+  color: #157f8e;
+}*/
+
+
+/*------------- Body and header text---------------- */
+
+.book.font-family-1 {
+  font-family: 'Karla', arial, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Lora', arial, sans-serif;
+}
+
+
+.book .book-body .page-wrapper .page-inner section.normal h1,
+.book .book-body .page-wrapper .page-inner section.normal h2,
+.book .book-body .page-wrapper .page-inner section.normal h3,
+.book .book-body .page-wrapper .page-inner section.normal h4,
+.book .book-body .page-wrapper .page-inner section.normal h5,
+.book .book-body .page-wrapper .page-inner section.normal h6 {
+    margin-top: 2.275em;
+    margin-bottom: 1em;
+}
+
+.title {
+  font-family: 'Lora';
+  font-size: 3.4em !important;
+  /*color: #3fb5bd;*/
+  margin-top: 0.275em !important;
+  margin-bottom: 0.35em !important;
+}
+
+.subtitle {
+  font-family: 'Lora';
+  /*color: #0b8d96;*/
+}
+
+
+/*----------DROP CAPS--------------*/
+
+
+/*p:nth-child(2):first-letter {   /* /* DROP-CAP FOR FIRST P BENEATH EACH H1 OR H2*/ /*
+  color: #3fb5bd;
+  float: left;
+  font-family: 'Abril Fatface', serif;
+  font-size: 7em;
+  line-height: 65px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-bottom: 9px;
+}
+*/
+
+/*.section.level1 > p:first-of-type:first-letter { /*drop cap for first p beneath level 1 headers only within class .section*/
+ /* color: #3fb5bd;
+  float: left;
+  font-family: 'Abril Fatface', serif;
+  font-size: 7em;
+  line-height: 65px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-bottom: 9px;
+}
+
+/* add drop cap to first paragraph that follows the first 2nd level header*/
+/*
+.section.level2:first-of-type > p:first-of-type:first-letter {
+  color: #3fb5bd;
+  float: left;
+  font-family: 'Abril Fatface', serif;
+  font-size: 7em;
+  line-height: 65px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-bottom: 9px;
+}
+*/
+
+
+/* The next two rules make the horizontal line go straight across in top navbar */
+
+.summary > li:first-child {
+	height: 50px;
+	padding-top: 10px;
+	border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.book .book-summary ul.summary li.divider {
+	height: 0px;
+}
+
+

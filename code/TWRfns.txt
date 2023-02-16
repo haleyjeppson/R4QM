@@ -1,0 +1,226 @@
+chisquare.var<-function(y,sigma2=1,alpha=0.05){ 
+n<-length(y) 
+chisquare<-(n-1)*var(y)/sigma2 
+pval.low<-pchisq(chisquare,df=n-1) 
+pval.hi<-1-pchisq(chisquare,df=n-1) 
+pval.not<-2*min(pval.low,pval.hi) 
+cilow<-(n-1)*var(y)/qchisq(1-alpha/2,df=n-1) 
+cihi<-(n-1)*var(y)/qchisq(alpha/2,df=n-1) 
+list(chisquare=chisquare,pval.for.less.than=pval.low, 
+pval.for.greater.than=pval.hi,pval.for.not.equal=pval.not, 
+ci.for.variance=c(cilow,cihi),ci.for.sd=c(sqrt(cilow),sqrt(cihi)))}
+
+
+levene2<-function(data1,data2){
+print("p-value for testing null hypothesis of equal variances")
+t.test(abs(data1-median(data1)),abs(data2-median(data2)),var.equal=T)$p.value}
+
+
+
+#The following function performs all pairwise comparisons using
+#  either Tukey's HSD ("Tukey") or Scheffe's method ("Scheffe").
+#  The function only needs to be copied in once.
+#NOTE:  This function requires that all treatments have #  equal sample size.
+
+allpairs<-function(y,treat,method="Tukey",alpha=0.05){
+  dat.reord<-order(treat)
+  treat<-treat[dat.reord]
+  y<-y[dat.reord]
+  s2w<-anova(lm(y~treat))[2,3]
+  t<-length(table(treat))
+  n<-length(y)/t
+  df<-n*t-t
+  qval<-qtukey(1-alpha,t,df)
+  if (method=="Tukey"){stat<-qval*sqrt(s2w/n)}
+  if (method=="Scheffe"){stat<-
+     sqrt(2*s2w/n*(t-1)*qf(1-alpha,t-1,df))}
+  chars<-c("A ","B ","C ","D ","E ","F ","G ","H ",
+        "I ","J ","L ","M ","N ","O ","P ","Q ")
+  means<-tapply(y,treat,mean)
+  ord.means<-order(-means)
+  treat<-treat[ord.means]
+  means<-means[ord.means]
+  grp<-1
+  current<-1
+  last<-0
+  lastsofar<-0
+  charmat<-NULL
+  while(last< t){
+    newchar<-rep("  ",t)
+    for (i in current:t){
+      if (abs(means[current]-means[i])< stat){
+           newchar[i]<-chars[grp]
+           last<-i
+           }}
+     current<-current+1
+     if (last>lastsofar){
+       charmat<-cbind(charmat,newchar)
+       grp<-grp+1
+       lastsofar<-last}}
+   charmat<-apply(charmat,1,"paste",sep="",collapse="")
+  list(Method=paste(method,", alpha=",as.character(alpha),
+      sep="",collapse=""),
+      Critical.Val=stat,
+      Display=data.frame(Grp=charmat,Mean=means))  
+}
+
+
+#The following function performs Dunnett's comparison with a control.
+#  It requires that the MCPMod package be installed and that 
+#  you have run library(MCPMod).  The default alternative is the 
+#  two-sided hypothesis. "greater" tests the alternate hypothesis that 
+#  the other treatments have a larger mean than the control. "less" 
+#  tests for smaller means. The function only needs to be copied in once.
+#NOTE:  This function requires that all treatments have equal sample size.
+
+dunnett<-function(y,treat,control=1,alternative="two.sided",alpha=0.05){
+  dat.reord<-order(treat)
+  treat<-treat[dat.reord]
+  y<-y[dat.reord]
+  s2w<-anova(lm(y~treat))[2,3]
+  t<-length(table(treat))
+  n<-length(y)/t
+  if (alternative=="two.sided"){alt<-TRUE}
+  if (alternative!="two.sided"){alt<-FALSE}
+  dval<-critVal(rbind(-1,diag(t-1)),rep(n,t),alpha=alpha,twoSide=alt)
+  D<-dval*sqrt(2*s2w/n)
+  comp<-NULL
+  yimyc<-NULL
+  sig<-NULL
+  count<-0
+  for (i in ((1:t)[-control])){
+    count<-count+1
+    comp<-rbind(comp,paste(as.character(treat[i*n]),"-",as.character(treat[control*n])))
+    yimyc<-rbind(yimyc,mean(y[treat==treat[i*n]])-
+         mean(y[treat==treat[control*n]]))
+    sigt<-""
+    if (((yimyc[count,1])>=D)&(alternative!="less")){sigt<-"***"}
+    if (((yimyc[count,1])<=(-D))&(alternative!="greater")){sigt<-"***"}
+    sig<-rbind(sig,sigt)
+    }
+  out.order<-order(-yimyc)
+  list(Method=paste("Dunnett, alternative=",alternative,","," alpha=",
+       as.character(alpha),sep="",collapse=""),
+       Critical.D=D,Differences=data.frame(Comparison=comp[out.order],
+       Observed.Diff=yimyc[out.order],Significant=sig[out.order]))}
+
+
+#The following function estimates specific contrasts and adjusts them
+#  by either using the step-down Bonferroni procedure or the Scheffe
+#  adjustment.  For the step-down Bonferroni the final p-value reported
+#  is already adjusted and just needs to be compared to the alpha level.
+#  For Scheffe, both the final p-value and a confidence interval (default
+#  of 95%) are reported. The contrast matrix must be entered in a specific
+#  format for the function to work (see the example below).  The function
+#  only needs to be copied in once.
+#NOTE:  This function requires that all treatments have equal sample size.
+
+contrasts<-function(y,treat,control.mat,method="StepBon",conf.level=0.95,digits=4){
+  dat.reord<-order(treat)
+  treat<-treat[dat.reord]
+  y<-y[dat.reord]
+  s2w<-anova(lm(y~treat))[2,3]
+  t<-length(table(treat))
+  n<-length(y)/t
+  ncontrasts<-nrow(control.mat)
+  contrastmat<-matrix(as.numeric(control.mat[,2:(t+1)]),
+     nrow=nrow(control.mat))
+  colnames(contrastmat)<-levels(treat)
+  divisors<-as.numeric(control.mat[,(t+3)])
+  contrastd<-contrastmat/divisors
+  cnames<-control.mat[,1]
+  means<-tapply(y,treat,mean)
+  L<-contrastd%*%means
+  seL<-sqrt((s2w/n)*apply(contrastd^2,1,sum))
+  t.stat<-L/seL
+  Unadj.p<-2*pt(-abs(t.stat),df=n*t-t)
+  baseout<-data.frame(Contrast=cnames,contrastmat,Div=divisors)
+  meth=method 
+  if (method=="StepBon"){
+    StepBon.p<-Unadj.p*rank(-Unadj.p)
+    ord.un<-order(Unadj.p)
+    for (i in 2:ncontrasts){
+      if (StepBon.p[ord.un[i]]<=StepBon.p[ord.un[i-1]]){StepBon.p[ord.un[i]]<-
+           StepBon.p[ord.un[i-1]]}
+      if (StepBon.p[ord.un[i]]>1){StepBon.p[ord.un[i]]<-1}}    
+    out<-data.frame(Contrast=cnames,l=round(L,digits),
+       se=round(seL,digits),t=round(t.stat,digits),raw.p=round(Unadj.p,digits),
+       stepBon.p=round(StepBon.p,digits))}
+  if (method=="Scheffe"){
+    S<-seL*sqrt((t-1)*qf(conf.level,t-1,n*t-t))
+    Scheffe.p<-1-pf((abs(L)/(seL*sqrt(t-1)))^2,t-1,n*t-t)
+    CL.low<-L-S
+    CL.hi<-L+S
+    out<-data.frame(Contrast=cnames,l=round(L,digits),
+       se=round(seL,digits),t=round(t.stat,digits),raw.p=round(Unadj.p,digits),
+       Scheffe.p=round(Scheffe.p,digits),S=round(S,4),CL.low=round(CL.low,4),
+       CL.hi=round(CL.hi,4))
+    meth=paste(method,", conf.level=",as.character(conf.level),sep="",collapse="")}
+  list(Method=meth,Definitions=baseout,Results=out)
+} 
+
+
+SASreg<-function(model){
+  regout<-lm(model)  
+  baseoutput<-anova(regout)
+  k<-nrow(baseoutput)-1
+  Summary<-round(c(summary(lm(model))$sigma,
+   summary(lm(model))$r.squared,
+   summary(lm(model))$adj.r.squared),4)
+  names(Summary)<-c("Root MSE","R square","Adj R-Squ")
+  ANOVA<-rbind(apply(baseoutput[1:k,],2,sum),
+   baseoutput[k+1,],
+   apply(baseoutput[1:(k+1),],2,sum))
+   rownames(ANOVA)<-c("Model","Error","C Total")
+   attributes(ANOVA)$heading<-attributes(ANOVA)$heading[1]
+  ANOVA[1,3]<-ANOVA[1,2]/ANOVA[1,1]
+  ANOVA[1,4]<-ANOVA[1,3]/ANOVA[2,3]
+  ANOVA[1,5]<-1-pf(ANOVA[1,4],ANOVA[1,1],ANOVA[2,1])
+  attributes(ANOVA)$heading<-NULL
+  TypeI<-baseoutput[1:k,]
+  attributes(TypeI)$heading<-NULL
+  TypeIII<-Anova(regout,type=3)[2:(k+1),c(2,1,3,4)]
+  attributes(TypeIII)$heading<-NULL
+  if (k==1){vifs<-1}
+  else {vifs<-t(vif(regout))}
+  ParEsts<-round(cbind(summary(regout)$coefficients,c(0,vifs)),4)
+  colnames(ParEsts)[5]<-"VIF"
+  par(mfrow=c(1,2))
+  plot(regout$fitted.values,regout$residuals,xlab="Fitted",ylab="Residuals")
+  lines(c(min(regout$fitted.values)-1,max(regout$fitted.values)+1),c(0,0))
+  qqnorm(regout$residuals)
+  qqline(regout$residuals)
+  par(mfrow=c(1,1))
+  list(Model.Equation=model,
+      Coefficients=regout$coefficients,
+      Summary=Summary,
+      Analysis.of.Variance=ANOVA,
+      Type.I.Tests=TypeI,
+      Type.III.Tests=TypeIII,
+      Parameter.Estimates=ParEsts)}
+
+
+Cp<-function(X,Y){
+  baseout<-summary(regsubsets(X,Y,nbest=10))
+  inmat<-baseout$which[,-1]
+  n<-nrow(inmat)
+  namemat<-matrix(rep(colnames(X),n),nrow=n,byrow=T)
+  namemat[!inmat]<-""
+  namemat<-cbind(rep(" ",n),namemat)
+  nvars<-apply(inmat,1,sum)
+  sets<-apply(namemat,1,paste,collapse=" ")
+  for (i in 1:ncol(X)){
+  sets<-gsub("  "," ",sets)}
+  out<-as.table(cbind(sets,round(baseout$cp,4),
+        round(baseout$rsq,4),round(baseout$adjr2,4)))
+  colnames(out)<-c("Variables","Cp","R square","adj-R2")
+  rownames(out)<-nvars
+  out}
+
+outlier<-function(model){
+  baseout<-lm(model)
+  outs<-cbind(hatvalues(baseout),rstudent(baseout),
+    dffits(baseout),cooks.distance(baseout))
+  outs<-round(outs,4)
+  colnames(outs)<-c("hii","ti","DFFITS","Cooks.D")
+  outs}

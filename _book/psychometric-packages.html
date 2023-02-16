@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Psychometric Packages | An Introduction to R for Quantitative Methods</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Psychometric Packages | An Introduction to R for Quantitative Methods" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Psychometric Packages | An Introduction to R for Quantitative Methods" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2023-02-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="graphics.html"/>
+<link rel="next" href="function-writing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R4QM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PREFACE</a></li>
+<li class="chapter" data-level="1" data-path="an-introduction.html"><a href="an-introduction.html"><i class="fa fa-check"></i><b>1</b> An Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#getting-started-in-r-with-rstudio"><i class="fa fa-check"></i>Getting Started in R with RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#rstudio"><i class="fa fa-check"></i>RStudio</a></li>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#rmarkdown"><i class="fa fa-check"></i>RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="an-introduction.html"><a href="an-introduction.html#objects"><i class="fa fa-check"></i><b>1.1</b> Objects</a></li>
+<li class="chapter" data-level="1.2" data-path="an-introduction.html"><a href="an-introduction.html#arithmetic-and-parentheses"><i class="fa fa-check"></i><b>1.2</b> Arithmetic and Parentheses</a></li>
+<li class="chapter" data-level="1.3" data-path="an-introduction.html"><a href="an-introduction.html#help"><i class="fa fa-check"></i><b>1.3</b> Help!</a></li>
+<li class="chapter" data-level="1.4" data-path="an-introduction.html"><a href="an-introduction.html#functions"><i class="fa fa-check"></i><b>1.4</b> Functions</a></li>
+<li class="chapter" data-level="1.5" data-path="an-introduction.html"><a href="an-introduction.html#vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>1.5</b> Vectors, Matrices, and Arrays</a></li>
+<li class="chapter" data-level="1.6" data-path="an-introduction.html"><a href="an-introduction.html#data-frames-lists-and-attributes"><i class="fa fa-check"></i><b>1.6</b> Data Frames, Lists, and Attributes</a></li>
+<li class="chapter" data-level="1.7" data-path="an-introduction.html"><a href="an-introduction.html#packages"><i class="fa fa-check"></i><b>1.7</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="statistical-analysis.html"><a href="statistical-analysis.html"><i class="fa fa-check"></i><b>2</b> Statistical Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-analysis.html"><a href="statistical-analysis.html#course-data"><i class="fa fa-check"></i>Course Data</a></li>
+<li class="chapter" data-level="2.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-sample-t-test"><i class="fa fa-check"></i><b>2.1</b> One-sample t-test and interval</a></li>
+<li class="chapter" data-level="2.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#other-hypothesis-tests"><i class="fa fa-check"></i><b>2.2</b> Other Basic Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#two-sample-t-test-and-interval"><i class="fa fa-check"></i><b>2.2.1</b> Two-sample t-test and interval</a></li>
+<li class="chapter" data-level="2.2.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#paired-t-test-and-confidence-interval"><i class="fa fa-check"></i><b>2.2.2</b> Paired t-test and confidence interval</a></li>
+<li class="chapter" data-level="2.2.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#chi-square-test-and-interval-for-one-variance"><i class="fa fa-check"></i><b>2.2.3</b> Chi-square test and interval for one variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#f-test-for-two-variances"><i class="fa fa-check"></i><b>2.2.4</b> F test for two variances</a></li>
+<li class="chapter" data-level="2.2.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#two-sample-modified-levenes-test"><i class="fa fa-check"></i><b>2.2.5</b> Two-sample Modified Levene’s Test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-way-anova"><i class="fa fa-check"></i><b>2.3</b> One-way ANOVA and Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-way-anova-1"><i class="fa fa-check"></i><b>2.3.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="2.3.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#modified-levene-test"><i class="fa fa-check"></i><b>2.3.2</b> Modified Levene Test</a></li>
+<li class="chapter" data-level="2.3.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#all-pairwise-comparisons---tukeys-hsd-and-scheffe"><i class="fa fa-check"></i><b>2.3.3</b> All Pairwise Comparisons - Tukey’s HSD and Scheffe</a></li>
+<li class="chapter" data-level="2.3.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#comparison-to-a-control---dunnetts-method"><i class="fa fa-check"></i><b>2.3.4</b> Comparison to a Control - Dunnett’s method</a></li>
+<li class="chapter" data-level="2.3.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#specific-contrasts---step-wise-bonferroni-and-scheffe"><i class="fa fa-check"></i><b>2.3.5</b> Specific Contrasts - Step-wise Bonferroni and Scheffe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#regression-ancova"><i class="fa fa-check"></i><b>2.4</b> Regression, Factorial ANOVA, and ANCOVA:</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.4.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="2.4.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#box-cox-transformation"><i class="fa fa-check"></i><b>2.4.2</b> Box-Cox Transformation</a></li>
+<li class="chapter" data-level="2.4.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.4.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="2.4.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#variable-selection"><i class="fa fa-check"></i><b>2.4.4</b> Variable Selection</a></li>
+<li class="chapter" data-level="2.4.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#outlier-diagnostics"><i class="fa fa-check"></i><b>2.4.5</b> Outlier Diagnostics</a></li>
+<li class="chapter" data-level="2.4.6" data-path="statistical-analysis.html"><a href="statistical-analysis.html#prediction-intervals-and-confidence-intervals-for-the-regression-line"><i class="fa fa-check"></i><b>2.4.6</b> Prediction Intervals and Confidence Intervals for the Regression Line</a></li>
+<li class="chapter" data-level="2.4.7" data-path="statistical-analysis.html"><a href="statistical-analysis.html#factorial-anova"><i class="fa fa-check"></i><b>2.4.7</b> Factorial ANOVA</a></li>
+<li class="chapter" data-level="2.4.8" data-path="statistical-analysis.html"><a href="statistical-analysis.html#ancova"><i class="fa fa-check"></i><b>2.4.8</b> ANCOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#other-methods"><i class="fa fa-check"></i><b>2.5</b> Other Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Manipulating Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulating-data.html"><a href="manipulating-data.html#loading-and-saving-data"><i class="fa fa-check"></i><b>3.1</b> Loading and Saving Data</a></li>
+<li class="chapter" data-level="3.2" data-path="manipulating-data.html"><a href="manipulating-data.html#data-frames-versus-matrices"><i class="fa fa-check"></i><b>3.2</b> Data Frames versus Matrices</a></li>
+<li class="chapter" data-level="3.3" data-path="manipulating-data.html"><a href="manipulating-data.html#applying-functions-to-a-matrix"><i class="fa fa-check"></i><b>3.3</b> Applying Functions to a Matrix</a></li>
+<li class="chapter" data-level="3.4" data-path="manipulating-data.html"><a href="manipulating-data.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a></li>
+<li class="chapter" data-level="3.5" data-path="manipulating-data.html"><a href="manipulating-data.html#an-example"><i class="fa fa-check"></i><b>3.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>4</b> Graphics</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="graphics.html"><a href="graphics.html#annotations"><i class="fa fa-check"></i><b>4.0.1</b> Annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="psychometric-packages.html"><a href="psychometric-packages.html"><i class="fa fa-check"></i><b>5</b> Psychometric Packages</a></li>
+<li class="chapter" data-level="6" data-path="function-writing.html"><a href="function-writing.html"><i class="fa fa-check"></i><b>6</b> Function Writing</a></li>
+<li class="chapter" data-level="7" data-path="sample-simulations.html"><a href="sample-simulations.html"><i class="fa fa-check"></i><b>7</b> Sample Simulations</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to R for Quantitative Methods</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="psychometric-packages" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Psychometric Packages<a href="psychometric-packages.html#psychometric-packages" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are a number of packages that can be used for psychometric analysis. The following code uses a small sample of what is out there. A good reference with a list of numerous packages can be found at <a href="https://cran.r-project.org/web/views/Psychometrics.html">https://cran.r-project.org/web/views/Psychometrics.html</a>. This section contains some examples from the <strong>CTT</strong>, <strong>psychometric</strong>, <strong>psych</strong>, <strong>difr</strong>, and <strong>mirt</strong> packages.</p>
+<p>The first several examples use the data set <code>samptest.txt</code>. It also gives a chance to see how to score an exam using the <em>CTT</em> package. The next lines enter the answer key, format it for later use, and read in the data set.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="psychometric-packages.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sample test data with 36 items and 2 demographic variables (ethnicity and gender)</span></span>
+<span id="cb247-2"><a href="psychometric-packages.html#cb247-2" aria-hidden="true" tabindex="-1"></a>key <span class="ot">&lt;-</span> <span class="st">&quot;ADCABCACDCDCBBCBDCADADCABDBABADBCADB&quot;</span></span>
+<span id="cb247-3"><a href="psychometric-packages.html#cb247-3" aria-hidden="true" tabindex="-1"></a>new.key <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(key, <span class="at">split =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb247-4"><a href="psychometric-packages.html#cb247-4" aria-hidden="true" tabindex="-1"></a>testdat <span class="ot">&lt;-</span> <span class="fu">read.fwf</span>(<span class="st">&quot;data/samptest.txt&quot;</span>, <span class="at">widths =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">38</span>)))</span>
+<span id="cb247-5"><a href="psychometric-packages.html#cb247-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(testdat)</span></code></pre></div>
+<pre><code>## [1] 102  38</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="psychometric-packages.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdat)</span></code></pre></div>
+<pre><code>##   V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
+## 1  A  D  A  A  B  C  A  C  C   C   D   C   C   D   D   B   D   C   B   D   A
+## 2  A  D  C  A  B  C  A  C  D   C   D   C   B   B   C   B   D   C   A   D   A
+## 3  C  C  D  A  B  B  A  C  C   D   C   C   B   D   A   B   D   C   A   D   A
+## 4  A  D  B  A  B  C  A  C  D   C   D   C   B   B   C   A   D   C   A   D   A
+## 5  A  D  C  A  B  C  A  A  D   C   D   C   B   B   C   B   D   C   A   D   A
+## 6  A  B  A  A  B  C  A  C  A   C   C   C   B   B   D   B   D   C   A   D   B
+##   V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38
+## 1   D   A   A   B   D   B   A   B   A   D   B   C   A   D   B   B   F
+## 2   D   C   A   B   D   B   A   B   A   D   B   C   A   D   B   W   F
+## 3   A   A   A   B   A   D   A   B   A   B   B   A   A   A   D   B   F
+## 4   D   C   A   B   D   B   A   B   A   D   B   C   A   B   B   B   M
+## 5   B   C   A   B   D   B   A   B   A   D   B   C   A   D   B   B   F
+## 6   D   A   A   B   D   C   A   B   C   D   B   C   D   B   B   B   M</code></pre>
+<p>The <strong>CTT</strong> package contains basic data functions like <code>distractorAnalysis()</code>, and <code>score()</code> for scoring the data.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="psychometric-packages.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CTT)</span>
+<span id="cb251-2"><a href="psychometric-packages.html#cb251-2" aria-hidden="true" tabindex="-1"></a><span class="fu">distractorAnalysis</span>(testdat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">36</span>], <span class="at">key =</span> new.key)[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>##   correct key  n       rspP       pBis    discrim     lower     mid50     mid75
+## A       *   A 75 0.73529412  0.5149574  0.5806452 0.4193548 0.8571429 0.7692308
+## B           B  7 0.06862745 -0.5289839 -0.2258065 0.2258065 0.0000000 0.0000000
+## C           C 11 0.10784314 -0.2247585 -0.1612903 0.1612903 0.1428571 0.1153846
+## D           D  9 0.08823529 -0.2920536 -0.1935484 0.1935484 0.0000000 0.1153846
+## P           P  0 0.00000000         NA  0.0000000 0.0000000 0.0000000 0.0000000
+##   upper
+## A     1
+## B     0
+## C     0
+## D     0
+## P     0</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="psychometric-packages.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># score gives both the sum scores and the response matrix</span></span>
+<span id="cb253-2"><a href="psychometric-packages.html#cb253-2" aria-hidden="true" tabindex="-1"></a>scoredat <span class="ot">&lt;-</span> <span class="fu">score</span>(testdat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">36</span>], new.key, <span class="at">output.scored =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb253-3"><a href="psychometric-packages.html#cb253-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-4"><a href="psychometric-packages.html#cb253-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get 0/1 responses only</span></span>
+<span id="cb253-5"><a href="psychometric-packages.html#cb253-5" aria-hidden="true" tabindex="-1"></a>responses <span class="ot">&lt;-</span> scoredat<span class="sc">$</span>scored</span>
+<span id="cb253-6"><a href="psychometric-packages.html#cb253-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-7"><a href="psychometric-packages.html#cb253-7" aria-hidden="true" tabindex="-1"></a><span class="co"># get the total scores only</span></span>
+<span id="cb253-8"><a href="psychometric-packages.html#cb253-8" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> scoredat<span class="sc">$</span>score</span></code></pre></div>
+<p>It also includes some basic classical analyses:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="psychometric-packages.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">itemAnalysis</span>(responses)</span></code></pre></div>
+<pre><code>## 
+##  Number of Items 
+##  36 
+## 
+##  Number of Examinees 
+##  102 
+## 
+##  Coefficient Alpha 
+##  0.844</code></pre>
+<p>The <strong>psychometric</strong> and <strong>psych</strong> packages overlap some, but are both larger.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="psychometric-packages.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychometric)</span>
+<span id="cb256-2"><a href="psychometric-packages.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">alpha</span>(responses)</span></code></pre></div>
+<pre><code>## [1] 0.8441692</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="psychometric-packages.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">alpha.CI</span>(<span class="fu">alpha</span>(responses), <span class="at">N =</span> <span class="fu">dim</span>(responses)[<span class="dv">1</span>], <span class="at">k =</span> <span class="fu">dim</span>(responses)[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>##         LCL     ALPHA       UCL
+## 1 0.8057113 0.8441692 0.8787447</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="psychometric-packages.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb260-2"><a href="psychometric-packages.html#cb260-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">polyserial</span>(<span class="fu">as.matrix</span>(sumscores), <span class="fu">as.matrix</span>(responses[, <span class="dv">1</span>]))</span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 0.7657925</code></pre>
+<p>It is important to check that the functions in each package actually do what you want. In the case of measuring item discrimination using the biserial correlation of the items with the rest score, it’s necessary to check that the polyserial funcion in the psych package is the one you want to agree with texts like Lord and Novick, or Crocker and Algina.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="psychometric-packages.html#cb262-1" aria-hidden="true" tabindex="-1"></a>biserials <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb262-2"><a href="psychometric-packages.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(responses)) {</span>
+<span id="cb262-3"><a href="psychometric-packages.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  biserials <span class="ot">&lt;-</span> <span class="fu">c</span>(biserials, <span class="fu">polyserial</span>(<span class="fu">as.matrix</span>(sumscores <span class="sc">-</span> responses[, i]), <span class="fu">as.matrix</span>(responses[, i])))</span>
+<span id="cb262-4"><a href="psychometric-packages.html#cb262-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb262-5"><a href="psychometric-packages.html#cb262-5" aria-hidden="true" tabindex="-1"></a>biserials</span></code></pre></div>
+<pre><code>##  [1] 0.69400052 0.50200231 0.30618509 0.45158311 0.38036029 0.51107140
+##  [7] 0.26724319 0.37702310 0.58276455 0.68733895 0.55842935 0.70796675
+## [13] 0.30582385 0.08002487 0.46911103 0.11720900 0.64378754 0.46670904
+## [19] 0.26342658 0.70517564 0.50782867 0.59232271 0.41577996 0.57712603
+## [25] 0.52496694 0.52036168 0.47193436 0.27588499 0.25170829 0.40882539
+## [31] 0.40607968 0.67815832 0.47517826 0.52294511 0.42049977 0.55669711</code></pre>
+<p>Among the more specialized packages are those that do more specialized procedures such as DIF detection in the difR package.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="psychometric-packages.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking at difR</span></span>
+<span id="cb264-2"><a href="psychometric-packages.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(difR)</span>
+<span id="cb264-3"><a href="psychometric-packages.html#cb264-3" aria-hidden="true" tabindex="-1"></a>difdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(responses, testdat[, <span class="dv">38</span>])</span>
+<span id="cb264-4"><a href="psychometric-packages.html#cb264-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dichoDif</span>(difdat, <span class="at">group =</span> <span class="dv">37</span>, <span class="at">focal.name =</span> <span class="st">&quot;F&quot;</span>, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;MH&quot;</span>, <span class="st">&quot;Logistic&quot;</span>), <span class="at">criterion =</span> <span class="st">&quot;Wald&quot;</span>)</span></code></pre></div>
+<pre><code>## Comparison of DIF detection results using 2 methods 
+##  
+## Methods used: 
+##  Mantel-Haenszel
+##  Logistic regression
+## 
+## Matching variable: test score 
+##  
+## No set of anchor items was provided 
+##  
+## Parameters: 
+##  Significance level: 0.05
+##  Mantel-Haenszel DIF statistic: Chi-square statistic 
+##  Mantel-Haenszel continuity correction: Yes 
+##  Type of Mantel-Haenszel test: asymptotic test 
+##  Logistic regression DIF statistic: Wald statistic 
+##  DIF effect(s) tested by logistic regression: both DIF effects 
+##  Item purification: No 
+##  
+##  No p-value adjustment for multiple comparisons 
+##  
+## Comparison of DIF detection results: 
+##  
+##     M-H   Logistic #DIF 
+## V1   DIF  NoDIF     1/2 
+## V2  NoDIF  DIF      1/2 
+## V3  NoDIF NoDIF     0/2 
+## V4   DIF  NoDIF     1/2 
+## V5  NoDIF NoDIF     0/2 
+## V6  NoDIF NoDIF     0/2 
+## V7  NoDIF NoDIF     0/2 
+## V8  NoDIF NoDIF     0/2 
+## V9   DIF  NoDIF     1/2 
+## V10 NoDIF  DIF      1/2 
+## V11 NoDIF NoDIF     0/2 
+## V12 NoDIF NoDIF     0/2 
+## V13 NoDIF NoDIF     0/2 
+## V14 NoDIF NoDIF     0/2 
+## V15 NoDIF NoDIF     0/2 
+## V16 NoDIF NoDIF     0/2 
+## V17 NoDIF NoDIF     0/2 
+## V18 NoDIF NoDIF     0/2 
+## V19 NoDIF NoDIF     0/2 
+## V20 NoDIF NoDIF     0/2 
+## V21 NoDIF  DIF      1/2 
+## V22 NoDIF NoDIF     0/2 
+## V23 NoDIF NoDIF     0/2 
+## V24 NoDIF NoDIF     0/2 
+## V25 NoDIF NoDIF     0/2 
+## V26 NoDIF NoDIF     0/2 
+## V27 NoDIF NoDIF     0/2 
+## V28 NoDIF NoDIF     0/2 
+## V29 NoDIF  DIF      1/2 
+## V30 NoDIF NoDIF     0/2 
+## V31 NoDIF NoDIF     0/2 
+## V32 NoDIF  DIF      1/2 
+## V33 NoDIF NoDIF     0/2 
+## V34 NoDIF NoDIF     0/2 
+## V35 NoDIF NoDIF     0/2 
+## V36 NoDIF NoDIF     0/2 
+## 
+##  Output was not captured!</code></pre>
+<p>There are also packages for estimating IRT models, icluding the mirt package. A larger data set is used for this example.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="psychometric-packages.html#cb266-1" aria-hidden="true" tabindex="-1"></a>mdatab2 <span class="ot">&lt;-</span> <span class="fu">read.fwf</span>(<span class="st">&quot;data/mdatab.txt&quot;</span>, <span class="at">widths =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">32</span>))</span>
+<span id="cb266-2"><a href="psychometric-packages.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mdatab2)</span></code></pre></div>
+<pre><code>## [1] 2642   32</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="psychometric-packages.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mdatab2)</span></code></pre></div>
+<pre><code>##   V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
+## 1  1  1  0  1  1  1  1  1  1   1   0   0   0   1   1   0   0   0   0   0   0
+## 2  1  1  1  1  1  1  0  0  1   1   0   0   0   0   0   0   1   0   1   0   0
+## 3  0  0  0  0  1  0  1  1  1   1   0   0   0   0   0   0   0   0   0   0   0
+## 4  1  1  1  1  0  1  0  1  0   0   0   1   0   1   1   0   0   1   1   1   0
+## 5  1  0  0  0  0  0  0  0  1   0   0   0   0   0   1   0   0   1   0   1   0
+## 6  1  1  1  1  1  1  1  0  0   0   1   0   0   0   0   0   1   0   0   1   0
+##   V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32
+## 1   0   1   1   1   0   0   0   0   0   1   0
+## 2   0   1   0   0   0   1   0   0   0   0   0
+## 3   0   0   0   1   0   0   0   1   0   0   0
+## 4   0   0   1   0   0   0   0   0   1   1   0
+## 5   0   0   0   0   0   1   0   1   0   0   0
+## 6   0   0   0   1   0   0   0   0   0   0   0</code></pre>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="psychometric-packages.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mirt package</span></span>
+<span id="cb270-2"><a href="psychometric-packages.html#cb270-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mirt)</span>
+<span id="cb270-3"><a href="psychometric-packages.html#cb270-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-4"><a href="psychometric-packages.html#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="co"># estimating IRT model parameters</span></span>
+<span id="cb270-5"><a href="psychometric-packages.html#cb270-5" aria-hidden="true" tabindex="-1"></a>mod1.rasch <span class="ot">&lt;-</span> <span class="fu">mirt</span>(mdatab2, <span class="dv">1</span>, <span class="at">itemtype =</span> <span class="st">&quot;Rasch&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+Iteration: 1, Log-Lik: -50361.109, Max-Change: 0.09008
+Iteration: 2, Log-Lik: -50349.088, Max-Change: 0.03676
+Iteration: 3, Log-Lik: -50347.375, Max-Change: 0.01433
+Iteration: 4, Log-Lik: -50347.103, Max-Change: 0.00558
+Iteration: 5, Log-Lik: -50347.049, Max-Change: 0.00245
+Iteration: 6, Log-Lik: -50347.040, Max-Change: 0.00100
+Iteration: 7, Log-Lik: -50347.037, Max-Change: 0.00040
+Iteration: 8, Log-Lik: -50347.037, Max-Change: 0.00020
+Iteration: 9, Log-Lik: -50347.036, Max-Change: 0.00015
+Iteration: 10, Log-Lik: -50347.035, Max-Change: 0.00007</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="psychometric-packages.html#cb272-1" aria-hidden="true" tabindex="-1"></a>mod1<span class="fl">.3</span>PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(mdatab2, <span class="dv">1</span>, <span class="at">itemtype =</span> <span class="st">&quot;3PL&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+Iteration: 1, Log-Lik: -50725.510, Max-Change: 3.35905
+Iteration: 2, Log-Lik: -50127.462, Max-Change: 1.09803
+Iteration: 3, Log-Lik: -49965.395, Max-Change: 0.55587
+Iteration: 4, Log-Lik: -49895.478, Max-Change: 0.46573
+Iteration: 5, Log-Lik: -49854.195, Max-Change: 0.39404
+Iteration: 6, Log-Lik: -49829.228, Max-Change: 0.26644
+Iteration: 7, Log-Lik: -49813.057, Max-Change: 0.44325
+Iteration: 8, Log-Lik: -49802.681, Max-Change: 0.38998
+Iteration: 9, Log-Lik: -49796.321, Max-Change: 0.23153
+Iteration: 10, Log-Lik: -49791.428, Max-Change: 0.71392
+Iteration: 11, Log-Lik: -49787.926, Max-Change: 0.17278
+Iteration: 12, Log-Lik: -49785.424, Max-Change: 0.09802
+Iteration: 13, Log-Lik: -49783.996, Max-Change: 0.14081
+Iteration: 14, Log-Lik: -49782.271, Max-Change: 0.06688
+Iteration: 15, Log-Lik: -49781.061, Max-Change: 0.12363
+Iteration: 16, Log-Lik: -49779.781, Max-Change: 0.08094
+Iteration: 17, Log-Lik: -49779.219, Max-Change: 0.39285
+Iteration: 18, Log-Lik: -49778.536, Max-Change: 0.53760
+Iteration: 19, Log-Lik: -49788.762, Max-Change: 0.20207
+Iteration: 20, Log-Lik: -49777.043, Max-Change: 0.05616
+Iteration: 21, Log-Lik: -49776.879, Max-Change: 0.00634
+Iteration: 22, Log-Lik: -49776.873, Max-Change: 0.00614
+Iteration: 23, Log-Lik: -49776.830, Max-Change: 0.00240
+Iteration: 24, Log-Lik: -49776.801, Max-Change: 0.00252
+Iteration: 25, Log-Lik: -49776.722, Max-Change: 0.00453
+Iteration: 26, Log-Lik: -49776.718, Max-Change: 0.00139
+Iteration: 27, Log-Lik: -49776.713, Max-Change: 0.00113
+Iteration: 28, Log-Lik: -49776.708, Max-Change: 0.00137
+Iteration: 29, Log-Lik: -49776.706, Max-Change: 0.00053
+Iteration: 30, Log-Lik: -49776.705, Max-Change: 0.00023
+Iteration: 31, Log-Lik: -49776.704, Max-Change: 0.00023
+Iteration: 32, Log-Lik: -49776.703, Max-Change: 0.00022
+Iteration: 33, Log-Lik: -49776.703, Max-Change: 0.00021
+Iteration: 34, Log-Lik: -49776.701, Max-Change: 0.00078
+Iteration: 35, Log-Lik: -49776.701, Max-Change: 0.00062
+Iteration: 36, Log-Lik: -49776.700, Max-Change: 0.00053
+Iteration: 37, Log-Lik: -49776.699, Max-Change: 0.00036
+Iteration: 38, Log-Lik: -49776.699, Max-Change: 0.00035
+Iteration: 39, Log-Lik: -49776.699, Max-Change: 0.00017
+Iteration: 40, Log-Lik: -49776.699, Max-Change: 0.00067
+Iteration: 41, Log-Lik: -49776.699, Max-Change: 0.00039
+Iteration: 42, Log-Lik: -49776.698, Max-Change: 0.00034
+Iteration: 43, Log-Lik: -49776.698, Max-Change: 0.00030
+Iteration: 44, Log-Lik: -49776.698, Max-Change: 0.00034
+Iteration: 45, Log-Lik: -49776.698, Max-Change: 0.00015
+Iteration: 46, Log-Lik: -49776.698, Max-Change: 0.00011
+Iteration: 47, Log-Lik: -49776.698, Max-Change: 0.00030
+Iteration: 48, Log-Lik: -49776.698, Max-Change: 0.00034
+Iteration: 49, Log-Lik: -49776.698, Max-Change: 0.00019
+Iteration: 50, Log-Lik: -49776.697, Max-Change: 0.00030
+Iteration: 51, Log-Lik: -49776.697, Max-Change: 0.00013
+Iteration: 52, Log-Lik: -49776.697, Max-Change: 0.00011
+Iteration: 53, Log-Lik: -49776.697, Max-Change: 0.00028
+Iteration: 54, Log-Lik: -49776.697, Max-Change: 0.00037
+Iteration: 55, Log-Lik: -49776.697, Max-Change: 0.00019
+Iteration: 56, Log-Lik: -49776.697, Max-Change: 0.00028
+Iteration: 57, Log-Lik: -49776.697, Max-Change: 0.00012
+Iteration: 58, Log-Lik: -49776.697, Max-Change: 0.00010</code></pre>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="psychometric-packages.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod1.rasch)</span></code></pre></div>
+<pre><code>## $V1
+##     a1     d g u
+## par  1 0.462 0 1
+## 
+## $V2
+##     a1     d g u
+## par  1 1.137 0 1
+## 
+## $V3
+##     a1     d g u
+## par  1 0.797 0 1
+## 
+## $V4
+##     a1     d g u
+## par  1 1.077 0 1
+## 
+## $V5
+##     a1     d g u
+## par  1 1.827 0 1
+## 
+## $V6
+##     a1     d g u
+## par  1 1.032 0 1
+## 
+## $V7
+##     a1     d g u
+## par  1 -0.51 0 1
+## 
+## $V8
+##     a1     d g u
+## par  1 0.482 0 1
+## 
+## $V9
+##     a1     d g u
+## par  1 0.801 0 1
+## 
+## $V10
+##     a1     d g u
+## par  1 0.575 0 1
+## 
+## $V11
+##     a1      d g u
+## par  1 -0.262 0 1
+## 
+## $V12
+##     a1     d g u
+## par  1 1.275 0 1
+## 
+## $V13
+##     a1      d g u
+## par  1 -1.241 0 1
+## 
+## $V14
+##     a1     d g u
+## par  1 1.232 0 1
+## 
+## $V15
+##     a1     d g u
+## par  1 0.045 0 1
+## 
+## $V16
+##     a1      d g u
+## par  1 -0.624 0 1
+## 
+## $V17
+##     a1     d g u
+## par  1 0.251 0 1
+## 
+## $V18
+##     a1     d g u
+## par  1 0.154 0 1
+## 
+## $V19
+##     a1     d g u
+## par  1 0.733 0 1
+## 
+## $V20
+##     a1      d g u
+## par  1 -0.021 0 1
+## 
+## $V21
+##     a1      d g u
+## par  1 -0.342 0 1
+## 
+## $V22
+##     a1      d g u
+## par  1 -0.473 0 1
+## 
+## $V23
+##     a1      d g u
+## par  1 -0.259 0 1
+## 
+## $V24
+##     a1      d g u
+## par  1 -0.471 0 1
+## 
+## $V25
+##     a1     d g u
+## par  1 1.754 0 1
+## 
+## $V26
+##     a1      d g u
+## par  1 -0.226 0 1
+## 
+## $V27
+##     a1      d g u
+## par  1 -0.172 0 1
+## 
+## $V28
+##     a1     d g u
+## par  1 -0.46 0 1
+## 
+## $V29
+##     a1      d g u
+## par  1 -0.558 0 1
+## 
+## $V30
+##     a1      d g u
+## par  1 -0.885 0 1
+## 
+## $V31
+##     a1      d g u
+## par  1 -0.037 0 1
+## 
+## $V32
+##     a1      d g u
+## par  1 -0.802 0 1
+## 
+## $GroupPars
+##     MEAN_1 COV_11
+## par      0  0.849</code></pre>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="psychometric-packages.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod1<span class="fl">.3</span>PL)</span></code></pre></div>
+<pre><code>## $V1
+##        a1     d     g u
+## par 1.228 0.485 0.001 1
+## 
+## $V2
+##        a1     d     g u
+## par 0.936 0.264 0.379 1
+## 
+## $V3
+##        a1     d     g u
+## par 0.925 0.785 0.001 1
+## 
+## $V4
+##        a1     d     g u
+## par 1.565 1.283 0.001 1
+## 
+## $V5
+##        a1     d     g u
+## par 0.824 1.104 0.377 1
+## 
+## $V6
+##       a1     d     g u
+## par 0.94 1.027 0.001 1
+## 
+## $V7
+##       a1      d    g u
+## par 1.77 -2.628 0.29 1
+## 
+## $V8
+##        a1     d     g u
+## par 1.502 0.089 0.167 1
+## 
+## $V9
+##        a1     d     g u
+## par 2.333 -0.12 0.342 1
+## 
+## $V10
+##        a1      d     g u
+## par 2.533 -0.782 0.362 1
+## 
+## $V11
+##       a1      d     g u
+## par 1.72 -1.204 0.193 1
+## 
+## $V12
+##        a1     d     g u
+## par 0.954 1.272 0.005 1
+## 
+## $V13
+##        a1      d     g u
+## par 1.437 -1.608 0.029 1
+## 
+## $V14
+##        a1     d     g u
+## par 1.148 1.304 0.001 1
+## 
+## $V15
+##        a1      d     g u
+## par 1.831 -1.387 0.307 1
+## 
+## $V16
+##        a1     d     g u
+## par 1.188 -0.93 0.065 1
+## 
+## $V17
+##        a1     d     g u
+## par 1.609 0.089 0.068 1
+## 
+## $V18
+##        a1      d     g u
+## par 1.735 -0.454 0.179 1
+## 
+## $V19
+##        a1    d     g u
+## par 1.368 0.79 0.013 1
+## 
+## $V20
+##        a1      d     g u
+## par 1.911 -1.065 0.233 1
+## 
+## $V21
+##        a1      d     g u
+## par 0.963 -1.208 0.219 1
+## 
+## $V22
+##        a1      d     g u
+## par 2.103 -2.177 0.239 1
+## 
+## $V23
+##        a1      d     g u
+## par 1.002 -0.286 0.003 1
+## 
+## $V24
+##        a1      d     g u
+## par 0.656 -0.558 0.038 1
+## 
+## $V25
+##        a1    d     g u
+## par 1.094 1.81 0.021 1
+## 
+## $V26
+##        a1      d     g u
+## par 1.587 -0.307 0.002 1
+## 
+## $V27
+##        a1      d     g u
+## par 1.004 -1.142 0.254 1
+## 
+## $V28
+##        a1      d     g u
+## par 1.414 -1.261 0.165 1
+## 
+## $V29
+##        a1     d     g u
+## par 1.115 -1.96 0.258 1
+## 
+## $V30
+##        a1      d     g u
+## par 1.641 -2.177 0.171 1
+## 
+## $V31
+##        a1      d     g u
+## par 1.809 -1.384 0.283 1
+## 
+## $V32
+##        a1      d     g u
+## par 1.259 -1.707 0.159 1
+## 
+## $GroupPars
+##     MEAN_1 COV_11
+## par      0      1</code></pre>
+<p>The function has several different fitting methods, and allows spcification of prior distributions. The package also has a simdata function for simulating item response data. As with the classical test theory item discrimination example above, it’s necessary to check how the items are parameterized (do they use 1.7, for example).</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="graphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="function-writing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-psychometric-packages.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

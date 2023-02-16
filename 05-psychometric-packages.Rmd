@@ -1,0 +1,94 @@
+
+# Psychometric Packages
+
+There are a number of packages that can be used for psychometric analysis. The following code uses a small sample of what is out there. A good reference with a list of numerous packages can be found at [https://cran.r-project.org/web/views/Psychometrics.html](https://cran.r-project.org/web/views/Psychometrics.html). This section contains some examples from the **CTT**, **psychometric**, **psych**, **difr**, and **mirt** packages.
+
+The first several examples use the data set `samptest.txt`. It also gives a chance to see how to score an exam using the *CTT* package. The next lines enter the answer key, format it for later use, and read in the data set.
+
+```{r}
+## sample test data with 36 items and 2 demographic variables (ethnicity and gender)
+key <- "ADCABCACDCDCBBCBDCADADCABDBABADBCADB"
+new.key <- unlist(strsplit(key, split = ""))
+testdat <- read.fwf("data/samptest.txt", widths = c(rep(1, 38)))
+dim(testdat)
+head(testdat)
+```
+
+The **CTT** package contains basic data functions like `distractorAnalysis()`, and `score()` for scoring the data.
+
+```{r}
+library(CTT)
+distractorAnalysis(testdat[, 1:36], key = new.key)[[1]]
+
+# score gives both the sum scores and the response matrix
+scoredat <- score(testdat[, 1:36], new.key, output.scored = TRUE)
+
+# get 0/1 responses only
+responses <- scoredat$scored
+
+# get the total scores only
+sumscores <- scoredat$score
+```
+
+It also includes some basic classical analyses:
+
+```{r}
+itemAnalysis(responses)
+```
+
+The **psychometric** and **psych** packages overlap some, but are both larger.
+
+```{r}
+library(psychometric)
+alpha(responses)
+alpha.CI(alpha(responses), N = dim(responses)[1], k = dim(responses)[2])
+
+library(psych)
+psych::polyserial(as.matrix(sumscores), as.matrix(responses[, 1]))
+```
+
+It is important to check that the functions in each package actually do what you want. In the case of measuring item discrimination using the biserial correlation of the items with the rest score, it's necessary to check that the polyserial funcion in the psych package is the one you want to agree with texts like Lord and Novick, or Crocker and Algina.
+
+```{r}
+biserials <- NULL
+for (i in 1:ncol(responses)) {
+  biserials <- c(biserials, polyserial(as.matrix(sumscores - responses[, i]), as.matrix(responses[, i])))
+}
+biserials
+```
+
+Among the more specialized packages are those that do more specialized procedures such as DIF detection in the difR package.
+
+```{r}
+# Looking at difR
+library(difR)
+difdat <- data.frame(responses, testdat[, 38])
+dichoDif(difdat, group = 37, focal.name = "F", method = c("MH", "Logistic"), criterion = "Wald")
+```
+
+There are also packages for estimating IRT models, icluding the mirt package. A larger data set is used for this example.
+
+```{r}
+mdatab2 <- read.fwf("data/mdatab.txt", widths = rep(1, 32))
+dim(mdatab2)
+head(mdatab2)
+
+# mirt package
+library(mirt)
+
+# estimating IRT model parameters
+mod1.rasch <- mirt(mdatab2, 1, itemtype = "Rasch")
+mod1.3PL <- mirt(mdatab2, 1, itemtype = "3PL")
+coef(mod1.rasch)
+coef(mod1.3PL)
+```
+
+
+The function has several different fitting methods, and allows spcification of prior distributions. The package also has a simdata function for simulating item response data. As with the classical test theory item discrimination example above, it's necessary to check how the items are parameterized (do they use 1.7, for example).
+
+
+
+
+# Function Writing
+
+# Sample Simulations

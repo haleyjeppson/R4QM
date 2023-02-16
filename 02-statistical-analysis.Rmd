@@ -1,0 +1,932 @@
+# Statistical Analysis
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+library(ggplot2)
+theme_set(theme_bw())
+nces_pal <- c("#69cadf", "#f4602a", "#fbb03b", "#3273c2", "#c1cb52", "#bc53a7", "#5daa3a", "#c62f34", "#1bafac")
+options(ggplot2.discrete.color = nces_pal)
+options(ggplot2.discrete.fill = nces_pal)
+```
+
+There are a huge variety of statistical tests built in to R for analyzing data. In many cases the same function will perform several different tests and confidence intervals, and produce a large amount of output. We provide examples of many of these functions below, including some that are part of other packages, and others that are custom written functions.
+
+```{r}
+library(tidyverse)
+```
+
+## Course Data {-}
+
+Most of the examples of the statistical methods in this section are carried out using the data set `CourseData`. The data is a stratified sample of 70 students from a large section course. The strata were based on the college the students belonged to (AS = Arts & Sciences, PM = Professional Management, MC = Mass Communications, and NU=Nursing) and their year in school (ranging from 1st to 3rd based on credit hours, and limited based on expectation of having at least 10 students from that college at that grade level). The response variables are their Hmwk = Homework Average and E1 to E3 = their grades on the first three exams.
+
+If the data is read in using `read_table()` from the **readr** package and called `students`, then `table(students[, 1:2])` verifies the count of the students in each grouping. 
+
+```{r}
+students <- readr::read_table("data/CourseData.txt")[, -1]
+
+## verify grouping
+# students %>% dplyr::count(College, Year)
+table(students[, 1:2])
+```
+
+`attach(students)` allows you to reference the variables simply by `College`, `Year`, `Hmwk`, `E1`, `E2`, and `E3.`
+
+```{r}
+attach(students)
+```
+
+
+
+If you have attached the dataset, some useful subsets of the data can be created to give the different types of scores by group. For example:
+
+```{r}
+## E1 for 1st year nursing students
+E1.1NU <- E1[(College == "NU") & (Year == 1)]
+
+## E1 for 1st year arts & sciences students
+E1.1AS <- E1[(College == "AS") & (Year == 1)]
+
+## E3 for 1st year nursing students
+E3.1NU <- E3[(College == "NU") & (Year == 1)]
+
+## Put Year and College together
+grp <- as.factor(paste0(Year, College))
+students <- students %>% 
+  mutate(grp = as.factor(paste0(Year, College)))
+```
+
+More detail on choosing subsets like this are covered in the upcoming section on [Manipulating Data](#manipulating-data).
+
+There are a variety of graphical tools we could use to get an overview of the data set, and we will see a number of them in the upcoming section on [Graphics](#graphics). Two of note include:
+
+```{r}
+GGally::ggpairs(students[, 3:6])
+ggplot(students, aes(College, E1)) +
+  geom_boxplot(aes(fill = stage(College, after_scale = alpha(fill, 0.8))), show.legend = FALSE) +
+  facet_grid(~Year, scales = "free", space = "free_x", labeller = labeller(Year = label_both))
+```
+
+
+***
+
+The coverage of the different methods below is divided into several sections:
+
+1. [One-sample t-test](#one-sample-t-test)
+2. [Other Basic Hypothesis Tests](#other-hypothesis-tests)
+3. [One-way ANOVA and Multiple Comparisons](#one-way-anova)
+4. [Regression, Factorial ANOVA, and ANCOVA](#regression-ancova)
+5. [Other Methods](#other-methods)
+
+Each of them assumes you have created and attached the data frame `students` and created the objects `E1.1NU`, `E1.1AS`, `E3.1NU`, and `grp`.
+
+
+## One-sample t-test and interval {#one-sample-t-test}
+
+Test the null hypothesis that the mean score on `E1` for 1st year nursing students is greater than the historical exam average of 75.
+
+```{r echo=FALSE}
+students %>%
+  dplyr::filter(College == "NU") %>%
+  ggplot(aes(x = E1)) + 
+  geom_vline(aes(xintercept = mean(E1)), linetype = "dashed", color = "#363636") +
+  geom_dotplot(method="histodot", binwidth = 4, fill = nces_pal[3], alpha = 0.8, dotsize = 0.95) +
+  annotate("text", x = 84.3, y = .985, label = "observed mean score", hjust = "left") +
+  # annotate(geom = "curve", x = 85, y = .96, xend = 82.5, yend = .91, curvature = -.3, arrow = arrow(length = unit(2, "mm"))) +
+  annotate(geom = "segment", x = 84, y = .98, xend = 82.5, yend = .98, arrow = arrow(length = unit(2, "mm"))) +
+  labs(title = "Distribution of scores on Exam 1 for 1st year nursing students")
+```
+
+```{r echo = FALSE}
+students %>%
+  dplyr::filter(College == "NU") %>%
+  ggplot(aes(sample = E1)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample Quantiles",
+       title = "Normal Q-Q Plot")
+```
+
+```{r}
+students %>% 
+  dplyr::filter(College == "NU") %>% 
+  infer::t_test(response = E1, mu = 75, alternative = "greater") %>% 
+  pander::pander()
+```
+
+Note that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95% interval in the solutions, run it without the `alternative = "greater"` part (you don't need to specify `"two-sided"` because that is the default setting). The other option is `"less"`. 
+
+Using `help(t_test)` we can also see that the default null hypothesis is `mu = 0`, the function can perform the two-sample tests, and `conf_level` controls the confidence level for the confidence intervals.
+
+In some cases it is useful to be able to retrieve only part of the output from a test. For example, a simulation study might only want to use the p-values. Because `infer::t_test()` returns a data frame, the values can easily be extracted.
+
+```{r}
+students %>% 
+  dplyr::filter(College == "NU") %>% 
+  infer::t_test(response = E1, mu = 75, alternative = "greater") %>% 
+  pull(p_value)
+```
+
+If we save the output as an object, the values can be accessed using the `$`. For example:
+
+```{r}
+t.out <- students %>% 
+  dplyr::filter(College == "NU") %>% 
+  infer::t_test(response = E1, mu = 75, alternative = "greater") 
+
+t.out$p_value
+```
+
+<!-- Many of the other statistical methods built into R share much in common with the `t.test()` function. -->
+
+## Other Basic Hypothesis Tests {#other-hypothesis-tests}
+
+### Two-sample t-test and interval
+
+Test the null hypothesis that the mean on `E1` for 1st year students from arts and sciences is less than the mean for 1st year students from nursing.
+
+```{r echo=FALSE}
+students %>%
+  dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
+  ggplot(aes(College, E1)) +
+  geom_boxplot(aes(fill = stage(College, after_scale = alpha(fill, 0.8))), show.legend = FALSE) +
+  scale_fill_manual(values = nces_pal[-2])
+```
+
+
+```{r echo=FALSE}
+students %>%
+  dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
+  ggplot(aes(sample = E1)) +
+  stat_qq() +
+  stat_qq_line() +
+  facet_wrap(~College, scales = "free") +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample Quantiles",
+       title = "Normal Q-Q Plot")
+```
+
+```{r}
+students %>%
+  dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
+  infer::t_test(formula = E1 ~ College, 
+       order = c("AS", "NU"),
+       alternative = "less", 
+       var.equal = TRUE) %>% 
+  pander::pander()
+```
+
+<!-- The graphics command `par(mfrow=c(1,2))` allows for the two qq-plots to be displayed at the same time in the window in a 1 row/2 column display. The (1,1) then returns it to a single graph for the next thing that is plotted. -->
+
+`var.equal = TRUE` specifies use of the equal variances assumption. The default is variances not equal (or use `var.equal = FALSE`). Again, the confidence interval gotten using this code is the one-sided confidence bound. Use `two-sided` to get the confidence interval.
+
+### Paired t-test and confidence interval
+
+Test that the mean for `E3` is greater than the mean of `E1` for first year nursing students.
+
+```{r echo=FALSE, out.width='80%', fig.asp=1}
+students %>%
+  dplyr::filter(College == "NU") %>% mutate(id = 1:10) %>% 
+  select("id", "College", "Exam 1" = "E1", "Exam 3" = "E3") %>% gather("Exam", "Score", 3:4) %>% 
+  ggplot(aes(x = Exam, group = id, y = Score)) + 
+  geom_line(color = "#363636", alpha = .9, size = .8) +
+  geom_point(color = "white", alpha = 1, size = 5.5) + 
+  geom_point(color = "#363636", alpha = .9, size = 3) +
+  scale_x_discrete(NULL, expand = expansion(mult = c(0.2, 0.2)))
+```
+
+
+```{r echo = FALSE}
+students %>%
+  dplyr::filter(College == "NU") %>%
+  ggplot(aes(sample = E3 - E1)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample Quantiles",
+       title = "Normal Q-Q Plot")
+```
+
+```{r}
+students %>% 
+  dplyr::filter(College == "NU") %>% 
+  mutate(Change = E3 - E1) %>% 
+  infer::t_test(response = Change, alternative = "greater") %>% 
+  pander::pander()
+```
+
+Another option for conducting a paired t-test is to use the `t.test()` function with `paired = T`. The output, of course, is the same as conducting the one-sample t test on the differences.
+
+```{r}
+## The correct paired test
+t.test(E3.1NU, E1.1NU, alternative = "greater", paired = T)
+```
+
+### Chi-square test and interval for one variance
+
+Test whether the standard deviation of `E1` is greater than 10 for the first year nursing students.
+
+R doesn't have this test built in (which isn't that horrible since we should probably never do it... but it does make it odd that they have the F-test for two variances then.) In any case its pretty easy to write a function to do it. To analyze the data, cut and paste the function in, and then run it on your data. Or, it can be read in using `source("code/TWRfns.txt")`.
+
+
+```{r}
+chisquare.var <- function(y, sigma2 = 1, alpha = 0.05) {
+  n <- length(y)
+  chisquare <- (n - 1) * var(y) / sigma2
+  pval.low <- pchisq(chisquare, df = n - 1)
+  pval.hi <- 1 - pchisq(chisquare, df = n - 1)
+  pval.not <- 2 * min(pval.low, pval.hi)
+  cilow <- (n - 1) * var(y) / qchisq(1 - alpha / 2, df = n - 1)
+  cihi <- (n - 1) * var(y) / qchisq(alpha / 2, df = n - 1)
+  list(
+    chisquare = chisquare, pval.for.less.than = pval.low,
+    pval.for.greater.than = pval.hi, pval.for.not.equal = pval.not,
+    ci.for.variance = c(cilow, cihi), ci.for.sd = c(sqrt(cilow), sqrt(cihi))
+  )
+}
+```
+
+```{r echo = FALSE}
+students %>%
+  dplyr::filter(College == "NU") %>%
+  ggplot(aes(sample = E1)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample Quantiles",
+       title = "Normal Q-Q Plot")
+```
+
+```{r}
+chisquare.var(E1.1NU, sigma2 = 10^2)
+```
+
+Note that the confidence intervals here are sub-optimal in terms of length because they place an equal amount of area in each end.
+
+### F test for two variances
+
+Test whether the variance of `E1` for the first year nursing students is equal to the variance of `E1` for the first year arts and sciences students.
+
+```{r echo = FALSE}
+students %>%
+  dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
+  ggplot(aes(sample = E1)) +
+  stat_qq() +
+  stat_qq_line() +
+  facet_wrap(~College, scales = "free") +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample Quantiles",
+       title = "Normal Q-Q Plot")
+```
+
+```{r}
+var.test(E1.1NU, E1.1AS)
+```
+
+<!-- The graphics command `par(mfrow=c(1,2))` allows for the two qq-plots to be displayed at the same time in the window in a 1 row/2 column display. The (1,1) then returns it to a single graph for the next thing that is plotted. -->
+
+### Two-sample Modified Levene's Test
+
+Test of whether the variance of E1 for the first year nursing students is equal to the variance of E1 for the first year arts and sciences students.
+
+R doesn't contain a built in function for the Modified Levene's test, but it can be carried out simply by running the two sample t.test on the right values.
+
+```{r}
+t.test(abs(E1.1NU - median(E1.1NU)), abs(E1.1AS - median(E1.1AS)), var.equal = T)
+```
+
+Of course the means this is testing about are the means of the absolute deviation from the median. If that measure of spread is different between the two populations, then the variances should be different as well.
+
+The packages **car** and **lawstat** have built in modified Levene's test functions, but they require having a response variable and a group variable (like in ANOVA). An easy function for the two sample case would be:
+
+```{r}
+levene2 <- function(data1, data2) {
+  print("p-value for testing null hypothesis of equal variances")
+  t.test(abs(data1 - median(data1)), abs(data2 - median(data2)), var.equal = T)$p.value
+}
+
+levene2(E1.1NU, E1.1AS)
+```
+
+
+
+## One-way ANOVA and Multiple Comparisons {#one-way-anova}
+
+### One-way ANOVA
+
+Test whether the means of E1 are equal for the seven populations of students.
+
+The basic function for conducting an ANOVA (or any linear model) is `lm()`:
+
+```{r}
+lm(E1 ~ grp)
+```
+
+The `~` indicates that you are specifying a model equation. The variable to the left of the tilde is the response variable, and the variable to the right is the predictor variable. (In multiple regression and more complicated ANOVA there can be multiple predictor variables).
+
+Unfortunately the output from `lm()` seems pretty meager - it is just the estimates of the parameters in the model equation. Using:
+
+```{r}
+attributes(lm(E1 ~ grp))
+```
+
+shows that there is a lot more behind the scenes. The functions `anova()`, `summary()`, and `plot()` can be used to extract much of this information.
+
+```{r}
+E1fit <- lm(E1 ~ grp)
+anova(E1fit)
+summary(E1fit)
+
+par(mfrow = c(1, 2))
+plot(E1fit, 1)
+plot(E1fit, 2)
+par(mfrow = c(1, 1))
+```
+
+The 1 and 2 in the plot function request the first two graphs that are automatically produced when plotting the result of `lm()` - the first is the residual vs. predicted plot, and the second is the qq-plot of the residuals. Leaving out the number will produce four plots, but only one at a time (you have to click on the graphics window to advance to the next one).
+
+In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a "factor". For example, imagine that you had the vector E1 entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are `1NU`, 11-20 are `1PM`, etc...). One way we could do a set of labels is:
+
+```{r}
+grplabs <- c(
+  rep(1, 10), rep(2, 10), rep(3, 10),
+  rep(4, 10), rep(5, 10), rep(6, 10), rep(7, 10)
+)
+grplabs
+```
+
+The rep repeats the value in the first spot the number of times indicated in the second. Trying
+
+```{r}
+lm(E1 ~ grplabs)
+```
+
+gives a very different result from before though. Because the predictor variable is numeric, by default it attempted to do a regression instead of an ANOVA. Using:
+
+```{r}
+grplabs <- as.factor(grplabs)
+lm(E1 ~ grplabs)
+```
+
+solves that problem. If we had entered the names of the various groups in quotation marks, instead of 1-7, then the grplabs would have been characters instead of numeric, and it would have worked without being factors (although some other functions might give a warning message).
+
+
+
+
+
+
+### Modified Levene Test
+
+Test whether the variances of E2 are equal for the seven populations of students.
+
+The modified Levene test is available in the package car, so if that package has been downloaded it could be conducted using.
+
+```{r}
+library(car)
+leveneTest(E1, grp)
+```
+
+### All Pairwise Comparisons - Tukey's HSD and Scheffe
+
+Simultaneously construct confidence intervals around the differences in the mean of E2 between each pair of groups, or test the hypotheses of equality of the mean E2 score between each pair of groups.
+
+R has a built in function TukeyHSD that will construct the intervals in the balanced case, and includes an adjustment for the slightly unbalanced cases.
+
+```{r}
+TukeyHSD(aov(E2 ~ grp))
+```
+
+The structure is a little inelegant (it uses aov, an alternate to anova on the original lm statement). The output is also not in the prettiest form... although that might be the only form that works if it is unbalanced.
+
+As an alternative the function allpairs below will make the "prettier" display for either Tukey's HSD or Scheffe's method in the case where the different groups/treatments all have the same sample size. To run it, simply copy in the function as is, and then run it with the appropriate data.
+
+```{r}
+## The following function performs all pairwise comparisons using either Tukey's HSD ("Tukey") or Scheffe's method ("Scheffe").
+## The function only needs to be copied in once.
+## NOTE:  This function requires that all treatments have #  equal sample size.
+
+allpairs <- function(y, treat, method = "Tukey", alpha = 0.05) {
+  dat.reord <- order(treat)
+  treat <- treat[dat.reord]
+  y <- y[dat.reord]
+  s2w <- anova(lm(y ~ treat))[2, 3]
+  t <- length(table(treat))
+  n <- length(y) / t
+  df <- n * t - t
+  qval <- qtukey(1 - alpha, t, df)
+  if (method == "Tukey") {
+    stat <- qval * sqrt(s2w / n)
+  }
+  if (method == "Scheffe") {
+    stat <-
+      sqrt(2 * s2w / n * (t - 1) * qf(1 - alpha, t - 1, df))
+  }
+  chars <- c(
+    "A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ",
+    "I ", "J ", "L ", "M ", "N ", "O ", "P ", "Q "
+  )
+  means <- tapply(y, treat, mean)
+  ord.means <- order(-means)
+  treat <- treat[ord.means]
+  means <- means[ord.means]
+  grp <- 1
+  current <- 1
+  last <- 0
+  lastsofar <- 0
+  charmat <- NULL
+  while (last < t) {
+    newchar <- rep("  ", t)
+    for (i in current:t) {
+      if (abs(means[current] - means[i]) < stat) {
+        newchar[i] <- chars[grp]
+        last <- i
+      }
+    }
+    current <- current + 1
+    if (last > lastsofar) {
+      charmat <- cbind(charmat, newchar)
+      grp <- grp + 1
+      lastsofar <- last
+    }
+  }
+  charmat <- apply(charmat, 1, "paste", sep = "", collapse = "")
+  list(
+    Method = paste(method, ", alpha=", as.character(alpha),
+      sep = "", collapse = ""
+    ),
+    Critical.Val = stat,
+    Display = data.frame(Grp = charmat, Mean = means)
+  )
+}
+
+
+allpairs(E2, grp)
+allpairs(E2, grp, method = "Scheffe")
+```
+
+The built-in function pairwise.t.test will conduct all of the pairwise tests using the step-wise Bonferonni procedure. In the balanced case that will be very sub-optimal compared to Tukey's HSD. In the case where the decision to test is after examining the data then it won't have the protection of Scheffe.
+
+### Comparison to a Control - Dunnett's method
+
+Simultaneously construct confidence intervals around the differences for the E2 means between the 1st year nursing students (the control) and all of the others, or test the corresponding hypotheses of equality.
+
+There are several packages in R that contain ways of doing Dunnett's method... but they are all rather opaque. The following function carries it out when the data is balanced. Again, simply copy the entire function in, and then run it on your data. The value for the control is which of the treatments/groups is the control (the order it occurs if you do levels() on the group variable).
+
+The following function performs Dunnett's comparison with a control. The default alternative is the two-sided hypothesis, `"greater"` tests the alternate hypothesis that the other treatments have a larger mean than the control, and `"less"` tests for smaller means. The function only needs to be copied in once. Note that this function requires that all treatments have equal sample size.
+
+
+```{r}
+library(MCPMod)
+dunnett <- function(y, treat, control = 1, alternative = "two.sided", alpha = 0.05) {
+  dat.reord <- order(treat)
+  treat <- treat[dat.reord]
+  y <- y[dat.reord]
+  s2w <- anova(lm(y ~ treat))[2, 3]
+  t <- length(table(treat))
+  n <- length(y) / t
+  if (alternative == "two.sided") {
+    alt <- TRUE
+  }
+  if (alternative != "two.sided") {
+    alt <- FALSE
+  }
+  dval <- critVal(rbind(-1, diag(t - 1)), rep(n, t), alpha = alpha, twoSide = alt)
+  D <- dval * sqrt(2 * s2w / n)
+  comp <- NULL
+  yimyc <- NULL
+  sig <- NULL
+  count <- 0
+  for (i in ((1:t)[-control])) {
+    count <- count + 1
+    comp <- rbind(comp, paste(as.character(treat[i * n]), "-", as.character(treat[control * n])))
+    yimyc <- rbind(yimyc, mean(y[treat == treat[i * n]]) -
+      mean(y[treat == treat[control * n]]))
+    sigt <- ""
+    if (((yimyc[count, 1]) >= D) & (alternative != "less")) {
+      sigt <- "***"
+    }
+    if (((yimyc[count, 1]) <= (-D)) & (alternative != "greater")) {
+      sigt <- "***"
+    }
+    sig <- rbind(sig, sigt)
+  }
+  out.order <- order(-yimyc)
+  list(
+    Method = paste("Dunnett, alternative=", alternative, ",", " alpha=",
+      as.character(alpha),
+      sep = "", collapse = ""
+    ),
+    Critical.D = D, Differences = data.frame(
+      Comparison = comp[out.order],
+      Observed.Diff = yimyc[out.order], Significant = sig[out.order]
+    )
+  )
+}
+
+## notice that 1st year nursing students are the 3rd group
+levels(grp)
+
+dunnett(E2, grp, control = 3)
+```
+
+### Specific Contrasts - Step-wise Bonferroni and Scheffe
+
+Simultaneously test whether the mean E2 score of 1st year CAS students is different from the mean of the other 1st year students, whether the mean E2 score of 1st year CAS students is different from the mean score of the other years of CAS students, and whether the mean of E2 for the 1st year Mass Communication Students is different from the mean of the 1st year Professional Management Students
+
+There are a number of (fairly opaque) functions in R to do contrasts. The function below works fairly nicely in the case where all the treatments are balanced. To run the function, simply copy it in once, and then enter the lines to test your particular set of contrasts.
+
+```{r}
+## The following function estimates specific contrasts and adjusts them by either using the step-down Bonferroni procedure or the Scheffe adjustment.  
+## For the step-down Bonferroni the final p-value reported is already adjusted and just needs to be compared to the alpha level.
+##  For Scheffe, both the final p-value and a confidence interval (default of 95%) are reported. 
+## The contrast matrix must be entered in a specific format for the function to work (see the example below).
+## The function only needs to be copied in once.
+## NOTE:  This function requires that all treatments have equal sample size.
+
+contrasts <- function(y, treat, control.mat, method = "StepBon", conf.level = 0.95, digits = 4) {
+  dat.reord <- order(treat)
+  treat <- treat[dat.reord]
+  y <- y[dat.reord]
+  s2w <- anova(lm(y ~ treat))[2, 3]
+  t <- length(table(treat))
+  n <- length(y) / t
+  ncontrasts <- nrow(control.mat)
+  contrastmat <- matrix(as.numeric(control.mat[, 2:(t + 1)]),
+    nrow = nrow(control.mat)
+  )
+  colnames(contrastmat) <- levels(treat)
+  divisors <- as.numeric(control.mat[, (t + 3)])
+  contrastd <- contrastmat / divisors
+  cnames <- control.mat[, 1]
+  means <- tapply(y, treat, mean)
+  L <- contrastd %*% means
+  seL <- sqrt((s2w / n) * apply(contrastd^2, 1, sum))
+  t.stat <- L / seL
+  Unadj.p <- 2 * pt(-abs(t.stat), df = n * t - t)
+  baseout <- data.frame(Contrast = cnames, contrastmat, Div = divisors)
+  meth <- method
+  if (method == "StepBon") {
+    StepBon.p <- Unadj.p * rank(-Unadj.p)
+    ord.un <- order(Unadj.p)
+    for (i in 2:ncontrasts) {
+      if (StepBon.p[ord.un[i]] <= StepBon.p[ord.un[i - 1]]) {
+        StepBon.p[ord.un[i]] <-
+          StepBon.p[ord.un[i - 1]]
+      }
+      if (StepBon.p[ord.un[i]] > 1) {
+        StepBon.p[ord.un[i]] <- 1
+      }
+    }
+    out <- data.frame(
+      Contrast = cnames, l = round(L, digits),
+      se = round(seL, digits), t = round(t.stat, digits), raw.p = round(Unadj.p, digits),
+      stepBon.p = round(StepBon.p, digits)
+    )
+  }
+  if (method == "Scheffe") {
+    S <- seL * sqrt((t - 1) * qf(conf.level, t - 1, n * t - t))
+    Scheffe.p <- 1 - pf((abs(L) / (seL * sqrt(t - 1)))^2, t - 1, n * t - t)
+    CL.low <- L - S
+    CL.hi <- L + S
+    out <- data.frame(
+      Contrast = cnames, l = round(L, digits),
+      se = round(seL, digits), t = round(t.stat, digits), raw.p = round(Unadj.p, digits),
+      Scheffe.p = round(Scheffe.p, digits), S = round(S, 4), CL.low = round(CL.low, 4),
+      CL.hi = round(CL.hi, 4)
+    )
+    meth <- paste(method, ", conf.level=", as.character(conf.level), sep = "", collapse = "")
+  }
+  list(Method = meth, Definitions = baseout, Results = out)
+}
+
+## Note the levels order is "1AS" "1MC" "1NU" "1PM" "2AS" "2MC" "3AS"
+levels(grp)
+
+## Setting up the matrix of contrasts
+##----------------------------------
+## first line will always look like this
+control.mat <- matrix(
+  c(
+    #' name of contrast',coefficient list,'divisor=',divisor value,
+    "1AS vs. 1Other", 3, -1, -1, -1, 0, 0, 0, "divisor=", 3,
+    "1AS vs. 2+3AS2", 2, 0, 0, 0, -1, 0, -1, "divisor=", 2,
+    "1MC vs. 1PM   ", 0, 1, 0, -1, 0, 0, 0, "divisor=", 1
+  )
+  # the end of the last row will always be this, although your nrow
+  # needs to match the number of contrasts
+  ,
+  byrow = T, nrow = 3
+)
+
+contrasts(E2, grp, control.mat, method = "StepBon")
+contrasts(E2, grp, control.mat, method = "Scheffe")
+```
+
+
+## Regression, Factorial ANOVA, and ANCOVA: {#regression-ancova}
+
+### Simple Linear Regression
+
+Predict the E2 scores from the E1 scores.
+
+R has a large number of functions for analyzing regression data, the most basic ones the same as those for one-way ANOVA.
+
+```{r}
+## scatterplot with fitted line
+ggplot(students, aes(E1, E2)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth = 0.4)
+
+## The basic output
+Regfit <- lm(E2 ~ E1)
+summary(Regfit)
+```
+
+
+Residuals ...
+
+```{r}
+## The two standard residual plots
+par(mfrow = c(1, 2))
+plot(Regfit, 1)
+plot(Regfit, 2)
+par(mfrow = c(1, 1))
+
+## The plots of the residuals vs. other variables to check independence. 
+## Looks like the errors might have some dependence due to college.
+residuals <- Regfit$residuals
+par(mfrow = c(2, 2))
+plot(E3, residuals)
+lines(c(-1e10, 1e10), c(0, 0))
+plot(Hmwk, residuals)
+lines(c(-1e10, 1e10), c(0, 0))
+plot(as.numeric(as.factor(College)), residuals)
+lines(c(-1e10, 1e10), c(0, 0))
+plot(Year, residuals)
+lines(c(-1e10, 1e10), c(0, 0))
+par(mfrow = c(1, 1))
+```
+
+The function `SASreg()` below will produce output similar to SAS using just one function. It requires that you have loaded in and installed the car package. To use it, simply copy the function in once, and then apply it to your data set.
+
+```{r}
+SASreg <- function(model) {
+  regout <- lm(model)
+  baseoutput <- anova(regout)
+  k <- nrow(baseoutput) - 1
+  Summary <- round(c(
+    summary(lm(model))$sigma,
+    summary(lm(model))$r.squared,
+    summary(lm(model))$adj.r.squared
+  ), 4)
+  names(Summary) <- c("Root MSE", "R square", "Adj R-Squ")
+  ANOVA <- rbind(
+    apply(baseoutput[1:k, ], 2, sum),
+    baseoutput[k + 1, ],
+    apply(baseoutput[1:(k + 1), ], 2, sum)
+  )
+  rownames(ANOVA) <- c("Model", "Error", "C Total")
+  attributes(ANOVA)$heading <- attributes(ANOVA)$heading[1]
+  ANOVA[1, 3] <- ANOVA[1, 2] / ANOVA[1, 1]
+  ANOVA[1, 4] <- ANOVA[1, 3] / ANOVA[2, 3]
+  ANOVA[1, 5] <- 1 - pf(ANOVA[1, 4], ANOVA[1, 1], ANOVA[2, 1])
+  attributes(ANOVA)$heading <- NULL
+  TypeI <- baseoutput[1:k, ]
+  attributes(TypeI)$heading <- NULL
+  TypeIII <- Anova(regout, type = 3)[2:(k + 1), c(2, 1, 3, 4)]
+  attributes(TypeIII)$heading <- NULL
+  if (k == 1) {
+    vifs <- 1
+  } else {
+    vifs <- t(vif(regout))
+  }
+  ParEsts <- round(cbind(summary(regout)$coefficients, c(0, vifs)), 4)
+  colnames(ParEsts)[5] <- "VIF"
+  par(mfrow = c(1, 2))
+  plot(regout$fitted.values, regout$residuals, xlab = "Fitted", ylab = "Residuals")
+  lines(c(min(regout$fitted.values) - 1, max(regout$fitted.values) + 1), c(0, 0))
+  qqnorm(regout$residuals)
+  qqline(regout$residuals)
+  par(mfrow = c(1, 1))
+  list(
+    Model.Equation = model,
+    Coefficients = regout$coefficients,
+    Summary = Summary,
+    Analysis.of.Variance = ANOVA,
+    Type.I.Tests = TypeI,
+    Type.III.Tests = TypeIII,
+    Parameter.Estimates = ParEsts
+  )
+}
+
+
+SASreg(E2 ~ E1)
+```
+
+This output is perhaps a bit overkill for simple linear regression, but is very useful when performing multiple regression (or even ANCOVA or factorial ANOVA).
+
+### Box-Cox Transformation
+
+To get the Box-Cox transformation for this data set we could use the boxcox function from the MASS library (which is automatically included with R and just needs to have library(MASS) to install:
+
+```{r}
+library(MASS)
+boxcox(lm(E2 ~ E1))
+```
+
+
+This plot doesn't have the peak! So try from `0` to `5` with spacing every `.01` to see if its better:
+
+```{r}
+boxcox(lm(E2 ~ E1), lambda = seq(0, 5, .01))
+```
+
+It looks like 1 is just outside the range, of the values that make the 95% cut-off, the one that is "nicest" and close to the peak is 2. So, the transformation y-squared is recommended.
+
+### Multiple Linear Regression
+
+Predict the performance on Exam3 from the performance of the first two exams and the homework.
+
+This can be done by mimicking the procedure for simple linear regression. In this case the model statement must be of the form `E3 ~ Hmwk + E1 + E2`. An interaction could be added by something like `+ E2*E3` if it were needed.
+
+```{r}
+SASreg(E3 ~ Hmwk + E1 + E2)
+```
+
+The plots to help assess independence (the residuals versus other variables not included in the model) and to check for needing higher order terms (the residual versus independent variables) could be generated as follows:
+
+```{r}
+residuals <- lm(E3 ~ Hmwk + E1 + E2)$residuals
+
+## Sign of non-constant variance based on College?
+par(mfrow = c(1, 2))
+plot(as.numeric(as.factor(College)), residuals)
+plot(Year, residuals)
+par(mfrow = c(1, 1))
+
+## Plotting against group might be better
+plot(grp, residuals)
+
+## No signs of needing higher order terms
+par(mfrow = c(2, 2))
+plot(Hmwk, residuals)
+plot(E1, residuals)
+plot(E2, residuals)
+par(mfrow = c(1, 1))
+```
+
+### Variable Selection
+
+Assuming we trusted the model fit, is there a subset of Hmwk, E1, and E2 that predicts E3 just as well as all three of them?
+
+R has some packages that do all subsets variable selection, but the output is somewhat inelegant. The Cp function below is a bit prettier. It requires the leaps library, and that package must be installed for it to run It also requires that you put all of the predictor variables together in a matrix called X. To run it, be sure to load the **leaps** library and copy over the function, construct the `X` matrix using `cbind()`, and then run the function.
+
+```{r}
+library(leaps)
+Cp <- function(X, Y) {
+  baseout <- summary(regsubsets(X, Y, nbest = 10))
+  inmat <- baseout$which[, -1]
+  n <- nrow(inmat)
+  namemat <- matrix(rep(colnames(X), n), nrow = n, byrow = T)
+  namemat[!inmat] <- ""
+  namemat <- cbind(rep(" ", n), namemat)
+  nvars <- apply(inmat, 1, sum)
+  sets <- apply(namemat, 1, paste, collapse = " ")
+  for (i in 1:ncol(X)) {
+    sets <- gsub("  ", " ", sets)
+  }
+  out <- as.table(cbind(
+    sets, round(baseout$cp, 4),
+    round(baseout$rsq, 4), round(baseout$adjr2, 4)
+  ))
+  colnames(out) <- c("Variables", "Cp", "R square", "adj-R2")
+  rownames(out) <- nvars
+  out
+}
+
+X <- cbind(Hmwk, E1, E2)
+Cp(X, E3)
+```
+
+It looks as if using Hmwk and just one of the other two exams just misses the general guideline for Mallow's Cp, and have slightly worse adjusted R-squared values.
+
+### Outlier Diagnostics
+
+Are there examinees that are either extreme in terms of their predictor variables, have E3 badly predicted by the model, or significantly change the model?
+
+R has the built in functions hatvalues, rstudent, dffits, and cooks.distance to help with outlier diagnsostics. The function outlier below puts them into one a single matrix.
+
+```{r}
+outlier <- function(model) {
+  baseout <- lm(model)
+  outs <- cbind(
+    hatvalues(baseout), rstudent(baseout),
+    dffits(baseout), cooks.distance(baseout)
+  )
+  outs <- round(outs, 4)
+  colnames(outs) <- c("hii", "ti", "DFFITS", "Cooks.D")
+  outs
+}
+
+outlier(E3 ~ Hmwk + E1 + E2)
+```
+
+### Prediction Intervals and Confidence Intervals for the Regression Line
+
+What is the confidence interval for the mean E3 scores for examinees with Hmwk=95, E1=70, and E2=85? What would the prediction interval be?
+
+The prediction intervals and confidence intervals for the regression surface can be gotten using the built in predict function. The following give those intervals for data points matching the original data (again using the model we defined above):
+
+```
+predict(lm(E3~Hmwk+E1+E2),interval="confidence")
+predict(lm(E3~Hmwk+E1+E2),interval="predict")
+```
+
+
+For Hmwk=95, E1=70, and E2=85:
+
+```
+predict(lm(E3~Hmwk+E1+E2),data.frame(Hmwk=95,E1=70,E2=85),interval="confidence")
+predict(lm(E3~Hmwk+E1+E2),data.frame(Hmwk=95,E1=70,E2=85),interval="predict")
+```
+
+### Factorial ANOVA
+
+Conduct a 2-way ANOVA for Hmwk based on Year 1 vs. 2 and AS vs. MC.
+
+The data for this problem can be constructed using:
+
+```
+HmwkA<-Hmwk[((College=="AS")|(College=="MC"))&((Year==1)|(Year==2))]
+CollegeA<-College[((College=="AS")|(College=="MC"))&((Year==1)|(Year==2))]
+CollegeA<-as.factor(as.character(CollegeA))
+YearA<-Year[((College=="AS")|(College=="MC"))&((Year==1)|(Year==2))]
+YearA<-as.factor(as.character(YearA))
+```
+
+The basic output can again be constructed either using the built in functions or SASreg. The interaction is added using a colon if the terms are listed separately, or all the terms will be crossed using an asterisk.
+
+```
+summary(lm(HmwkA~CollegeA+YearA+CollegeA:YearA))
+par(mfrow=c(1,2))
+plot(lm(HmwkA~CollegeA+YearA+CollegeA:YearA),1)
+plot(lm(HmwkA~CollegeA+YearA+CollegeA:YearA),2)
+par(mfrow=c(1,1))
+
+SASreg(HmwkA~CollegeA+YearA+CollegeA:YearA)
+SASreg(HmwkA~CollegeA*YearA)
+```
+
+Profile plots can be constructed using the built in function interaction.plot. The first argument is the variable on the x-axis, and the third is the response variable.
+
+```
+interaction.plot(CollegeA,YearA,HmwkA)
+interaction.plot(YearA,CollegeA,HmwkA)
+```
+
+### ANCOVA
+
+Predict E3 from Hmwk using grp as a covariate.
+
+Again this can be performed using either the built in functions or SASreg.
+
+
+```{r}
+summary(lm(E3 ~ Hmwk + grp))
+par(mfrow = c(1, 2))
+plot(lm(E3 ~ Hmwk + grp), 1)
+plot(lm(E3 ~ Hmwk + grp), 2)
+par(mfrow = c(1, 1))
+
+SASreg(lm(E3 ~ Hmwk + grp))
+```
+
+Note that the VIFs should not be part of the output in SASreg when categorical variables are present, and this is currently a bug.
+
+Checking whether the lines are parallel can be done simply by checking the interaction Hmwk:grp.
+
+```{r}
+SASreg(lm(E3 ~ Hmwk * grp))
+```
+
+## Other Methods {#other-methods}
+
+Functions in base SAS for other commonly used methods include:
+
+For Nonparametrics: 
+
+- `wilcox.test()`
+- `friedman.test()`
+- `kruskal.test()`
+
+For Categorical Data: 
+
+- `binom.test()`
+- `chisq.test()`
+- `glm( ,family=binomial("logit"))`
+- `fisher.test()` 
+- `mantel.haen.test()`

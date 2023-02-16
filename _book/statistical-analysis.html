@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Statistical Analysis | An Introduction to R for Quantitative Methods</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Statistical Analysis | An Introduction to R for Quantitative Methods" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Statistical Analysis | An Introduction to R for Quantitative Methods" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2023-02-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="an-introduction.html"/>
+<link rel="next" href="manipulating-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R4QM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PREFACE</a></li>
+<li class="chapter" data-level="1" data-path="an-introduction.html"><a href="an-introduction.html"><i class="fa fa-check"></i><b>1</b> An Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#getting-started-in-r-with-rstudio"><i class="fa fa-check"></i>Getting Started in R with RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#rstudio"><i class="fa fa-check"></i>RStudio</a></li>
+<li class="chapter" data-level="" data-path="an-introduction.html"><a href="an-introduction.html#rmarkdown"><i class="fa fa-check"></i>RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="an-introduction.html"><a href="an-introduction.html#objects"><i class="fa fa-check"></i><b>1.1</b> Objects</a></li>
+<li class="chapter" data-level="1.2" data-path="an-introduction.html"><a href="an-introduction.html#arithmetic-and-parentheses"><i class="fa fa-check"></i><b>1.2</b> Arithmetic and Parentheses</a></li>
+<li class="chapter" data-level="1.3" data-path="an-introduction.html"><a href="an-introduction.html#help"><i class="fa fa-check"></i><b>1.3</b> Help!</a></li>
+<li class="chapter" data-level="1.4" data-path="an-introduction.html"><a href="an-introduction.html#functions"><i class="fa fa-check"></i><b>1.4</b> Functions</a></li>
+<li class="chapter" data-level="1.5" data-path="an-introduction.html"><a href="an-introduction.html#vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>1.5</b> Vectors, Matrices, and Arrays</a></li>
+<li class="chapter" data-level="1.6" data-path="an-introduction.html"><a href="an-introduction.html#data-frames-lists-and-attributes"><i class="fa fa-check"></i><b>1.6</b> Data Frames, Lists, and Attributes</a></li>
+<li class="chapter" data-level="1.7" data-path="an-introduction.html"><a href="an-introduction.html#packages"><i class="fa fa-check"></i><b>1.7</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="statistical-analysis.html"><a href="statistical-analysis.html"><i class="fa fa-check"></i><b>2</b> Statistical Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-analysis.html"><a href="statistical-analysis.html#course-data"><i class="fa fa-check"></i>Course Data</a></li>
+<li class="chapter" data-level="2.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-sample-t-test"><i class="fa fa-check"></i><b>2.1</b> One-sample t-test and interval</a></li>
+<li class="chapter" data-level="2.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#other-hypothesis-tests"><i class="fa fa-check"></i><b>2.2</b> Other Basic Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#two-sample-t-test-and-interval"><i class="fa fa-check"></i><b>2.2.1</b> Two-sample t-test and interval</a></li>
+<li class="chapter" data-level="2.2.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#paired-t-test-and-confidence-interval"><i class="fa fa-check"></i><b>2.2.2</b> Paired t-test and confidence interval</a></li>
+<li class="chapter" data-level="2.2.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#chi-square-test-and-interval-for-one-variance"><i class="fa fa-check"></i><b>2.2.3</b> Chi-square test and interval for one variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#f-test-for-two-variances"><i class="fa fa-check"></i><b>2.2.4</b> F test for two variances</a></li>
+<li class="chapter" data-level="2.2.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#two-sample-modified-levenes-test"><i class="fa fa-check"></i><b>2.2.5</b> Two-sample Modified Levene’s Test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-way-anova"><i class="fa fa-check"></i><b>2.3</b> One-way ANOVA and Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#one-way-anova-1"><i class="fa fa-check"></i><b>2.3.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="2.3.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#modified-levene-test"><i class="fa fa-check"></i><b>2.3.2</b> Modified Levene Test</a></li>
+<li class="chapter" data-level="2.3.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#all-pairwise-comparisons---tukeys-hsd-and-scheffe"><i class="fa fa-check"></i><b>2.3.3</b> All Pairwise Comparisons - Tukey’s HSD and Scheffe</a></li>
+<li class="chapter" data-level="2.3.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#comparison-to-a-control---dunnetts-method"><i class="fa fa-check"></i><b>2.3.4</b> Comparison to a Control - Dunnett’s method</a></li>
+<li class="chapter" data-level="2.3.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#specific-contrasts---step-wise-bonferroni-and-scheffe"><i class="fa fa-check"></i><b>2.3.5</b> Specific Contrasts - Step-wise Bonferroni and Scheffe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#regression-ancova"><i class="fa fa-check"></i><b>2.4</b> Regression, Factorial ANOVA, and ANCOVA:</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.4.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="2.4.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#box-cox-transformation"><i class="fa fa-check"></i><b>2.4.2</b> Box-Cox Transformation</a></li>
+<li class="chapter" data-level="2.4.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.4.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="2.4.4" data-path="statistical-analysis.html"><a href="statistical-analysis.html#variable-selection"><i class="fa fa-check"></i><b>2.4.4</b> Variable Selection</a></li>
+<li class="chapter" data-level="2.4.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#outlier-diagnostics"><i class="fa fa-check"></i><b>2.4.5</b> Outlier Diagnostics</a></li>
+<li class="chapter" data-level="2.4.6" data-path="statistical-analysis.html"><a href="statistical-analysis.html#prediction-intervals-and-confidence-intervals-for-the-regression-line"><i class="fa fa-check"></i><b>2.4.6</b> Prediction Intervals and Confidence Intervals for the Regression Line</a></li>
+<li class="chapter" data-level="2.4.7" data-path="statistical-analysis.html"><a href="statistical-analysis.html#factorial-anova"><i class="fa fa-check"></i><b>2.4.7</b> Factorial ANOVA</a></li>
+<li class="chapter" data-level="2.4.8" data-path="statistical-analysis.html"><a href="statistical-analysis.html#ancova"><i class="fa fa-check"></i><b>2.4.8</b> ANCOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="statistical-analysis.html"><a href="statistical-analysis.html#other-methods"><i class="fa fa-check"></i><b>2.5</b> Other Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Manipulating Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulating-data.html"><a href="manipulating-data.html#loading-and-saving-data"><i class="fa fa-check"></i><b>3.1</b> Loading and Saving Data</a></li>
+<li class="chapter" data-level="3.2" data-path="manipulating-data.html"><a href="manipulating-data.html#data-frames-versus-matrices"><i class="fa fa-check"></i><b>3.2</b> Data Frames versus Matrices</a></li>
+<li class="chapter" data-level="3.3" data-path="manipulating-data.html"><a href="manipulating-data.html#applying-functions-to-a-matrix"><i class="fa fa-check"></i><b>3.3</b> Applying Functions to a Matrix</a></li>
+<li class="chapter" data-level="3.4" data-path="manipulating-data.html"><a href="manipulating-data.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a></li>
+<li class="chapter" data-level="3.5" data-path="manipulating-data.html"><a href="manipulating-data.html#an-example"><i class="fa fa-check"></i><b>3.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>4</b> Graphics</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="graphics.html"><a href="graphics.html#annotations"><i class="fa fa-check"></i><b>4.0.1</b> Annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="psychometric-packages.html"><a href="psychometric-packages.html"><i class="fa fa-check"></i><b>5</b> Psychometric Packages</a></li>
+<li class="chapter" data-level="6" data-path="function-writing.html"><a href="function-writing.html"><i class="fa fa-check"></i><b>6</b> Function Writing</a></li>
+<li class="chapter" data-level="7" data-path="sample-simulations.html"><a href="sample-simulations.html"><i class="fa fa-check"></i><b>7</b> Sample Simulations</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to R for Quantitative Methods</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-analysis" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Statistical Analysis<a href="statistical-analysis.html#statistical-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are a huge variety of statistical tests built in to R for analyzing data. In many cases the same function will perform several different tests and confidence intervals, and produce a large amount of output. We provide examples of many of these functions below, including some that are part of other packages, and others that are custom written functions.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="statistical-analysis.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="course-data" class="section level2 unnumbered hasAnchor">
+<h2>Course Data<a href="statistical-analysis.html#course-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Most of the examples of the statistical methods in this section are carried out using the data set <code>CourseData</code>. The data is a stratified sample of 70 students from a large section course. The strata were based on the college the students belonged to (AS = Arts &amp; Sciences, PM = Professional Management, MC = Mass Communications, and NU=Nursing) and their year in school (ranging from 1st to 3rd based on credit hours, and limited based on expectation of having at least 10 students from that college at that grade level). The response variables are their Hmwk = Homework Average and E1 to E3 = their grades on the first three exams.</p>
+<p>If the data is read in using <code>read_table()</code> from the <strong>readr</strong> package and called <code>students</code>, then <code>table(students[, 1:2])</code> verifies the count of the students in each grouping.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="statistical-analysis.html#cb93-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(<span class="st">&quot;data/CourseData.txt&quot;</span>)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb93-2"><a href="statistical-analysis.html#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="statistical-analysis.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="do">## verify grouping</span></span>
+<span id="cb93-4"><a href="statistical-analysis.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="co"># students %&gt;% dplyr::count(College, Year)</span></span>
+<span id="cb93-5"><a href="statistical-analysis.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(students[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
+<pre><code>##        Year
+## College  1  2  3
+##      AS 10 10 10
+##      MC 10 10  0
+##      NU 10  0  0
+##      PM 10  0  0</code></pre>
+<p><code>attach(students)</code> allows you to reference the variables simply by <code>College</code>, <code>Year</code>, <code>Hmwk</code>, <code>E1</code>, <code>E2</code>, and <code>E3.</code></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="statistical-analysis.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(students)</span></code></pre></div>
+<p>If you have attached the dataset, some useful subsets of the data can be created to give the different types of scores by group. For example:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="statistical-analysis.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="do">## E1 for 1st year nursing students</span></span>
+<span id="cb96-2"><a href="statistical-analysis.html#cb96-2" aria-hidden="true" tabindex="-1"></a>E1<span class="fl">.1</span>NU <span class="ot">&lt;-</span> E1[(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">&amp;</span> (Year <span class="sc">==</span> <span class="dv">1</span>)]</span>
+<span id="cb96-3"><a href="statistical-analysis.html#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="statistical-analysis.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="do">## E1 for 1st year arts &amp; sciences students</span></span>
+<span id="cb96-5"><a href="statistical-analysis.html#cb96-5" aria-hidden="true" tabindex="-1"></a>E1<span class="fl">.1</span>AS <span class="ot">&lt;-</span> E1[(College <span class="sc">==</span> <span class="st">&quot;AS&quot;</span>) <span class="sc">&amp;</span> (Year <span class="sc">==</span> <span class="dv">1</span>)]</span>
+<span id="cb96-6"><a href="statistical-analysis.html#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="statistical-analysis.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="do">## E3 for 1st year nursing students</span></span>
+<span id="cb96-8"><a href="statistical-analysis.html#cb96-8" aria-hidden="true" tabindex="-1"></a>E3<span class="fl">.1</span>NU <span class="ot">&lt;-</span> E3[(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">&amp;</span> (Year <span class="sc">==</span> <span class="dv">1</span>)]</span>
+<span id="cb96-9"><a href="statistical-analysis.html#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="statistical-analysis.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Put Year and College together</span></span>
+<span id="cb96-11"><a href="statistical-analysis.html#cb96-11" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">paste0</span>(Year, College))</span>
+<span id="cb96-12"><a href="statistical-analysis.html#cb96-12" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> </span>
+<span id="cb96-13"><a href="statistical-analysis.html#cb96-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grp =</span> <span class="fu">as.factor</span>(<span class="fu">paste0</span>(Year, College)))</span></code></pre></div>
+<p>More detail on choosing subsets like this are covered in the upcoming section on <a href="manipulating-data.html#manipulating-data">Manipulating Data</a>.</p>
+<p>There are a variety of graphical tools we could use to get an overview of the data set, and we will see a number of them in the upcoming section on <a href="graphics.html#graphics">Graphics</a>. Two of note include:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="statistical-analysis.html#cb97-1" aria-hidden="true" tabindex="-1"></a>GGally<span class="sc">::</span><span class="fu">ggpairs</span>(students[, <span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="statistical-analysis.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(College, E1)) <span class="sc">+</span></span>
+<span id="cb98-2"><a href="statistical-analysis.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">stage</span>(College, <span class="at">after_scale =</span> <span class="fu">alpha</span>(fill, <span class="fl">0.8</span>))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb98-3"><a href="statistical-analysis.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>Year, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">space =</span> <span class="st">&quot;free_x&quot;</span>, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">Year =</span> label_both))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
+<hr />
+<p>The coverage of the different methods below is divided into several sections:</p>
+<ol style="list-style-type: decimal">
+<li><a href="statistical-analysis.html#one-sample-t-test">One-sample t-test</a></li>
+<li><a href="statistical-analysis.html#other-hypothesis-tests">Other Basic Hypothesis Tests</a></li>
+<li><a href="statistical-analysis.html#one-way-anova">One-way ANOVA and Multiple Comparisons</a></li>
+<li><a href="statistical-analysis.html#regression-ancova">Regression, Factorial ANOVA, and ANCOVA</a></li>
+<li><a href="statistical-analysis.html#other-methods">Other Methods</a></li>
+</ol>
+<p>Each of them assumes you have created and attached the data frame <code>students</code> and created the objects <code>E1.1NU</code>, <code>E1.1AS</code>, <code>E3.1NU</code>, and <code>grp</code>.</p>
+</div>
+<div id="one-sample-t-test" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> One-sample t-test and interval<a href="statistical-analysis.html#one-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Test the null hypothesis that the mean score on <code>E1</code> for 1st year nursing students is greater than the historical exam average of 75.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="statistical-analysis.html#cb99-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span> </span>
+<span id="cb99-2"><a href="statistical-analysis.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb99-3"><a href="statistical-analysis.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response =</span> E1, <span class="at">mu =</span> <span class="dv">75</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb99-4"><a href="statistical-analysis.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  pander<span class="sc">::</span><span class="fu">pander</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="13%" />
+<col width="18%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">statistic</th>
+<th align="center">t_df</th>
+<th align="center">p_value</th>
+<th align="center">alternative</th>
+<th align="center">estimate</th>
+<th align="center">lower_ci</th>
+<th align="center">upper_ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1.906</td>
+<td align="center">9</td>
+<td align="center">0.04452</td>
+<td align="center">greater</td>
+<td align="center">82.1</td>
+<td align="center">75.27</td>
+<td align="center">Inf</td>
+</tr>
+</tbody>
+</table>
+<p>Note that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95% interval in the solutions, run it without the <code>alternative = "greater"</code> part (you don’t need to specify <code>"two-sided"</code> because that is the default setting). The other option is <code>"less"</code>.</p>
+<p>Using <code>help(t_test)</code> we can also see that the default null hypothesis is <code>mu = 0</code>, the function can perform the two-sample tests, and <code>conf_level</code> controls the confidence level for the confidence intervals.</p>
+<p>In some cases it is useful to be able to retrieve only part of the output from a test. For example, a simulation study might only want to use the p-values. Because <code>infer::t_test()</code> returns a data frame, the values can easily be extracted.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="statistical-analysis.html#cb100-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span> </span>
+<span id="cb100-2"><a href="statistical-analysis.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-3"><a href="statistical-analysis.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response =</span> E1, <span class="at">mu =</span> <span class="dv">75</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-4"><a href="statistical-analysis.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p_value)</span></code></pre></div>
+<pre><code>## [1] 0.04451704</code></pre>
+<p>If we save the output as an object, the values can be accessed using the <code>$</code>. For example:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="statistical-analysis.html#cb102-1" aria-hidden="true" tabindex="-1"></a>t.out <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> </span>
+<span id="cb102-2"><a href="statistical-analysis.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb102-3"><a href="statistical-analysis.html#cb102-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response =</span> E1, <span class="at">mu =</span> <span class="dv">75</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>) </span>
+<span id="cb102-4"><a href="statistical-analysis.html#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="statistical-analysis.html#cb102-5" aria-hidden="true" tabindex="-1"></a>t.out<span class="sc">$</span>p_value</span></code></pre></div>
+<pre><code>## [1] 0.04451704</code></pre>
+<!-- Many of the other statistical methods built into R share much in common with the `t.test()` function. -->
+</div>
+<div id="other-hypothesis-tests" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Other Basic Hypothesis Tests<a href="statistical-analysis.html#other-hypothesis-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="two-sample-t-test-and-interval" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Two-sample t-test and interval<a href="statistical-analysis.html#two-sample-t-test-and-interval" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test the null hypothesis that the mean on <code>E1</code> for 1st year students from arts and sciences is less than the mean for 1st year students from nursing.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="statistical-analysis.html#cb104-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="statistical-analysis.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(College <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;NU&quot;</span>, <span class="st">&quot;AS&quot;</span>), Year <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-3"><a href="statistical-analysis.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">formula =</span> E1 <span class="sc">~</span> College, </span>
+<span id="cb104-4"><a href="statistical-analysis.html#cb104-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">order =</span> <span class="fu">c</span>(<span class="st">&quot;AS&quot;</span>, <span class="st">&quot;NU&quot;</span>),</span>
+<span id="cb104-5"><a href="statistical-analysis.html#cb104-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, </span>
+<span id="cb104-6"><a href="statistical-analysis.html#cb104-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-7"><a href="statistical-analysis.html#cb104-7" aria-hidden="true" tabindex="-1"></a>  pander<span class="sc">::</span><span class="fu">pander</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="13%" />
+<col width="18%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">statistic</th>
+<th align="center">t_df</th>
+<th align="center">p_value</th>
+<th align="center">alternative</th>
+<th align="center">estimate</th>
+<th align="center">lower_ci</th>
+<th align="center">upper_ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-1.385</td>
+<td align="center">18</td>
+<td align="center">0.09152</td>
+<td align="center">less</td>
+<td align="center">-9.6</td>
+<td align="center">-Inf</td>
+<td align="center">2.421</td>
+</tr>
+</tbody>
+</table>
+<!-- The graphics command `par(mfrow=c(1,2))` allows for the two qq-plots to be displayed at the same time in the window in a 1 row/2 column display. The (1,1) then returns it to a single graph for the next thing that is plotted. -->
+<p><code>var.equal = TRUE</code> specifies use of the equal variances assumption. The default is variances not equal (or use <code>var.equal = FALSE</code>). Again, the confidence interval gotten using this code is the one-sided confidence bound. Use <code>two-sided</code> to get the confidence interval.</p>
+</div>
+<div id="paired-t-test-and-confidence-interval" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Paired t-test and confidence interval<a href="statistical-analysis.html#paired-t-test-and-confidence-interval" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test that the mean for <code>E3</code> is greater than the mean of <code>E1</code> for first year nursing students.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="80%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="statistical-analysis.html#cb105-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span> </span>
+<span id="cb105-2"><a href="statistical-analysis.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(College <span class="sc">==</span> <span class="st">&quot;NU&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-3"><a href="statistical-analysis.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Change =</span> E3 <span class="sc">-</span> E1) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-4"><a href="statistical-analysis.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response =</span> Change, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-5"><a href="statistical-analysis.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  pander<span class="sc">::</span><span class="fu">pander</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="13%" />
+<col width="18%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">statistic</th>
+<th align="center">t_df</th>
+<th align="center">p_value</th>
+<th align="center">alternative</th>
+<th align="center">estimate</th>
+<th align="center">lower_ci</th>
+<th align="center">upper_ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-1.962</td>
+<td align="center">9</td>
+<td align="center">0.9593</td>
+<td align="center">greater</td>
+<td align="center">-6.6</td>
+<td align="center">-12.77</td>
+<td align="center">Inf</td>
+</tr>
+</tbody>
+</table>
+<p>Another option for conducting a paired t-test is to use the <code>t.test()</code> function with <code>paired = T</code>. The output, of course, is the same as conducting the one-sample t test on the differences.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="statistical-analysis.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The correct paired test</span></span>
+<span id="cb106-2"><a href="statistical-analysis.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(E3<span class="fl">.1</span>NU, E1<span class="fl">.1</span>NU, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="at">paired =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  E3.1NU and E1.1NU
+## t = -1.962, df = 9, p-value = 0.9593
+## alternative hypothesis: true mean difference is greater than 0
+## 95 percent confidence interval:
+##  -12.76634       Inf
+## sample estimates:
+## mean difference 
+##            -6.6</code></pre>
+</div>
+<div id="chi-square-test-and-interval-for-one-variance" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Chi-square test and interval for one variance<a href="statistical-analysis.html#chi-square-test-and-interval-for-one-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test whether the standard deviation of <code>E1</code> is greater than 10 for the first year nursing students.</p>
+<p>R doesn’t have this test built in (which isn’t that horrible since we should probably never do it… but it does make it odd that they have the F-test for two variances then.) In any case its pretty easy to write a function to do it. To analyze the data, cut and paste the function in, and then run it on your data. Or, it can be read in using <code>source("code/TWRfns.txt")</code>.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="statistical-analysis.html#cb108-1" aria-hidden="true" tabindex="-1"></a>chisquare.var <span class="ot">&lt;-</span> <span class="cf">function</span>(y, <span class="at">sigma2 =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb108-2"><a href="statistical-analysis.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb108-3"><a href="statistical-analysis.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  chisquare <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">/</span> sigma2</span>
+<span id="cb108-4"><a href="statistical-analysis.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  pval.low <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chisquare, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb108-5"><a href="statistical-analysis.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  pval.hi <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chisquare, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb108-6"><a href="statistical-analysis.html#cb108-6" aria-hidden="true" tabindex="-1"></a>  pval.not <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">min</span>(pval.low, pval.hi)</span>
+<span id="cb108-7"><a href="statistical-analysis.html#cb108-7" aria-hidden="true" tabindex="-1"></a>  cilow <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">/</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb108-8"><a href="statistical-analysis.html#cb108-8" aria-hidden="true" tabindex="-1"></a>  cihi <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">/</span> <span class="fu">qchisq</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb108-9"><a href="statistical-analysis.html#cb108-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb108-10"><a href="statistical-analysis.html#cb108-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">chisquare =</span> chisquare, <span class="at">pval.for.less.than =</span> pval.low,</span>
+<span id="cb108-11"><a href="statistical-analysis.html#cb108-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pval.for.greater.than =</span> pval.hi, <span class="at">pval.for.not.equal =</span> pval.not,</span>
+<span id="cb108-12"><a href="statistical-analysis.html#cb108-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci.for.variance =</span> <span class="fu">c</span>(cilow, cihi), <span class="at">ci.for.sd =</span> <span class="fu">c</span>(<span class="fu">sqrt</span>(cilow), <span class="fu">sqrt</span>(cihi))</span>
+<span id="cb108-13"><a href="statistical-analysis.html#cb108-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb108-14"><a href="statistical-analysis.html#cb108-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="statistical-analysis.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisquare.var</span>(E1<span class="fl">.1</span>NU, <span class="at">sigma2 =</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## $chisquare
+## [1] 12.489
+## 
+## $pval.for.less.than
+## [1] 0.8128762
+## 
+## $pval.for.greater.than
+## [1] 0.1871238
+## 
+## $pval.for.not.equal
+## [1] 0.3742476
+## 
+## $ci.for.variance
+## [1]  65.65291 462.48884
+## 
+## $ci.for.sd
+## [1]  8.102648 21.505554</code></pre>
+<p>Note that the confidence intervals here are sub-optimal in terms of length because they place an equal amount of area in each end.</p>
+</div>
+<div id="f-test-for-two-variances" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> F test for two variances<a href="statistical-analysis.html#f-test-for-two-variances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test whether the variance of <code>E1</code> for the first year nursing students is equal to the variance of <code>E1</code> for the first year arts and sciences students.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="statistical-analysis.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(E1<span class="fl">.1</span>NU, E1<span class="fl">.1</span>AS)</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  E1.1NU and E1.1AS
+## F = 0.40595, num df = 9, denom df = 9, p-value = 0.1954
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.1008318 1.6343456
+## sample estimates:
+## ratio of variances 
+##          0.4059483</code></pre>
+<!-- The graphics command `par(mfrow=c(1,2))` allows for the two qq-plots to be displayed at the same time in the window in a 1 row/2 column display. The (1,1) then returns it to a single graph for the next thing that is plotted. -->
+</div>
+<div id="two-sample-modified-levenes-test" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Two-sample Modified Levene’s Test<a href="statistical-analysis.html#two-sample-modified-levenes-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test of whether the variance of E1 for the first year nursing students is equal to the variance of E1 for the first year arts and sciences students.</p>
+<p>R doesn’t contain a built in function for the Modified Levene’s test, but it can be carried out simply by running the two sample t.test on the right values.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="statistical-analysis.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="fu">abs</span>(E1<span class="fl">.1</span>NU <span class="sc">-</span> <span class="fu">median</span>(E1<span class="fl">.1</span>NU)), <span class="fu">abs</span>(E1<span class="fl">.1</span>AS <span class="sc">-</span> <span class="fu">median</span>(E1<span class="fl">.1</span>AS)), <span class="at">var.equal =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  abs(E1.1NU - median(E1.1NU)) and abs(E1.1AS - median(E1.1AS))
+## t = -1.3395, df = 18, p-value = 0.1971
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -14.382926   3.182926
+## sample estimates:
+## mean of x mean of y 
+##       8.9      14.5</code></pre>
+<p>Of course the means this is testing about are the means of the absolute deviation from the median. If that measure of spread is different between the two populations, then the variances should be different as well.</p>
+<p>The packages <strong>car</strong> and <strong>lawstat</strong> have built in modified Levene’s test functions, but they require having a response variable and a group variable (like in ANOVA). An easy function for the two sample case would be:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="statistical-analysis.html#cb115-1" aria-hidden="true" tabindex="-1"></a>levene2 <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2) {</span>
+<span id="cb115-2"><a href="statistical-analysis.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;p-value for testing null hypothesis of equal variances&quot;</span>)</span>
+<span id="cb115-3"><a href="statistical-analysis.html#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(<span class="fu">abs</span>(data1 <span class="sc">-</span> <span class="fu">median</span>(data1)), <span class="fu">abs</span>(data2 <span class="sc">-</span> <span class="fu">median</span>(data2)), <span class="at">var.equal =</span> T)<span class="sc">$</span>p.value</span>
+<span id="cb115-4"><a href="statistical-analysis.html#cb115-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb115-5"><a href="statistical-analysis.html#cb115-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-6"><a href="statistical-analysis.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levene2</span>(E1<span class="fl">.1</span>NU, E1<span class="fl">.1</span>AS)</span></code></pre></div>
+<pre><code>## [1] &quot;p-value for testing null hypothesis of equal variances&quot;</code></pre>
+<pre><code>## [1] 0.1970608</code></pre>
+</div>
+</div>
+<div id="one-way-anova" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> One-way ANOVA and Multiple Comparisons<a href="statistical-analysis.html#one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="one-way-anova-1" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> One-way ANOVA<a href="statistical-analysis.html#one-way-anova-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test whether the means of E1 are equal for the seven populations of students.</p>
+<p>The basic function for conducting an ANOVA (or any linear model) is <code>lm()</code>:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="statistical-analysis.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(E1 <span class="sc">~</span> grp)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E1 ~ grp)
+## 
+## Coefficients:
+## (Intercept)       grp1MC       grp1NU       grp1PM       grp2AS       grp2MC  
+##        72.5          3.8          9.6          5.6         -1.8          3.3  
+##      grp3AS  
+##         6.6</code></pre>
+<p>The <code>~</code> indicates that you are specifying a model equation. The variable to the left of the tilde is the response variable, and the variable to the right is the predictor variable. (In multiple regression and more complicated ANOVA there can be multiple predictor variables).</p>
+<p>Unfortunately the output from <code>lm()</code> seems pretty meager - it is just the estimates of the parameters in the model equation. Using:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="statistical-analysis.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(<span class="fu">lm</span>(E1 <span class="sc">~</span> grp))</span></code></pre></div>
+<pre><code>## $names
+##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+## [13] &quot;model&quot;        
+## 
+## $class
+## [1] &quot;lm&quot;</code></pre>
+<p>shows that there is a lot more behind the scenes. The functions <code>anova()</code>, <code>summary()</code>, and <code>plot()</code> can be used to extract much of this information.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="statistical-analysis.html#cb122-1" aria-hidden="true" tabindex="-1"></a>E1fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(E1 <span class="sc">~</span> grp)</span>
+<span id="cb122-2"><a href="statistical-analysis.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(E1fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: E1
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## grp        6  907.3  151.22  1.1563  0.341
+## Residuals 63 8239.0  130.78</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="statistical-analysis.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(E1fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E1 ~ grp)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -27.50  -6.80   0.10   6.45  23.50 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   72.500      3.616  20.048   &lt;2e-16 ***
+## grp1MC         3.800      5.114   0.743   0.4602    
+## grp1NU         9.600      5.114   1.877   0.0651 .  
+## grp1PM         5.600      5.114   1.095   0.2777    
+## grp2AS        -1.800      5.114  -0.352   0.7260    
+## grp2MC         3.300      5.114   0.645   0.5211    
+## grp3AS         6.600      5.114   1.291   0.2016    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.44 on 63 degrees of freedom
+## Multiple R-squared:  0.0992, Adjusted R-squared:  0.01341 
+## F-statistic: 1.156 on 6 and 63 DF,  p-value: 0.341</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="statistical-analysis.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb126-2"><a href="statistical-analysis.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(E1fit, <span class="dv">1</span>)</span>
+<span id="cb126-3"><a href="statistical-analysis.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(E1fit, <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="statistical-analysis.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>The 1 and 2 in the plot function request the first two graphs that are automatically produced when plotting the result of <code>lm()</code> - the first is the residual vs. predicted plot, and the second is the qq-plot of the residuals. Leaving out the number will produce four plots, but only one at a time (you have to click on the graphics window to advance to the next one).</p>
+<p>In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a “factor”. For example, imagine that you had the vector E1 entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are <code>1NU</code>, 11-20 are <code>1PM</code>, etc…). One way we could do a set of labels is:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="statistical-analysis.html#cb128-1" aria-hidden="true" tabindex="-1"></a>grplabs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb128-2"><a href="statistical-analysis.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">10</span>),</span>
+<span id="cb128-3"><a href="statistical-analysis.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="dv">4</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">6</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">7</span>, <span class="dv">10</span>)</span>
+<span id="cb128-4"><a href="statistical-analysis.html#cb128-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb128-5"><a href="statistical-analysis.html#cb128-5" aria-hidden="true" tabindex="-1"></a>grplabs</span></code></pre></div>
+<pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4
+## [39] 4 4 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7</code></pre>
+<p>The rep repeats the value in the first spot the number of times indicated in the second. Trying</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="statistical-analysis.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(E1 <span class="sc">~</span> grplabs)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E1 ~ grplabs)
+## 
+## Coefficients:
+## (Intercept)      grplabs  
+##     78.6429      -0.5679</code></pre>
+<p>gives a very different result from before though. Because the predictor variable is numeric, by default it attempted to do a regression instead of an ANOVA. Using:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="statistical-analysis.html#cb132-1" aria-hidden="true" tabindex="-1"></a>grplabs <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(grplabs)</span>
+<span id="cb132-2"><a href="statistical-analysis.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(E1 <span class="sc">~</span> grplabs)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E1 ~ grplabs)
+## 
+## Coefficients:
+## (Intercept)     grplabs2     grplabs3     grplabs4     grplabs5     grplabs6  
+##        82.1         -4.0         -9.6        -11.4         -3.0         -5.8  
+##    grplabs7  
+##        -6.3</code></pre>
+<p>solves that problem. If we had entered the names of the various groups in quotation marks, instead of 1-7, then the grplabs would have been characters instead of numeric, and it would have worked without being factors (although some other functions might give a warning message).</p>
+</div>
+<div id="modified-levene-test" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Modified Levene Test<a href="statistical-analysis.html#modified-levene-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Test whether the variances of E2 are equal for the seven populations of students.</p>
+<p>The modified Levene test is available in the package car, so if that package has been downloaded it could be conducted using.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="statistical-analysis.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb134-2"><a href="statistical-analysis.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(E1, grp)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&gt;F)  
+## group  6  1.9679 0.08363 .
+##       63                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="all-pairwise-comparisons---tukeys-hsd-and-scheffe" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> All Pairwise Comparisons - Tukey’s HSD and Scheffe<a href="statistical-analysis.html#all-pairwise-comparisons---tukeys-hsd-and-scheffe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Simultaneously construct confidence intervals around the differences in the mean of E2 between each pair of groups, or test the hypotheses of equality of the mean E2 score between each pair of groups.</p>
+<p>R has a built in function TukeyHSD that will construct the intervals in the balanced case, and includes an adjustment for the slightly unbalanced cases.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="statistical-analysis.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(E2 <span class="sc">~</span> grp))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = E2 ~ grp)
+## 
+## $grp
+##          diff         lwr       upr     p adj
+## 1MC-1AS  16.7  -3.8321876 37.232188 0.1853530
+## 1NU-1AS  23.2   2.6678124 43.732188 0.0169654
+## 1PM-1AS   6.5 -14.0321876 27.032188 0.9597899
+## 2AS-1AS   0.8 -19.7321876 21.332188 0.9999997
+## 2MC-1AS  19.8  -0.7321876 40.332188 0.0657667
+## 3AS-1AS  14.9  -5.6321876 35.432188 0.3049582
+## 1NU-1MC   6.5 -14.0321876 27.032188 0.9597899
+## 1PM-1MC -10.2 -30.7321876 10.332188 0.7360677
+## 2AS-1MC -15.9 -36.4321876  4.632188 0.2336176
+## 2MC-1MC   3.1 -17.4321876 23.632188 0.9992362
+## 3AS-1MC  -1.8 -22.3321876 18.732188 0.9999677
+## 1PM-1NU -16.7 -37.2321876  3.832188 0.1853530
+## 2AS-1NU -22.4 -42.9321876 -1.867812 0.0237608
+## 2MC-1NU  -3.4 -23.9321876 17.132188 0.9987091
+## 3AS-1NU  -8.3 -28.8321876 12.232188 0.8792779
+## 2AS-1PM  -5.7 -26.2321876 14.832188 0.9789714
+## 2MC-1PM  13.3  -7.2321876 33.832188 0.4417963
+## 3AS-1PM   8.4 -12.1321876 28.932188 0.8731517
+## 2MC-2AS  19.0  -1.5321876 39.532188 0.0876541
+## 3AS-2AS  14.1  -6.4321876 34.632188 0.3702996
+## 3AS-2MC  -4.9 -25.4321876 15.632188 0.9903950</code></pre>
+<p>The structure is a little inelegant (it uses aov, an alternate to anova on the original lm statement). The output is also not in the prettiest form… although that might be the only form that works if it is unbalanced.</p>
+<p>As an alternative the function allpairs below will make the “prettier” display for either Tukey’s HSD or Scheffe’s method in the case where the different groups/treatments all have the same sample size. To run it, simply copy in the function as is, and then run it with the appropriate data.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="statistical-analysis.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The following function performs all pairwise comparisons using either Tukey&#39;s HSD (&quot;Tukey&quot;) or Scheffe&#39;s method (&quot;Scheffe&quot;).</span></span>
+<span id="cb138-2"><a href="statistical-analysis.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The function only needs to be copied in once.</span></span>
+<span id="cb138-3"><a href="statistical-analysis.html#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">:  This function requires that all treatments have #  equal sample size.</span></span>
+<span id="cb138-4"><a href="statistical-analysis.html#cb138-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="statistical-analysis.html#cb138-5" aria-hidden="true" tabindex="-1"></a>allpairs <span class="ot">&lt;-</span> <span class="cf">function</span>(y, treat, <span class="at">method =</span> <span class="st">&quot;Tukey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb138-6"><a href="statistical-analysis.html#cb138-6" aria-hidden="true" tabindex="-1"></a>  dat.reord <span class="ot">&lt;-</span> <span class="fu">order</span>(treat)</span>
+<span id="cb138-7"><a href="statistical-analysis.html#cb138-7" aria-hidden="true" tabindex="-1"></a>  treat <span class="ot">&lt;-</span> treat[dat.reord]</span>
+<span id="cb138-8"><a href="statistical-analysis.html#cb138-8" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y[dat.reord]</span>
+<span id="cb138-9"><a href="statistical-analysis.html#cb138-9" aria-hidden="true" tabindex="-1"></a>  s2w <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> treat))[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb138-10"><a href="statistical-analysis.html#cb138-10" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">table</span>(treat))</span>
+<span id="cb138-11"><a href="statistical-analysis.html#cb138-11" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y) <span class="sc">/</span> t</span>
+<span id="cb138-12"><a href="statistical-analysis.html#cb138-12" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> n <span class="sc">*</span> t <span class="sc">-</span> t</span>
+<span id="cb138-13"><a href="statistical-analysis.html#cb138-13" aria-hidden="true" tabindex="-1"></a>  qval <span class="ot">&lt;-</span> <span class="fu">qtukey</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, t, df)</span>
+<span id="cb138-14"><a href="statistical-analysis.html#cb138-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;Tukey&quot;</span>) {</span>
+<span id="cb138-15"><a href="statistical-analysis.html#cb138-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> qval <span class="sc">*</span> <span class="fu">sqrt</span>(s2w <span class="sc">/</span> n)</span>
+<span id="cb138-16"><a href="statistical-analysis.html#cb138-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb138-17"><a href="statistical-analysis.html#cb138-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;Scheffe&quot;</span>) {</span>
+<span id="cb138-18"><a href="statistical-analysis.html#cb138-18" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span></span>
+<span id="cb138-19"><a href="statistical-analysis.html#cb138-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> s2w <span class="sc">/</span> n <span class="sc">*</span> (t <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, t <span class="sc">-</span> <span class="dv">1</span>, df))</span>
+<span id="cb138-20"><a href="statistical-analysis.html#cb138-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb138-21"><a href="statistical-analysis.html#cb138-21" aria-hidden="true" tabindex="-1"></a>  chars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb138-22"><a href="statistical-analysis.html#cb138-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;A &quot;</span>, <span class="st">&quot;B &quot;</span>, <span class="st">&quot;C &quot;</span>, <span class="st">&quot;D &quot;</span>, <span class="st">&quot;E &quot;</span>, <span class="st">&quot;F &quot;</span>, <span class="st">&quot;G &quot;</span>, <span class="st">&quot;H &quot;</span>,</span>
+<span id="cb138-23"><a href="statistical-analysis.html#cb138-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;I &quot;</span>, <span class="st">&quot;J &quot;</span>, <span class="st">&quot;L &quot;</span>, <span class="st">&quot;M &quot;</span>, <span class="st">&quot;N &quot;</span>, <span class="st">&quot;O &quot;</span>, <span class="st">&quot;P &quot;</span>, <span class="st">&quot;Q &quot;</span></span>
+<span id="cb138-24"><a href="statistical-analysis.html#cb138-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb138-25"><a href="statistical-analysis.html#cb138-25" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, treat, mean)</span>
+<span id="cb138-26"><a href="statistical-analysis.html#cb138-26" aria-hidden="true" tabindex="-1"></a>  ord.means <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="sc">-</span>means)</span>
+<span id="cb138-27"><a href="statistical-analysis.html#cb138-27" aria-hidden="true" tabindex="-1"></a>  treat <span class="ot">&lt;-</span> treat[ord.means]</span>
+<span id="cb138-28"><a href="statistical-analysis.html#cb138-28" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> means[ord.means]</span>
+<span id="cb138-29"><a href="statistical-analysis.html#cb138-29" aria-hidden="true" tabindex="-1"></a>  grp <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb138-30"><a href="statistical-analysis.html#cb138-30" aria-hidden="true" tabindex="-1"></a>  current <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb138-31"><a href="statistical-analysis.html#cb138-31" aria-hidden="true" tabindex="-1"></a>  last <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb138-32"><a href="statistical-analysis.html#cb138-32" aria-hidden="true" tabindex="-1"></a>  lastsofar <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb138-33"><a href="statistical-analysis.html#cb138-33" aria-hidden="true" tabindex="-1"></a>  charmat <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb138-34"><a href="statistical-analysis.html#cb138-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (last <span class="sc">&lt;</span> t) {</span>
+<span id="cb138-35"><a href="statistical-analysis.html#cb138-35" aria-hidden="true" tabindex="-1"></a>    newchar <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;  &quot;</span>, t)</span>
+<span id="cb138-36"><a href="statistical-analysis.html#cb138-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> current<span class="sc">:</span>t) {</span>
+<span id="cb138-37"><a href="statistical-analysis.html#cb138-37" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">abs</span>(means[current] <span class="sc">-</span> means[i]) <span class="sc">&lt;</span> stat) {</span>
+<span id="cb138-38"><a href="statistical-analysis.html#cb138-38" aria-hidden="true" tabindex="-1"></a>        newchar[i] <span class="ot">&lt;-</span> chars[grp]</span>
+<span id="cb138-39"><a href="statistical-analysis.html#cb138-39" aria-hidden="true" tabindex="-1"></a>        last <span class="ot">&lt;-</span> i</span>
+<span id="cb138-40"><a href="statistical-analysis.html#cb138-40" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb138-41"><a href="statistical-analysis.html#cb138-41" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb138-42"><a href="statistical-analysis.html#cb138-42" aria-hidden="true" tabindex="-1"></a>    current <span class="ot">&lt;-</span> current <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb138-43"><a href="statistical-analysis.html#cb138-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (last <span class="sc">&gt;</span> lastsofar) {</span>
+<span id="cb138-44"><a href="statistical-analysis.html#cb138-44" aria-hidden="true" tabindex="-1"></a>      charmat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(charmat, newchar)</span>
+<span id="cb138-45"><a href="statistical-analysis.html#cb138-45" aria-hidden="true" tabindex="-1"></a>      grp <span class="ot">&lt;-</span> grp <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb138-46"><a href="statistical-analysis.html#cb138-46" aria-hidden="true" tabindex="-1"></a>      lastsofar <span class="ot">&lt;-</span> last</span>
+<span id="cb138-47"><a href="statistical-analysis.html#cb138-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb138-48"><a href="statistical-analysis.html#cb138-48" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb138-49"><a href="statistical-analysis.html#cb138-49" aria-hidden="true" tabindex="-1"></a>  charmat <span class="ot">&lt;-</span> <span class="fu">apply</span>(charmat, <span class="dv">1</span>, <span class="st">&quot;paste&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb138-50"><a href="statistical-analysis.html#cb138-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb138-51"><a href="statistical-analysis.html#cb138-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">Method =</span> <span class="fu">paste</span>(method, <span class="st">&quot;, alpha=&quot;</span>, <span class="fu">as.character</span>(alpha),</span>
+<span id="cb138-52"><a href="statistical-analysis.html#cb138-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">collapse =</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb138-53"><a href="statistical-analysis.html#cb138-53" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb138-54"><a href="statistical-analysis.html#cb138-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">Critical.Val =</span> stat,</span>
+<span id="cb138-55"><a href="statistical-analysis.html#cb138-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">Display =</span> <span class="fu">data.frame</span>(<span class="at">Grp =</span> charmat, <span class="at">Mean =</span> means)</span>
+<span id="cb138-56"><a href="statistical-analysis.html#cb138-56" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb138-57"><a href="statistical-analysis.html#cb138-57" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb138-58"><a href="statistical-analysis.html#cb138-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-59"><a href="statistical-analysis.html#cb138-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-60"><a href="statistical-analysis.html#cb138-60" aria-hidden="true" tabindex="-1"></a><span class="fu">allpairs</span>(E2, grp)</span></code></pre></div>
+<pre><code>## $Method
+## [1] &quot;Tukey, alpha=0.05&quot;
+## 
+## $Critical.Val
+## [1] 20.53219
+## 
+## $Display
+##      Grp Mean
+## 1NU A    81.9
+## 2MC A B  78.5
+## 1MC A B  75.4
+## 3AS A B  73.6
+## 1PM A B  65.2
+## 2AS   B  59.5
+## 1AS   B  58.7</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="statistical-analysis.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">allpairs</span>(E2, grp, <span class="at">method =</span> <span class="st">&quot;Scheffe&quot;</span>)</span></code></pre></div>
+<pre><code>## $Method
+## [1] &quot;Scheffe, alpha=0.05&quot;
+## 
+## $Critical.Val
+## [1] 24.75036
+## 
+## $Display
+##     Grp Mean
+## 1NU  A  81.9
+## 2MC  A  78.5
+## 1MC  A  75.4
+## 3AS  A  73.6
+## 1PM  A  65.2
+## 2AS  A  59.5
+## 1AS  A  58.7</code></pre>
+<p>The built-in function pairwise.t.test will conduct all of the pairwise tests using the step-wise Bonferonni procedure. In the balanced case that will be very sub-optimal compared to Tukey’s HSD. In the case where the decision to test is after examining the data then it won’t have the protection of Scheffe.</p>
+</div>
+<div id="comparison-to-a-control---dunnetts-method" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Comparison to a Control - Dunnett’s method<a href="statistical-analysis.html#comparison-to-a-control---dunnetts-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Simultaneously construct confidence intervals around the differences for the E2 means between the 1st year nursing students (the control) and all of the others, or test the corresponding hypotheses of equality.</p>
+<p>There are several packages in R that contain ways of doing Dunnett’s method… but they are all rather opaque. The following function carries it out when the data is balanced. Again, simply copy the entire function in, and then run it on your data. The value for the control is which of the treatments/groups is the control (the order it occurs if you do levels() on the group variable).</p>
+<p>The following function performs Dunnett’s comparison with a control. The default alternative is the two-sided hypothesis, <code>"greater"</code> tests the alternate hypothesis that the other treatments have a larger mean than the control, and <code>"less"</code> tests for smaller means. The function only needs to be copied in once. Note that this function requires that all treatments have equal sample size.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="statistical-analysis.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCPMod)</span>
+<span id="cb142-2"><a href="statistical-analysis.html#cb142-2" aria-hidden="true" tabindex="-1"></a>dunnett <span class="ot">&lt;-</span> <span class="cf">function</span>(y, treat, <span class="at">control =</span> <span class="dv">1</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb142-3"><a href="statistical-analysis.html#cb142-3" aria-hidden="true" tabindex="-1"></a>  dat.reord <span class="ot">&lt;-</span> <span class="fu">order</span>(treat)</span>
+<span id="cb142-4"><a href="statistical-analysis.html#cb142-4" aria-hidden="true" tabindex="-1"></a>  treat <span class="ot">&lt;-</span> treat[dat.reord]</span>
+<span id="cb142-5"><a href="statistical-analysis.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y[dat.reord]</span>
+<span id="cb142-6"><a href="statistical-analysis.html#cb142-6" aria-hidden="true" tabindex="-1"></a>  s2w <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> treat))[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb142-7"><a href="statistical-analysis.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">table</span>(treat))</span>
+<span id="cb142-8"><a href="statistical-analysis.html#cb142-8" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y) <span class="sc">/</span> t</span>
+<span id="cb142-9"><a href="statistical-analysis.html#cb142-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">&quot;two.sided&quot;</span>) {</span>
+<span id="cb142-10"><a href="statistical-analysis.html#cb142-10" aria-hidden="true" tabindex="-1"></a>    alt <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb142-11"><a href="statistical-analysis.html#cb142-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb142-12"><a href="statistical-analysis.html#cb142-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (alternative <span class="sc">!=</span> <span class="st">&quot;two.sided&quot;</span>) {</span>
+<span id="cb142-13"><a href="statistical-analysis.html#cb142-13" aria-hidden="true" tabindex="-1"></a>    alt <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb142-14"><a href="statistical-analysis.html#cb142-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb142-15"><a href="statistical-analysis.html#cb142-15" aria-hidden="true" tabindex="-1"></a>  dval <span class="ot">&lt;-</span> <span class="fu">critVal</span>(<span class="fu">rbind</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="fu">diag</span>(t <span class="sc">-</span> <span class="dv">1</span>)), <span class="fu">rep</span>(n, t), <span class="at">alpha =</span> alpha, <span class="at">twoSide =</span> alt)</span>
+<span id="cb142-16"><a href="statistical-analysis.html#cb142-16" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> dval <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> s2w <span class="sc">/</span> n)</span>
+<span id="cb142-17"><a href="statistical-analysis.html#cb142-17" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb142-18"><a href="statistical-analysis.html#cb142-18" aria-hidden="true" tabindex="-1"></a>  yimyc <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb142-19"><a href="statistical-analysis.html#cb142-19" aria-hidden="true" tabindex="-1"></a>  sig <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb142-20"><a href="statistical-analysis.html#cb142-20" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb142-21"><a href="statistical-analysis.html#cb142-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> ((<span class="dv">1</span><span class="sc">:</span>t)[<span class="sc">-</span>control])) {</span>
+<span id="cb142-22"><a href="statistical-analysis.html#cb142-22" aria-hidden="true" tabindex="-1"></a>    count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb142-23"><a href="statistical-analysis.html#cb142-23" aria-hidden="true" tabindex="-1"></a>    comp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(comp, <span class="fu">paste</span>(<span class="fu">as.character</span>(treat[i <span class="sc">*</span> n]), <span class="st">&quot;-&quot;</span>, <span class="fu">as.character</span>(treat[control <span class="sc">*</span> n])))</span>
+<span id="cb142-24"><a href="statistical-analysis.html#cb142-24" aria-hidden="true" tabindex="-1"></a>    yimyc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(yimyc, <span class="fu">mean</span>(y[treat <span class="sc">==</span> treat[i <span class="sc">*</span> n]]) <span class="sc">-</span></span>
+<span id="cb142-25"><a href="statistical-analysis.html#cb142-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>(y[treat <span class="sc">==</span> treat[control <span class="sc">*</span> n]]))</span>
+<span id="cb142-26"><a href="statistical-analysis.html#cb142-26" aria-hidden="true" tabindex="-1"></a>    sigt <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb142-27"><a href="statistical-analysis.html#cb142-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (((yimyc[count, <span class="dv">1</span>]) <span class="sc">&gt;=</span> D) <span class="sc">&amp;</span> (alternative <span class="sc">!=</span> <span class="st">&quot;less&quot;</span>)) {</span>
+<span id="cb142-28"><a href="statistical-analysis.html#cb142-28" aria-hidden="true" tabindex="-1"></a>      sigt <span class="ot">&lt;-</span> <span class="st">&quot;***&quot;</span></span>
+<span id="cb142-29"><a href="statistical-analysis.html#cb142-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb142-30"><a href="statistical-analysis.html#cb142-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (((yimyc[count, <span class="dv">1</span>]) <span class="sc">&lt;=</span> (<span class="sc">-</span>D)) <span class="sc">&amp;</span> (alternative <span class="sc">!=</span> <span class="st">&quot;greater&quot;</span>)) {</span>
+<span id="cb142-31"><a href="statistical-analysis.html#cb142-31" aria-hidden="true" tabindex="-1"></a>      sigt <span class="ot">&lt;-</span> <span class="st">&quot;***&quot;</span></span>
+<span id="cb142-32"><a href="statistical-analysis.html#cb142-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb142-33"><a href="statistical-analysis.html#cb142-33" aria-hidden="true" tabindex="-1"></a>    sig <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sig, sigt)</span>
+<span id="cb142-34"><a href="statistical-analysis.html#cb142-34" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb142-35"><a href="statistical-analysis.html#cb142-35" aria-hidden="true" tabindex="-1"></a>  out.order <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="sc">-</span>yimyc)</span>
+<span id="cb142-36"><a href="statistical-analysis.html#cb142-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb142-37"><a href="statistical-analysis.html#cb142-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">Method =</span> <span class="fu">paste</span>(<span class="st">&quot;Dunnett, alternative=&quot;</span>, alternative, <span class="st">&quot;,&quot;</span>, <span class="st">&quot; alpha=&quot;</span>,</span>
+<span id="cb142-38"><a href="statistical-analysis.html#cb142-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.character</span>(alpha),</span>
+<span id="cb142-39"><a href="statistical-analysis.html#cb142-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">collapse =</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb142-40"><a href="statistical-analysis.html#cb142-40" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb142-41"><a href="statistical-analysis.html#cb142-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">Critical.D =</span> D, <span class="at">Differences =</span> <span class="fu">data.frame</span>(</span>
+<span id="cb142-42"><a href="statistical-analysis.html#cb142-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">Comparison =</span> comp[out.order],</span>
+<span id="cb142-43"><a href="statistical-analysis.html#cb142-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">Observed.Diff =</span> yimyc[out.order], <span class="at">Significant =</span> sig[out.order]</span>
+<span id="cb142-44"><a href="statistical-analysis.html#cb142-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb142-45"><a href="statistical-analysis.html#cb142-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb142-46"><a href="statistical-analysis.html#cb142-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb142-47"><a href="statistical-analysis.html#cb142-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-48"><a href="statistical-analysis.html#cb142-48" aria-hidden="true" tabindex="-1"></a><span class="do">## notice that 1st year nursing students are the 3rd group</span></span>
+<span id="cb142-49"><a href="statistical-analysis.html#cb142-49" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(grp)</span></code></pre></div>
+<pre><code>## [1] &quot;1AS&quot; &quot;1MC&quot; &quot;1NU&quot; &quot;1PM&quot; &quot;2AS&quot; &quot;2MC&quot; &quot;3AS&quot;</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="statistical-analysis.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dunnett</span>(E2, grp, <span class="at">control =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## $Method
+## [1] &quot;Dunnett, alternative=two.sided, alpha=0.05&quot;
+## 
+## $Critical.D
+## [1] 17.78444
+## 
+## $Differences
+##   Comparison Observed.Diff Significant
+## 1  2MC - 1NU          -3.4            
+## 2  1MC - 1NU          -6.5            
+## 3  3AS - 1NU          -8.3            
+## 4  1PM - 1NU         -16.7            
+## 5  2AS - 1NU         -22.4         ***
+## 6  1AS - 1NU         -23.2         ***</code></pre>
+</div>
+<div id="specific-contrasts---step-wise-bonferroni-and-scheffe" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Specific Contrasts - Step-wise Bonferroni and Scheffe<a href="statistical-analysis.html#specific-contrasts---step-wise-bonferroni-and-scheffe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Simultaneously test whether the mean E2 score of 1st year CAS students is different from the mean of the other 1st year students, whether the mean E2 score of 1st year CAS students is different from the mean score of the other years of CAS students, and whether the mean of E2 for the 1st year Mass Communication Students is different from the mean of the 1st year Professional Management Students</p>
+<p>There are a number of (fairly opaque) functions in R to do contrasts. The function below works fairly nicely in the case where all the treatments are balanced. To run the function, simply copy it in once, and then enter the lines to test your particular set of contrasts.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="statistical-analysis.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The following function estimates specific contrasts and adjusts them by either using the step-down Bonferroni procedure or the Scheffe adjustment.  </span></span>
+<span id="cb146-2"><a href="statistical-analysis.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="do">## For the step-down Bonferroni the final p-value reported is already adjusted and just needs to be compared to the alpha level.</span></span>
+<span id="cb146-3"><a href="statistical-analysis.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  For Scheffe, both the final p-value and a confidence interval (default of 95%) are reported. </span></span>
+<span id="cb146-4"><a href="statistical-analysis.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The contrast matrix must be entered in a specific format for the function to work (see the example below).</span></span>
+<span id="cb146-5"><a href="statistical-analysis.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="do">## The function only needs to be copied in once.</span></span>
+<span id="cb146-6"><a href="statistical-analysis.html#cb146-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">:  This function requires that all treatments have equal sample size.</span></span>
+<span id="cb146-7"><a href="statistical-analysis.html#cb146-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-8"><a href="statistical-analysis.html#cb146-8" aria-hidden="true" tabindex="-1"></a>contrasts <span class="ot">&lt;-</span> <span class="cf">function</span>(y, treat, control.mat, <span class="at">method =</span> <span class="st">&quot;StepBon&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
+<span id="cb146-9"><a href="statistical-analysis.html#cb146-9" aria-hidden="true" tabindex="-1"></a>  dat.reord <span class="ot">&lt;-</span> <span class="fu">order</span>(treat)</span>
+<span id="cb146-10"><a href="statistical-analysis.html#cb146-10" aria-hidden="true" tabindex="-1"></a>  treat <span class="ot">&lt;-</span> treat[dat.reord]</span>
+<span id="cb146-11"><a href="statistical-analysis.html#cb146-11" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y[dat.reord]</span>
+<span id="cb146-12"><a href="statistical-analysis.html#cb146-12" aria-hidden="true" tabindex="-1"></a>  s2w <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> treat))[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb146-13"><a href="statistical-analysis.html#cb146-13" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">table</span>(treat))</span>
+<span id="cb146-14"><a href="statistical-analysis.html#cb146-14" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y) <span class="sc">/</span> t</span>
+<span id="cb146-15"><a href="statistical-analysis.html#cb146-15" aria-hidden="true" tabindex="-1"></a>  ncontrasts <span class="ot">&lt;-</span> <span class="fu">nrow</span>(control.mat)</span>
+<span id="cb146-16"><a href="statistical-analysis.html#cb146-16" aria-hidden="true" tabindex="-1"></a>  contrastmat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">as.numeric</span>(control.mat[, <span class="dv">2</span><span class="sc">:</span>(t <span class="sc">+</span> <span class="dv">1</span>)]),</span>
+<span id="cb146-17"><a href="statistical-analysis.html#cb146-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="fu">nrow</span>(control.mat)</span>
+<span id="cb146-18"><a href="statistical-analysis.html#cb146-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb146-19"><a href="statistical-analysis.html#cb146-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(contrastmat) <span class="ot">&lt;-</span> <span class="fu">levels</span>(treat)</span>
+<span id="cb146-20"><a href="statistical-analysis.html#cb146-20" aria-hidden="true" tabindex="-1"></a>  divisors <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(control.mat[, (t <span class="sc">+</span> <span class="dv">3</span>)])</span>
+<span id="cb146-21"><a href="statistical-analysis.html#cb146-21" aria-hidden="true" tabindex="-1"></a>  contrastd <span class="ot">&lt;-</span> contrastmat <span class="sc">/</span> divisors</span>
+<span id="cb146-22"><a href="statistical-analysis.html#cb146-22" aria-hidden="true" tabindex="-1"></a>  cnames <span class="ot">&lt;-</span> control.mat[, <span class="dv">1</span>]</span>
+<span id="cb146-23"><a href="statistical-analysis.html#cb146-23" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, treat, mean)</span>
+<span id="cb146-24"><a href="statistical-analysis.html#cb146-24" aria-hidden="true" tabindex="-1"></a>  L <span class="ot">&lt;-</span> contrastd <span class="sc">%*%</span> means</span>
+<span id="cb146-25"><a href="statistical-analysis.html#cb146-25" aria-hidden="true" tabindex="-1"></a>  seL <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((s2w <span class="sc">/</span> n) <span class="sc">*</span> <span class="fu">apply</span>(contrastd<span class="sc">^</span><span class="dv">2</span>, <span class="dv">1</span>, sum))</span>
+<span id="cb146-26"><a href="statistical-analysis.html#cb146-26" aria-hidden="true" tabindex="-1"></a>  t.stat <span class="ot">&lt;-</span> L <span class="sc">/</span> seL</span>
+<span id="cb146-27"><a href="statistical-analysis.html#cb146-27" aria-hidden="true" tabindex="-1"></a>  Unadj.p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t.stat), <span class="at">df =</span> n <span class="sc">*</span> t <span class="sc">-</span> t)</span>
+<span id="cb146-28"><a href="statistical-analysis.html#cb146-28" aria-hidden="true" tabindex="-1"></a>  baseout <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Contrast =</span> cnames, contrastmat, <span class="at">Div =</span> divisors)</span>
+<span id="cb146-29"><a href="statistical-analysis.html#cb146-29" aria-hidden="true" tabindex="-1"></a>  meth <span class="ot">&lt;-</span> method</span>
+<span id="cb146-30"><a href="statistical-analysis.html#cb146-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;StepBon&quot;</span>) {</span>
+<span id="cb146-31"><a href="statistical-analysis.html#cb146-31" aria-hidden="true" tabindex="-1"></a>    StepBon.p <span class="ot">&lt;-</span> Unadj.p <span class="sc">*</span> <span class="fu">rank</span>(<span class="sc">-</span>Unadj.p)</span>
+<span id="cb146-32"><a href="statistical-analysis.html#cb146-32" aria-hidden="true" tabindex="-1"></a>    ord.un <span class="ot">&lt;-</span> <span class="fu">order</span>(Unadj.p)</span>
+<span id="cb146-33"><a href="statistical-analysis.html#cb146-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>ncontrasts) {</span>
+<span id="cb146-34"><a href="statistical-analysis.html#cb146-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (StepBon.p[ord.un[i]] <span class="sc">&lt;=</span> StepBon.p[ord.un[i <span class="sc">-</span> <span class="dv">1</span>]]) {</span>
+<span id="cb146-35"><a href="statistical-analysis.html#cb146-35" aria-hidden="true" tabindex="-1"></a>        StepBon.p[ord.un[i]] <span class="ot">&lt;-</span></span>
+<span id="cb146-36"><a href="statistical-analysis.html#cb146-36" aria-hidden="true" tabindex="-1"></a>          StepBon.p[ord.un[i <span class="sc">-</span> <span class="dv">1</span>]]</span>
+<span id="cb146-37"><a href="statistical-analysis.html#cb146-37" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb146-38"><a href="statistical-analysis.html#cb146-38" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (StepBon.p[ord.un[i]] <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb146-39"><a href="statistical-analysis.html#cb146-39" aria-hidden="true" tabindex="-1"></a>        StepBon.p[ord.un[i]] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb146-40"><a href="statistical-analysis.html#cb146-40" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb146-41"><a href="statistical-analysis.html#cb146-41" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb146-42"><a href="statistical-analysis.html#cb146-42" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb146-43"><a href="statistical-analysis.html#cb146-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">Contrast =</span> cnames, <span class="at">l =</span> <span class="fu">round</span>(L, digits),</span>
+<span id="cb146-44"><a href="statistical-analysis.html#cb146-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="fu">round</span>(seL, digits), <span class="at">t =</span> <span class="fu">round</span>(t.stat, digits), <span class="at">raw.p =</span> <span class="fu">round</span>(Unadj.p, digits),</span>
+<span id="cb146-45"><a href="statistical-analysis.html#cb146-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">stepBon.p =</span> <span class="fu">round</span>(StepBon.p, digits)</span>
+<span id="cb146-46"><a href="statistical-analysis.html#cb146-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb146-47"><a href="statistical-analysis.html#cb146-47" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb146-48"><a href="statistical-analysis.html#cb146-48" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;Scheffe&quot;</span>) {</span>
+<span id="cb146-49"><a href="statistical-analysis.html#cb146-49" aria-hidden="true" tabindex="-1"></a>    S <span class="ot">&lt;-</span> seL <span class="sc">*</span> <span class="fu">sqrt</span>((t <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qf</span>(conf.level, t <span class="sc">-</span> <span class="dv">1</span>, n <span class="sc">*</span> t <span class="sc">-</span> t))</span>
+<span id="cb146-50"><a href="statistical-analysis.html#cb146-50" aria-hidden="true" tabindex="-1"></a>    Scheffe.p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>((<span class="fu">abs</span>(L) <span class="sc">/</span> (seL <span class="sc">*</span> <span class="fu">sqrt</span>(t <span class="sc">-</span> <span class="dv">1</span>)))<span class="sc">^</span><span class="dv">2</span>, t <span class="sc">-</span> <span class="dv">1</span>, n <span class="sc">*</span> t <span class="sc">-</span> t)</span>
+<span id="cb146-51"><a href="statistical-analysis.html#cb146-51" aria-hidden="true" tabindex="-1"></a>    CL.low <span class="ot">&lt;-</span> L <span class="sc">-</span> S</span>
+<span id="cb146-52"><a href="statistical-analysis.html#cb146-52" aria-hidden="true" tabindex="-1"></a>    CL.hi <span class="ot">&lt;-</span> L <span class="sc">+</span> S</span>
+<span id="cb146-53"><a href="statistical-analysis.html#cb146-53" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb146-54"><a href="statistical-analysis.html#cb146-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">Contrast =</span> cnames, <span class="at">l =</span> <span class="fu">round</span>(L, digits),</span>
+<span id="cb146-55"><a href="statistical-analysis.html#cb146-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="fu">round</span>(seL, digits), <span class="at">t =</span> <span class="fu">round</span>(t.stat, digits), <span class="at">raw.p =</span> <span class="fu">round</span>(Unadj.p, digits),</span>
+<span id="cb146-56"><a href="statistical-analysis.html#cb146-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">Scheffe.p =</span> <span class="fu">round</span>(Scheffe.p, digits), <span class="at">S =</span> <span class="fu">round</span>(S, <span class="dv">4</span>), <span class="at">CL.low =</span> <span class="fu">round</span>(CL.low, <span class="dv">4</span>),</span>
+<span id="cb146-57"><a href="statistical-analysis.html#cb146-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">CL.hi =</span> <span class="fu">round</span>(CL.hi, <span class="dv">4</span>)</span>
+<span id="cb146-58"><a href="statistical-analysis.html#cb146-58" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb146-59"><a href="statistical-analysis.html#cb146-59" aria-hidden="true" tabindex="-1"></a>    meth <span class="ot">&lt;-</span> <span class="fu">paste</span>(method, <span class="st">&quot;, conf.level=&quot;</span>, <span class="fu">as.character</span>(conf.level), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb146-60"><a href="statistical-analysis.html#cb146-60" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb146-61"><a href="statistical-analysis.html#cb146-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">Method =</span> meth, <span class="at">Definitions =</span> baseout, <span class="at">Results =</span> out)</span>
+<span id="cb146-62"><a href="statistical-analysis.html#cb146-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb146-63"><a href="statistical-analysis.html#cb146-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-64"><a href="statistical-analysis.html#cb146-64" aria-hidden="true" tabindex="-1"></a><span class="do">## Note the levels order is &quot;1AS&quot; &quot;1MC&quot; &quot;1NU&quot; &quot;1PM&quot; &quot;2AS&quot; &quot;2MC&quot; &quot;3AS&quot;</span></span>
+<span id="cb146-65"><a href="statistical-analysis.html#cb146-65" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(grp)</span></code></pre></div>
+<pre><code>## [1] &quot;1AS&quot; &quot;1MC&quot; &quot;1NU&quot; &quot;1PM&quot; &quot;2AS&quot; &quot;2MC&quot; &quot;3AS&quot;</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="statistical-analysis.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setting up the matrix of contrasts</span></span>
+<span id="cb148-2"><a href="statistical-analysis.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="do">##----------------------------------</span></span>
+<span id="cb148-3"><a href="statistical-analysis.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="do">## first line will always look like this</span></span>
+<span id="cb148-4"><a href="statistical-analysis.html#cb148-4" aria-hidden="true" tabindex="-1"></a>control.mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb148-5"><a href="statistical-analysis.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb148-6"><a href="statistical-analysis.html#cb148-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#&#39; name of contrast&#39;,coefficient list,&#39;divisor=&#39;,divisor value,</span></span>
+<span id="cb148-7"><a href="statistical-analysis.html#cb148-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1AS vs. 1Other&quot;</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="st">&quot;divisor=&quot;</span>, <span class="dv">3</span>,</span>
+<span id="cb148-8"><a href="statistical-analysis.html#cb148-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1AS vs. 2+3AS2&quot;</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="st">&quot;divisor=&quot;</span>, <span class="dv">2</span>,</span>
+<span id="cb148-9"><a href="statistical-analysis.html#cb148-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1MC vs. 1PM   &quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="st">&quot;divisor=&quot;</span>, <span class="dv">1</span></span>
+<span id="cb148-10"><a href="statistical-analysis.html#cb148-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb148-11"><a href="statistical-analysis.html#cb148-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the end of the last row will always be this, although your nrow</span></span>
+<span id="cb148-12"><a href="statistical-analysis.html#cb148-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># needs to match the number of contrasts</span></span>
+<span id="cb148-13"><a href="statistical-analysis.html#cb148-13" aria-hidden="true" tabindex="-1"></a>  ,</span>
+<span id="cb148-14"><a href="statistical-analysis.html#cb148-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> T, <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb148-15"><a href="statistical-analysis.html#cb148-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb148-16"><a href="statistical-analysis.html#cb148-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-17"><a href="statistical-analysis.html#cb148-17" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(E2, grp, control.mat, <span class="at">method =</span> <span class="st">&quot;StepBon&quot;</span>)</span></code></pre></div>
+<pre><code>## $Method
+## [1] &quot;StepBon&quot;
+## 
+## $Definitions
+##         Contrast X1AS X1MC X1NU X1PM X2AS X2MC X3AS Div
+## 1 1AS vs. 1Other    3   -1   -1   -1    0    0    0   3
+## 2 1AS vs. 2+3AS2    2    0    0    0   -1    0   -1   2
+## 3 1MC vs. 1PM       0    1    0   -1    0    0    0   1
+## 
+## $Results
+##         Contrast        l     se       t  raw.p stepBon.p
+## 1 1AS vs. 1Other -15.4667 5.5045 -2.8098 0.0066    0.0198
+## 2 1AS vs. 2+3AS2  -7.8500 5.8384 -1.3446 0.1836    0.2706
+## 3 1MC vs. 1PM     10.2000 6.7416  1.5130 0.1353    0.2706</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="statistical-analysis.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(E2, grp, control.mat, <span class="at">method =</span> <span class="st">&quot;Scheffe&quot;</span>)</span></code></pre></div>
+<pre><code>## $Method
+## [1] &quot;Scheffe, conf.level=0.95&quot;
+## 
+## $Definitions
+##         Contrast X1AS X1MC X1NU X1PM X2AS X2MC X3AS Div
+## 1 1AS vs. 1Other    3   -1   -1   -1    0    0    0   3
+## 2 1AS vs. 2+3AS2    2    0    0    0   -1    0   -1   2
+## 3 1MC vs. 1PM       0    1    0   -1    0    0    0   1
+## 
+## $Results
+##         Contrast        l     se       t  raw.p Scheffe.p       S   CL.low
+## 1 1AS vs. 1Other -15.4667 5.5045 -2.8098 0.0066    0.2633 20.2086 -35.6753
+## 2 1AS vs. 2+3AS2  -7.8500 5.8384 -1.3446 0.1836    0.9340 21.4344 -29.2844
+## 3 1MC vs. 1PM     10.2000 6.7416  1.5130 0.1353    0.8881 24.7504 -14.5504
+##     CL.hi
+## 1  4.7419
+## 2 13.5844
+## 3 34.9504</code></pre>
+</div>
+</div>
+<div id="regression-ancova" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Regression, Factorial ANOVA, and ANCOVA:<a href="statistical-analysis.html#regression-ancova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simple-linear-regression" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Simple Linear Regression<a href="statistical-analysis.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Predict the E2 scores from the E1 scores.</p>
+<p>R has a large number of functions for analyzing regression data, the most basic ones the same as those for one-way ANOVA.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="statistical-analysis.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="do">## scatterplot with fitted line</span></span>
+<span id="cb152-2"><a href="statistical-analysis.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(E1, E2)) <span class="sc">+</span></span>
+<span id="cb152-3"><a href="statistical-analysis.html#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb152-4"><a href="statistical-analysis.html#cb152-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="statistical-analysis.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The basic output</span></span>
+<span id="cb153-2"><a href="statistical-analysis.html#cb153-2" aria-hidden="true" tabindex="-1"></a>Regfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(E2 <span class="sc">~</span> E1)</span>
+<span id="cb153-3"><a href="statistical-analysis.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Regfit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E2 ~ E1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -47.904  -9.123   2.178  12.218  33.693 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)  37.3125    13.0485   2.860  0.00563 **
+## E1            0.4332     0.1690   2.564  0.01256 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.16 on 68 degrees of freedom
+## Multiple R-squared:  0.08815,    Adjusted R-squared:  0.07474 
+## F-statistic: 6.574 on 1 and 68 DF,  p-value: 0.01256</code></pre>
+<p>Residuals …</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="statistical-analysis.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The two standard residual plots</span></span>
+<span id="cb155-2"><a href="statistical-analysis.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb155-3"><a href="statistical-analysis.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Regfit, <span class="dv">1</span>)</span>
+<span id="cb155-4"><a href="statistical-analysis.html#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Regfit, <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="statistical-analysis.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb156-2"><a href="statistical-analysis.html#cb156-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-3"><a href="statistical-analysis.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="do">## The plots of the residuals vs. other variables to check independence. </span></span>
+<span id="cb156-4"><a href="statistical-analysis.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Looks like the errors might have some dependence due to college.</span></span>
+<span id="cb156-5"><a href="statistical-analysis.html#cb156-5" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> Regfit<span class="sc">$</span>residuals</span>
+<span id="cb156-6"><a href="statistical-analysis.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb156-7"><a href="statistical-analysis.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(E3, residuals)</span>
+<span id="cb156-8"><a href="statistical-analysis.html#cb156-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">1e10</span>, <span class="fl">1e10</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb156-9"><a href="statistical-analysis.html#cb156-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Hmwk, residuals)</span>
+<span id="cb156-10"><a href="statistical-analysis.html#cb156-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">1e10</span>, <span class="fl">1e10</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb156-11"><a href="statistical-analysis.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(College)), residuals)</span>
+<span id="cb156-12"><a href="statistical-analysis.html#cb156-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">1e10</span>, <span class="fl">1e10</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb156-13"><a href="statistical-analysis.html#cb156-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Year, residuals)</span>
+<span id="cb156-14"><a href="statistical-analysis.html#cb156-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">1e10</span>, <span class="fl">1e10</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="statistical-analysis.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>The function <code>SASreg()</code> below will produce output similar to SAS using just one function. It requires that you have loaded in and installed the car package. To use it, simply copy the function in once, and then apply it to your data set.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="statistical-analysis.html#cb158-1" aria-hidden="true" tabindex="-1"></a>SASreg <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb158-2"><a href="statistical-analysis.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  regout <span class="ot">&lt;-</span> <span class="fu">lm</span>(model)</span>
+<span id="cb158-3"><a href="statistical-analysis.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  baseoutput <span class="ot">&lt;-</span> <span class="fu">anova</span>(regout)</span>
+<span id="cb158-4"><a href="statistical-analysis.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">nrow</span>(baseoutput) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb158-5"><a href="statistical-analysis.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  Summary <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">c</span>(</span>
+<span id="cb158-6"><a href="statistical-analysis.html#cb158-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="fu">lm</span>(model))<span class="sc">$</span>sigma,</span>
+<span id="cb158-7"><a href="statistical-analysis.html#cb158-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="fu">lm</span>(model))<span class="sc">$</span>r.squared,</span>
+<span id="cb158-8"><a href="statistical-analysis.html#cb158-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="fu">lm</span>(model))<span class="sc">$</span>adj.r.squared</span>
+<span id="cb158-9"><a href="statistical-analysis.html#cb158-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="dv">4</span>)</span>
+<span id="cb158-10"><a href="statistical-analysis.html#cb158-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(Summary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Root MSE&quot;</span>, <span class="st">&quot;R square&quot;</span>, <span class="st">&quot;Adj R-Squ&quot;</span>)</span>
+<span id="cb158-11"><a href="statistical-analysis.html#cb158-11" aria-hidden="true" tabindex="-1"></a>  ANOVA <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb158-12"><a href="statistical-analysis.html#cb158-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">apply</span>(baseoutput[<span class="dv">1</span><span class="sc">:</span>k, ], <span class="dv">2</span>, sum),</span>
+<span id="cb158-13"><a href="statistical-analysis.html#cb158-13" aria-hidden="true" tabindex="-1"></a>    baseoutput[k <span class="sc">+</span> <span class="dv">1</span>, ],</span>
+<span id="cb158-14"><a href="statistical-analysis.html#cb158-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">apply</span>(baseoutput[<span class="dv">1</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), ], <span class="dv">2</span>, sum)</span>
+<span id="cb158-15"><a href="statistical-analysis.html#cb158-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb158-16"><a href="statistical-analysis.html#cb158-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(ANOVA) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Model&quot;</span>, <span class="st">&quot;Error&quot;</span>, <span class="st">&quot;C Total&quot;</span>)</span>
+<span id="cb158-17"><a href="statistical-analysis.html#cb158-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">attributes</span>(ANOVA)<span class="sc">$</span>heading <span class="ot">&lt;-</span> <span class="fu">attributes</span>(ANOVA)<span class="sc">$</span>heading[<span class="dv">1</span>]</span>
+<span id="cb158-18"><a href="statistical-analysis.html#cb158-18" aria-hidden="true" tabindex="-1"></a>  ANOVA[<span class="dv">1</span>, <span class="dv">3</span>] <span class="ot">&lt;-</span> ANOVA[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> ANOVA[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb158-19"><a href="statistical-analysis.html#cb158-19" aria-hidden="true" tabindex="-1"></a>  ANOVA[<span class="dv">1</span>, <span class="dv">4</span>] <span class="ot">&lt;-</span> ANOVA[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">/</span> ANOVA[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb158-20"><a href="statistical-analysis.html#cb158-20" aria-hidden="true" tabindex="-1"></a>  ANOVA[<span class="dv">1</span>, <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(ANOVA[<span class="dv">1</span>, <span class="dv">4</span>], ANOVA[<span class="dv">1</span>, <span class="dv">1</span>], ANOVA[<span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb158-21"><a href="statistical-analysis.html#cb158-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">attributes</span>(ANOVA)<span class="sc">$</span>heading <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb158-22"><a href="statistical-analysis.html#cb158-22" aria-hidden="true" tabindex="-1"></a>  TypeI <span class="ot">&lt;-</span> baseoutput[<span class="dv">1</span><span class="sc">:</span>k, ]</span>
+<span id="cb158-23"><a href="statistical-analysis.html#cb158-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">attributes</span>(TypeI)<span class="sc">$</span>heading <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb158-24"><a href="statistical-analysis.html#cb158-24" aria-hidden="true" tabindex="-1"></a>  TypeIII <span class="ot">&lt;-</span> <span class="fu">Anova</span>(regout, <span class="at">type =</span> <span class="dv">3</span>)[<span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)]</span>
+<span id="cb158-25"><a href="statistical-analysis.html#cb158-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">attributes</span>(TypeIII)<span class="sc">$</span>heading <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb158-26"><a href="statistical-analysis.html#cb158-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb158-27"><a href="statistical-analysis.html#cb158-27" aria-hidden="true" tabindex="-1"></a>    vifs <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb158-28"><a href="statistical-analysis.html#cb158-28" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb158-29"><a href="statistical-analysis.html#cb158-29" aria-hidden="true" tabindex="-1"></a>    vifs <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">vif</span>(regout))</span>
+<span id="cb158-30"><a href="statistical-analysis.html#cb158-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb158-31"><a href="statistical-analysis.html#cb158-31" aria-hidden="true" tabindex="-1"></a>  ParEsts <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(<span class="fu">summary</span>(regout)<span class="sc">$</span>coefficients, <span class="fu">c</span>(<span class="dv">0</span>, vifs)), <span class="dv">4</span>)</span>
+<span id="cb158-32"><a href="statistical-analysis.html#cb158-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(ParEsts)[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;VIF&quot;</span></span>
+<span id="cb158-33"><a href="statistical-analysis.html#cb158-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb158-34"><a href="statistical-analysis.html#cb158-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(regout<span class="sc">$</span>fitted.values, regout<span class="sc">$</span>residuals, <span class="at">xlab =</span> <span class="st">&quot;Fitted&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb158-35"><a href="statistical-analysis.html#cb158-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="fu">min</span>(regout<span class="sc">$</span>fitted.values) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">max</span>(regout<span class="sc">$</span>fitted.values) <span class="sc">+</span> <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb158-36"><a href="statistical-analysis.html#cb158-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqnorm</span>(regout<span class="sc">$</span>residuals)</span>
+<span id="cb158-37"><a href="statistical-analysis.html#cb158-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqline</span>(regout<span class="sc">$</span>residuals)</span>
+<span id="cb158-38"><a href="statistical-analysis.html#cb158-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb158-39"><a href="statistical-analysis.html#cb158-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb158-40"><a href="statistical-analysis.html#cb158-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">Model.Equation =</span> model,</span>
+<span id="cb158-41"><a href="statistical-analysis.html#cb158-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">Coefficients =</span> regout<span class="sc">$</span>coefficients,</span>
+<span id="cb158-42"><a href="statistical-analysis.html#cb158-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">Summary =</span> Summary,</span>
+<span id="cb158-43"><a href="statistical-analysis.html#cb158-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">Analysis.of.Variance =</span> ANOVA,</span>
+<span id="cb158-44"><a href="statistical-analysis.html#cb158-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type.I.Tests =</span> TypeI,</span>
+<span id="cb158-45"><a href="statistical-analysis.html#cb158-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type.III.Tests =</span> TypeIII,</span>
+<span id="cb158-46"><a href="statistical-analysis.html#cb158-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">Parameter.Estimates =</span> ParEsts</span>
+<span id="cb158-47"><a href="statistical-analysis.html#cb158-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb158-48"><a href="statistical-analysis.html#cb158-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb158-49"><a href="statistical-analysis.html#cb158-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-50"><a href="statistical-analysis.html#cb158-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-51"><a href="statistical-analysis.html#cb158-51" aria-hidden="true" tabindex="-1"></a><span class="fu">SASreg</span>(E2 <span class="sc">~</span> E1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<pre><code>## $Model.Equation
+## E2 ~ E1
+## 
+## $Coefficients
+## (Intercept)          E1 
+##  37.3125215   0.4332442 
+## 
+## $Summary
+##  Root MSE  R square Adj R-Squ 
+##   16.1601    0.0882    0.0747 
+## 
+## $Analysis.of.Variance
+##         Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## Model    1  1716.8 1716.77   6.574 0.01256 *
+## Error   68 17758.0  261.15                  
+## C Total 69 19474.8 1977.92                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.I.Tests
+##    Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## E1  1 1716.8  1716.8   6.574 0.01256 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.III.Tests
+##    Df Sum Sq F value  Pr(&gt;F)  
+## E1  1 1716.8   6.574 0.01256 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Parameter.Estimates
+##             Estimate Std. Error t value Pr(&gt;|t|) VIF
+## (Intercept)  37.3125    13.0485  2.8595   0.0056   0
+## E1            0.4332     0.1690  2.5640   0.0126   1</code></pre>
+<p>This output is perhaps a bit overkill for simple linear regression, but is very useful when performing multiple regression (or even ANCOVA or factorial ANOVA).</p>
+</div>
+<div id="box-cox-transformation" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Box-Cox Transformation<a href="statistical-analysis.html#box-cox-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To get the Box-Cox transformation for this data set we could use the boxcox function from the MASS library (which is automatically included with R and just needs to have library(MASS) to install:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="statistical-analysis.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb160-2"><a href="statistical-analysis.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(E2 <span class="sc">~</span> E1))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>This plot doesn’t have the peak! So try from <code>0</code> to <code>5</code> with spacing every <code>.01</code> to see if its better:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="statistical-analysis.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(E2 <span class="sc">~</span> E1), <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, .<span class="dv">01</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>It looks like 1 is just outside the range, of the values that make the 95% cut-off, the one that is “nicest” and close to the peak is 2. So, the transformation y-squared is recommended.</p>
+</div>
+<div id="multiple-linear-regression" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Multiple Linear Regression<a href="statistical-analysis.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Predict the performance on Exam3 from the performance of the first two exams and the homework.</p>
+<p>This can be done by mimicking the procedure for simple linear regression. In this case the model statement must be of the form <code>E3 ~ Hmwk + E1 + E2</code>. An interaction could be added by something like <code>+ E2*E3</code> if it were needed.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="statistical-analysis.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SASreg</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> E1 <span class="sc">+</span> E2)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<pre><code>## $Model.Equation
+## E3 ~ Hmwk + E1 + E2
+## 
+## $Coefficients
+## (Intercept)        Hmwk          E1          E2 
+##  14.3989784   0.3708761   0.2345946   0.1820907 
+## 
+## $Summary
+##  Root MSE  R square Adj R-Squ 
+##   13.4719    0.3425    0.3126 
+## 
+## $Analysis.of.Variance
+##         Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Model    3  6239.5  2079.8   11.46 3.859e-06 ***
+## Error   66 11978.5   181.5                      
+## C Total 69 18218.0  6421.0                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.I.Tests
+##      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Hmwk  1 5047.1  5047.1 27.8092 1.59e-06 ***
+## E1    1  688.8   688.8  3.7955  0.05565 .  
+## E2    1  503.5   503.5  2.7743  0.10053    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.III.Tests
+##      Df  Sum Sq F value    Pr(&gt;F)    
+## Hmwk  1 2290.06 12.6179 0.0007109 ***
+## E1    1  445.25  2.4533 0.1220639    
+## E2    1  503.51  2.7743 0.1005295    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Parameter.Estimates
+##             Estimate Std. Error t value Pr(&gt;|t|)    VIF
+## (Intercept)  14.3990    11.8819  1.2118   0.2299 0.0000
+## Hmwk          0.3709     0.1044  3.5522   0.0007 1.2667
+## E1            0.2346     0.1498  1.5663   0.1221 1.1305
+## E2            0.1821     0.1093  1.6656   0.1005 1.2824</code></pre>
+<p>The plots to help assess independence (the residuals versus other variables not included in the model) and to check for needing higher order terms (the residual versus independent variables) could be generated as follows:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="statistical-analysis.html#cb164-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> E1 <span class="sc">+</span> E2)<span class="sc">$</span>residuals</span>
+<span id="cb164-2"><a href="statistical-analysis.html#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="statistical-analysis.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Sign of non-constant variance based on College?</span></span>
+<span id="cb164-4"><a href="statistical-analysis.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb164-5"><a href="statistical-analysis.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(College)), residuals)</span>
+<span id="cb164-6"><a href="statistical-analysis.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Year, residuals)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="statistical-analysis.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb165-2"><a href="statistical-analysis.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="statistical-analysis.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting against group might be better</span></span>
+<span id="cb165-4"><a href="statistical-analysis.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grp, residuals)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="statistical-analysis.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="do">## No signs of needing higher order terms</span></span>
+<span id="cb166-2"><a href="statistical-analysis.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb166-3"><a href="statistical-analysis.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Hmwk, residuals)</span>
+<span id="cb166-4"><a href="statistical-analysis.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(E1, residuals)</span>
+<span id="cb166-5"><a href="statistical-analysis.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(E2, residuals)</span>
+<span id="cb166-6"><a href="statistical-analysis.html#cb166-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-3.png" width="672" /></p>
+</div>
+<div id="variable-selection" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Variable Selection<a href="statistical-analysis.html#variable-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assuming we trusted the model fit, is there a subset of Hmwk, E1, and E2 that predicts E3 just as well as all three of them?</p>
+<p>R has some packages that do all subsets variable selection, but the output is somewhat inelegant. The Cp function below is a bit prettier. It requires the leaps library, and that package must be installed for it to run It also requires that you put all of the predictor variables together in a matrix called X. To run it, be sure to load the <strong>leaps</strong> library and copy over the function, construct the <code>X</code> matrix using <code>cbind()</code>, and then run the function.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="statistical-analysis.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb167-2"><a href="statistical-analysis.html#cb167-2" aria-hidden="true" tabindex="-1"></a>Cp <span class="ot">&lt;-</span> <span class="cf">function</span>(X, Y) {</span>
+<span id="cb167-3"><a href="statistical-analysis.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  baseout <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">regsubsets</span>(X, Y, <span class="at">nbest =</span> <span class="dv">10</span>))</span>
+<span id="cb167-4"><a href="statistical-analysis.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  inmat <span class="ot">&lt;-</span> baseout<span class="sc">$</span>which[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb167-5"><a href="statistical-analysis.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(inmat)</span>
+<span id="cb167-6"><a href="statistical-analysis.html#cb167-6" aria-hidden="true" tabindex="-1"></a>  namemat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fu">colnames</span>(X), n), <span class="at">nrow =</span> n, <span class="at">byrow =</span> T)</span>
+<span id="cb167-7"><a href="statistical-analysis.html#cb167-7" aria-hidden="true" tabindex="-1"></a>  namemat[<span class="sc">!</span>inmat] <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb167-8"><a href="statistical-analysis.html#cb167-8" aria-hidden="true" tabindex="-1"></a>  namemat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="st">&quot; &quot;</span>, n), namemat)</span>
+<span id="cb167-9"><a href="statistical-analysis.html#cb167-9" aria-hidden="true" tabindex="-1"></a>  nvars <span class="ot">&lt;-</span> <span class="fu">apply</span>(inmat, <span class="dv">1</span>, sum)</span>
+<span id="cb167-10"><a href="statistical-analysis.html#cb167-10" aria-hidden="true" tabindex="-1"></a>  sets <span class="ot">&lt;-</span> <span class="fu">apply</span>(namemat, <span class="dv">1</span>, paste, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb167-11"><a href="statistical-analysis.html#cb167-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)) {</span>
+<span id="cb167-12"><a href="statistical-analysis.html#cb167-12" aria-hidden="true" tabindex="-1"></a>    sets <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;  &quot;</span>, <span class="st">&quot; &quot;</span>, sets)</span>
+<span id="cb167-13"><a href="statistical-analysis.html#cb167-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb167-14"><a href="statistical-analysis.html#cb167-14" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">as.table</span>(<span class="fu">cbind</span>(</span>
+<span id="cb167-15"><a href="statistical-analysis.html#cb167-15" aria-hidden="true" tabindex="-1"></a>    sets, <span class="fu">round</span>(baseout<span class="sc">$</span>cp, <span class="dv">4</span>),</span>
+<span id="cb167-16"><a href="statistical-analysis.html#cb167-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(baseout<span class="sc">$</span>rsq, <span class="dv">4</span>), <span class="fu">round</span>(baseout<span class="sc">$</span>adjr2, <span class="dv">4</span>)</span>
+<span id="cb167-17"><a href="statistical-analysis.html#cb167-17" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb167-18"><a href="statistical-analysis.html#cb167-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(out) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variables&quot;</span>, <span class="st">&quot;Cp&quot;</span>, <span class="st">&quot;R square&quot;</span>, <span class="st">&quot;adj-R2&quot;</span>)</span>
+<span id="cb167-19"><a href="statistical-analysis.html#cb167-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(out) <span class="ot">&lt;-</span> nvars</span>
+<span id="cb167-20"><a href="statistical-analysis.html#cb167-20" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb167-21"><a href="statistical-analysis.html#cb167-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb167-22"><a href="statistical-analysis.html#cb167-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-23"><a href="statistical-analysis.html#cb167-23" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Hmwk, E1, E2)</span>
+<span id="cb167-24"><a href="statistical-analysis.html#cb167-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Cp</span>(X, E3)</span></code></pre></div>
+<pre><code>##   Variables   Cp      R square adj-R2
+## 1  Hmwk       6.5697  0.277    0.2664
+## 1  E2         17.5215 0.1679   0.1557
+## 1  E1         23.2662 0.1107   0.0976
+## 2  Hmwk E2    4.4533  0.3181   0.2977
+## 2  Hmwk E1    4.7743  0.3149   0.2944
+## 2  E1 E2      14.6179 0.2168   0.1934
+## 3  Hmwk E1 E2 4       0.3425   0.3126</code></pre>
+<p>It looks as if using Hmwk and just one of the other two exams just misses the general guideline for Mallow’s Cp, and have slightly worse adjusted R-squared values.</p>
+</div>
+<div id="outlier-diagnostics" class="section level3 hasAnchor" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Outlier Diagnostics<a href="statistical-analysis.html#outlier-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Are there examinees that are either extreme in terms of their predictor variables, have E3 badly predicted by the model, or significantly change the model?</p>
+<p>R has the built in functions hatvalues, rstudent, dffits, and cooks.distance to help with outlier diagnsostics. The function outlier below puts them into one a single matrix.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="statistical-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a>outlier <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb169-2"><a href="statistical-analysis.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  baseout <span class="ot">&lt;-</span> <span class="fu">lm</span>(model)</span>
+<span id="cb169-3"><a href="statistical-analysis.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  outs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb169-4"><a href="statistical-analysis.html#cb169-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hatvalues</span>(baseout), <span class="fu">rstudent</span>(baseout),</span>
+<span id="cb169-5"><a href="statistical-analysis.html#cb169-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dffits</span>(baseout), <span class="fu">cooks.distance</span>(baseout)</span>
+<span id="cb169-6"><a href="statistical-analysis.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb169-7"><a href="statistical-analysis.html#cb169-7" aria-hidden="true" tabindex="-1"></a>  outs <span class="ot">&lt;-</span> <span class="fu">round</span>(outs, <span class="dv">4</span>)</span>
+<span id="cb169-8"><a href="statistical-analysis.html#cb169-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(outs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hii&quot;</span>, <span class="st">&quot;ti&quot;</span>, <span class="st">&quot;DFFITS&quot;</span>, <span class="st">&quot;Cooks.D&quot;</span>)</span>
+<span id="cb169-9"><a href="statistical-analysis.html#cb169-9" aria-hidden="true" tabindex="-1"></a>  outs</span>
+<span id="cb169-10"><a href="statistical-analysis.html#cb169-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb169-11"><a href="statistical-analysis.html#cb169-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-12"><a href="statistical-analysis.html#cb169-12" aria-hidden="true" tabindex="-1"></a><span class="fu">outlier</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> E1 <span class="sc">+</span> E2)</span></code></pre></div>
+<pre><code>##       hii      ti  DFFITS Cooks.D
+## 1  0.0322 -1.6206 -0.2957  0.0213
+## 2  0.1088 -0.9214 -0.3219  0.0260
+## 3  0.0382 -1.2109 -0.2413  0.0145
+## 4  0.0382 -0.6809 -0.1357  0.0046
+## 5  0.0309  0.3026  0.0541  0.0007
+## 6  0.0569 -0.6760 -0.1660  0.0069
+## 7  0.0672  1.1656  0.3127  0.0243
+## 8  0.0474 -0.0895 -0.0200  0.0001
+## 9  0.0381 -0.0864 -0.0172  0.0001
+## 10 0.0798 -0.3335 -0.0982  0.0024
+## 11 0.0308 -2.2243 -0.3966  0.0371
+## 12 0.1040  0.4138  0.1410  0.0050
+## 13 0.0747  0.2098  0.0596  0.0009
+## 14 0.0242  0.6225  0.0980  0.0024
+## 15 0.0434  1.0629  0.2264  0.0128
+## 16 0.0736  1.3942  0.3930  0.0381
+## 17 0.0434  0.7501  0.1598  0.0064
+## 18 0.0473  0.3777  0.0842  0.0018
+## 19 0.0283  1.2757  0.2177  0.0117
+## 20 0.0418  0.9402  0.1962  0.0096
+## 21 0.1257 -2.9432 -1.1158  0.2789
+## 22 0.1501 -0.3123 -0.1312  0.0044
+## 23 0.0557 -0.3876 -0.0942  0.0022
+## 24 0.0406 -1.3594 -0.2795  0.0193
+## 25 0.0533 -0.3513 -0.0833  0.0018
+## 26 0.1857  0.1539  0.0735  0.0014
+## 27 0.1523 -0.3838 -0.1627  0.0067
+## 28 0.0797  0.0249  0.0073  0.0000
+## 29 0.1372  1.4264  0.5689  0.0797
+## 30 0.0276  0.0167  0.0028  0.0000
+## 31 0.0808 -1.6009 -0.4747  0.0550
+## 32 0.0286 -2.1151 -0.3627  0.0312
+## 33 0.0692 -1.8169 -0.4953  0.0593
+## 34 0.0464 -0.7640 -0.1685  0.0071
+## 35 0.0265 -0.6764 -0.1117  0.0031
+## 36 0.0189 -0.5461 -0.0758  0.0015
+## 37 0.0751 -0.2627 -0.0749  0.0014
+## 38 0.1081  1.6797  0.5848  0.0832
+## 39 0.2150  1.1177  0.5849  0.0852
+## 40 0.0805  1.9456  0.5756  0.0795
+## 41 0.0179 -1.3160 -0.1775  0.0078
+## 42 0.1048 -0.3283 -0.1123  0.0032
+## 43 0.0209 -0.5660 -0.0828  0.0017
+## 44 0.0218 -0.1487 -0.0222  0.0001
+## 45 0.0265 -0.0504 -0.0083  0.0000
+## 46 0.0397  1.2089  0.2459  0.0150
+## 47 0.0257  0.0215  0.0035  0.0000
+## 48 0.1169  0.8353  0.3040  0.0232
+## 49 0.0263  0.7135  0.1172  0.0035
+## 50 0.0477  0.8166  0.1828  0.0084
+## 51 0.0365 -0.7657 -0.1490  0.0056
+## 52 0.0333 -1.1846 -0.2197  0.0120
+## 53 0.0350 -0.0844 -0.0161  0.0001
+## 54 0.0203  0.1044  0.0150  0.0001
+## 55 0.0144 -0.1056 -0.0128  0.0000
+## 56 0.0535 -1.2735 -0.3029  0.0227
+## 57 0.0215  0.3788  0.0562  0.0008
+## 58 0.0357  0.2372  0.0456  0.0005
+## 59 0.0350 -0.1453 -0.0277  0.0002
+## 60 0.0369  0.0170  0.0033  0.0000
+## 61 0.0325 -0.7084 -0.1298  0.0042
+## 62 0.0424  1.2695  0.2672  0.0177
+## 63 0.0384  0.5168  0.1033  0.0027
+## 64 0.0336  0.4293  0.0801  0.0016
+## 65 0.0288  1.3285  0.2288  0.0129
+## 66 0.0458  0.3970  0.0869  0.0019
+## 67 0.0255  1.7818  0.2880  0.0201
+## 68 0.0474  1.6359  0.3649  0.0325
+## 69 0.0467  0.6765  0.1498  0.0057
+## 70 0.0824  0.7212  0.2162  0.0118</code></pre>
+</div>
+<div id="prediction-intervals-and-confidence-intervals-for-the-regression-line" class="section level3 hasAnchor" number="2.4.6">
+<h3><span class="header-section-number">2.4.6</span> Prediction Intervals and Confidence Intervals for the Regression Line<a href="statistical-analysis.html#prediction-intervals-and-confidence-intervals-for-the-regression-line" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What is the confidence interval for the mean E3 scores for examinees with Hmwk=95, E1=70, and E2=85? What would the prediction interval be?</p>
+<p>The prediction intervals and confidence intervals for the regression surface can be gotten using the built in predict function. The following give those intervals for data points matching the original data (again using the model we defined above):</p>
+<pre><code>predict(lm(E3~Hmwk+E1+E2),interval=&quot;confidence&quot;)
+predict(lm(E3~Hmwk+E1+E2),interval=&quot;predict&quot;)</code></pre>
+<p>For Hmwk=95, E1=70, and E2=85:</p>
+<pre><code>predict(lm(E3~Hmwk+E1+E2),data.frame(Hmwk=95,E1=70,E2=85),interval=&quot;confidence&quot;)
+predict(lm(E3~Hmwk+E1+E2),data.frame(Hmwk=95,E1=70,E2=85),interval=&quot;predict&quot;)</code></pre>
+</div>
+<div id="factorial-anova" class="section level3 hasAnchor" number="2.4.7">
+<h3><span class="header-section-number">2.4.7</span> Factorial ANOVA<a href="statistical-analysis.html#factorial-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Conduct a 2-way ANOVA for Hmwk based on Year 1 vs. 2 and AS vs. MC.</p>
+<p>The data for this problem can be constructed using:</p>
+<pre><code>HmwkA&lt;-Hmwk[((College==&quot;AS&quot;)|(College==&quot;MC&quot;))&amp;((Year==1)|(Year==2))]
+CollegeA&lt;-College[((College==&quot;AS&quot;)|(College==&quot;MC&quot;))&amp;((Year==1)|(Year==2))]
+CollegeA&lt;-as.factor(as.character(CollegeA))
+YearA&lt;-Year[((College==&quot;AS&quot;)|(College==&quot;MC&quot;))&amp;((Year==1)|(Year==2))]
+YearA&lt;-as.factor(as.character(YearA))</code></pre>
+<p>The basic output can again be constructed either using the built in functions or SASreg. The interaction is added using a colon if the terms are listed separately, or all the terms will be crossed using an asterisk.</p>
+<pre><code>summary(lm(HmwkA~CollegeA+YearA+CollegeA:YearA))
+par(mfrow=c(1,2))
+plot(lm(HmwkA~CollegeA+YearA+CollegeA:YearA),1)
+plot(lm(HmwkA~CollegeA+YearA+CollegeA:YearA),2)
+par(mfrow=c(1,1))
+
+SASreg(HmwkA~CollegeA+YearA+CollegeA:YearA)
+SASreg(HmwkA~CollegeA*YearA)</code></pre>
+<p>Profile plots can be constructed using the built in function interaction.plot. The first argument is the variable on the x-axis, and the third is the response variable.</p>
+<pre><code>interaction.plot(CollegeA,YearA,HmwkA)
+interaction.plot(YearA,CollegeA,HmwkA)</code></pre>
+</div>
+<div id="ancova" class="section level3 hasAnchor" number="2.4.8">
+<h3><span class="header-section-number">2.4.8</span> ANCOVA<a href="statistical-analysis.html#ancova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Predict E3 from Hmwk using grp as a covariate.</p>
+<p>Again this can be performed using either the built in functions or SASreg.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="statistical-analysis.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> grp))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = E3 ~ Hmwk + grp)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -39.791  -5.051   1.322   7.752  25.999 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 41.28345    8.50894   4.852  8.6e-06 ***
+## Hmwk         0.30491    0.11446   2.664 0.009829 ** 
+## grp1MC       6.40928    6.03209   1.063 0.292116    
+## grp1NU       7.61338    6.27024   1.214 0.229273    
+## grp1PM      15.03430    6.01798   2.498 0.015147 *  
+## grp2AS      -0.08199    5.88744  -0.014 0.988934    
+## grp2MC      21.30066    6.14449   3.467 0.000963 ***
+## grp3AS      11.37722    5.80620   1.959 0.054554 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 12.85 on 62 degrees of freedom
+## Multiple R-squared:  0.4382, Adjusted R-squared:  0.3748 
+## F-statistic: 6.909 on 7 and 62 DF,  p-value: 4.48e-06</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="statistical-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb178-2"><a href="statistical-analysis.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> grp), <span class="dv">1</span>)</span>
+<span id="cb178-3"><a href="statistical-analysis.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> grp), <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="statistical-analysis.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb179-2"><a href="statistical-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-3"><a href="statistical-analysis.html#cb179-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SASreg</span>(<span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">+</span> grp))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-2.png" width="672" /></p>
+<pre><code>## $Model.Equation
+## 
+## Call:
+## lm(formula = E3 ~ Hmwk + grp)
+## 
+## Coefficients:
+## (Intercept)         Hmwk       grp1MC       grp1NU       grp1PM       grp2AS  
+##    41.28345      0.30491      6.40928      7.61338     15.03430     -0.08199  
+##      grp2MC       grp3AS  
+##    21.30066     11.37722  
+## 
+## 
+## $Coefficients
+## (Intercept)        Hmwk      grp1MC      grp1NU      grp1PM      grp2AS 
+## 41.28344540  0.30490745  6.40928451  7.61337963 15.03429656 -0.08198749 
+##      grp2MC      grp3AS 
+## 21.30066031 11.37722469 
+## 
+## $Summary
+##  Root MSE  R square Adj R-Squ 
+##   12.8483    0.4382    0.3748 
+## 
+## $Analysis.of.Variance
+##         Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Model    7  7983.1  1140.4  6.9085 4.48e-06 ***
+## Error   62 10234.9   165.1                     
+## C Total 69 18218.0  5701.6                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.I.Tests
+##      Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Hmwk  1 5047.1  5047.1 30.5742 6.834e-07 ***
+## grp   6 2936.0   489.3  2.9642    0.0131 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.III.Tests
+##      Df Sum Sq F value   Pr(&gt;F)   
+## Hmwk  1 1171.5  7.0968 0.009829 **
+## grp   6 2936.0  2.9642 0.013097 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Parameter.Estimates
+##             Estimate Std. Error t value Pr(&gt;|t|)    VIF
+## (Intercept)  41.2834     8.5089  4.8518   0.0000 0.0000
+## Hmwk          0.3049     0.1145  2.6640   0.0098 1.6736
+## grp1MC        6.4093     6.0321  1.0625   0.2921 1.0000
+## grp1NU        7.6134     6.2702  1.2142   0.2293 1.2937
+## grp1PM       15.0343     6.0180  2.4982   0.0151 1.6736
+## grp2AS       -0.0820     5.8874 -0.0139   0.9889 6.0000
+## grp2MC       21.3007     6.1445  3.4666   0.0010 1.0438
+## grp3AS       11.3772     5.8062  1.9595   0.0546 0.0000</code></pre>
+<p>Note that the VIFs should not be part of the output in SASreg when categorical variables are present, and this is currently a bug.</p>
+<p>Checking whether the lines are parallel can be done simply by checking the interaction Hmwk:grp.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="statistical-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SASreg</span>(<span class="fu">lm</span>(E3 <span class="sc">~</span> Hmwk <span class="sc">*</span> grp))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<pre><code>## $Model.Equation
+## 
+## Call:
+## lm(formula = E3 ~ Hmwk * grp)
+## 
+## Coefficients:
+## (Intercept)         Hmwk       grp1MC       grp1NU       grp1PM       grp2AS  
+##    34.65972      0.40631      2.23406      4.29217    -39.95759     32.07351  
+##      grp2MC       grp3AS  Hmwk:grp1MC  Hmwk:grp1NU  Hmwk:grp1PM  Hmwk:grp2AS  
+##    -4.41607     13.08221      0.03133      0.01258      0.65975     -0.57325  
+## Hmwk:grp2MC  Hmwk:grp3AS  
+##     0.28205     -0.03366  
+## 
+## 
+## $Coefficients
+##  (Intercept)         Hmwk       grp1MC       grp1NU       grp1PM       grp2AS 
+##  34.65972374   0.40631164   2.23406485   4.29216905 -39.95759295  32.07351063 
+##       grp2MC       grp3AS  Hmwk:grp1MC  Hmwk:grp1NU  Hmwk:grp1PM  Hmwk:grp2AS 
+##  -4.41607393  13.08221050   0.03132616   0.01257784   0.65975222  -0.57325369 
+##  Hmwk:grp2MC  Hmwk:grp3AS 
+##   0.28204916  -0.03366234 
+## 
+## $Summary
+##  Root MSE  R square Adj R-Squ 
+##   12.7778    0.4981    0.3816 
+## 
+## $Analysis.of.Variance
+##         Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Model   13  9074.8   698.1  4.2754 6.298e-05 ***
+## Error   56  9143.2   163.3                      
+## C Total 69 18218.0  5881.7                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.I.Tests
+##          Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Hmwk      1 5047.1  5047.1 30.9125 7.81e-07 ***
+## grp       6 2936.0   489.3  2.9970  0.01306 *  
+## Hmwk:grp  6 1091.6   181.9  1.1143  0.36580    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Type.III.Tests
+##          Df  Sum Sq F value  Pr(&gt;F)  
+## Hmwk      1  690.67  4.2302 0.04438 *
+## grp       6  714.43  0.7293 0.62795  
+## Hmwk:grp  6 1091.64  1.1143 0.36580  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## $Parameter.Estimates
+##             Estimate Std. Error t value Pr(&gt;|t|)          VIF
+## (Intercept)  34.6597    13.5219  2.5632   0.0131 0.000000e+00
+## Hmwk          0.4063     0.1976  2.0567   0.0444 5.041000e+00
+## grp1MC        2.2341    30.5272  0.0732   0.9419 1.000000e+00
+## grp1NU        4.2922    43.3093  0.0991   0.9214 2.245200e+00
+## grp1PM      -39.9576    55.3296 -0.7222   0.4732 9.571270e+09
+## grp2AS       32.0735    18.9058  1.6965   0.0953 6.000000e+00
+## grp2MC       -4.4161    41.0984 -0.1075   0.9148 6.788100e+00
+## grp3AS       13.0822    24.9749  0.5238   0.6025 1.132895e+10
+## Hmwk:grp1MC   0.0313     0.3869  0.0810   0.9358 6.000000e+00
+## Hmwk:grp1NU   0.0126     0.5092  0.0247   0.9804 6.884100e+00
+## Hmwk:grp1PM   0.6598     0.6898  0.9565   0.3430 0.000000e+00
+## Hmwk:grp2AS  -0.5733     0.3051 -1.8790   0.0655 5.041000e+00
+## Hmwk:grp2MC   0.2820     0.4985  0.5658   0.5738 1.000000e+00
+## Hmwk:grp3AS  -0.0337     0.3458 -0.0974   0.9228 2.245200e+00</code></pre>
+</div>
+</div>
+<div id="other-methods" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Other Methods<a href="statistical-analysis.html#other-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Functions in base SAS for other commonly used methods include:</p>
+<p>For Nonparametrics:</p>
+<ul>
+<li><code>wilcox.test()</code></li>
+<li><code>friedman.test()</code></li>
+<li><code>kruskal.test()</code></li>
+</ul>
+<p>For Categorical Data:</p>
+<ul>
+<li><code>binom.test()</code></li>
+<li><code>chisq.test()</code></li>
+<li><code>glm( ,family=binomial("logit"))</code></li>
+<li><code>fisher.test()</code></li>
+<li><code>mantel.haen.test()</code></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="an-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="manipulating-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-statistical-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
