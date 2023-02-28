@@ -121,6 +121,8 @@ X <- 7
 
 the original value is over-written. If you attempt to use the name of a built in function or constant (such as `c()`, `t()`, `t.test()`, or `pi()`) for one of your variable names, you will likely find that future work you are trying to do gives unexpected results. Notice in the name of `t.test()` that periods are allowed in names of objects. Other symbols (except numbers and letters) are not allowed.
 
+### Your workspace {-}
+
 Note that the up-arrow and `history()` will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved when you exit R, and this is purposeful: Attachment to your workspace indicates that you have a **non-reproducible** workflow. Any individual R process and the associated workspace is disposable and everything that really matters should be achieved through code that you save in your script.
 
 ```{r fig.cap = " Image via Jenny Bryan's 'What They Forgot to Teach You About R'", echo = FALSE}
@@ -222,6 +224,8 @@ normal.sample <- rnorm(50)
 normal.sample
 ```
 
+### Common statistical functions {-}
+
 A few common statistical functions include:
 
 - `mean()`	find the mean
@@ -258,6 +262,8 @@ After entering or new function, it works like any built in function, except that
 Skew(normal.sample)
 ```
 
+### Common mathematical functions {-}
+
 There are also a number of mathematical functions as well. Ones common in statistical applications include:
 
 - `sqrt()`	square root
@@ -270,6 +276,8 @@ There are also a number of mathematical functions as well. Ones common in statis
 
 
 ## Vectors, Matrices, and Arrays
+
+### Vectors {-}
 
 The output from `rnorm()` is different from the `X` and `x` we created as it contains more than just a single value - they are vectors. While we can think of them as vectors in the mathematical sense, we can also think of a vector as simply listing the values of a variable.
 
@@ -324,6 +332,8 @@ YandZ[c(1, 4:6)]
 
 By using the `c()` function, and the `:` to indicate a sequence of numbers, you can quickly refer to the particular portion of the data you are concerned with.
 
+### Matrices and arrays {-}
+
 Matrices (two-dimensional) and arrays (more than two dimensions) work similarly - they use brackets to find particular values, and all the values in an array or matrix must be of the same type (e.g. numeric, character, or factor). In the case of matrices, the first values in the brackets indicates the desired rows, and the ones after the comma indicate the desired columns.
 
 ```{r}
@@ -341,6 +351,8 @@ In the above code, `matrix()` is the function to form a vector into a matrix, `r
 
 ## Data Frames, Lists, and Attributes
 
+### Data frames {-}
+
 In many cases the data set we wish to analyze will not have all of the rows or columns in the same format. This type of data is stored in R as a **data frame**.  A data frame is a rectangular collection of variables (in the columns) and observations (in the rows). 
 
 `scdata.txt` is one such data set, and it can be found in the course materials (its description is found in `scdata.pdf`). The data can be read in using code similar to the below (assuming a similar file structure).
@@ -350,7 +362,7 @@ sctable <- readr::read_table("data/scdata.txt")
 ```
 
 
-### Inspecting Objects {-}
+### Inspecting objects {-}
 
 To inspect the data without needing to print out the entire data set, we can try out the following commands: 
 

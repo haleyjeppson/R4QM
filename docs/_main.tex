@@ -116,7 +116,7 @@
 
 \title{An Introduction to R for Quantitative Methods}
 \author{}
-\date{\vspace{-2.5em}2023-02-27}
+\date{\vspace{-2.5em}2023-02-28}
 
 \begin{document}
 \maketitle
@@ -407,8 +407,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.275823674 -0.369266272 -2.727327508 -0.237033848  0.687737859
-##  [6]  0.972640288  1.009179980  1.205299614 -0.002470501  1.652605221
+##  [1] -0.95996508  0.02171223  0.81844349  0.52626597  2.76736701  0.01628693
+##  [7]  2.91319046 -1.42907179  0.12750983  0.20419454
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -451,8 +451,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -2.63692299  0.50275227  1.07172885  3.90301992 -6.29930492 -0.52523908
-##  [7] -2.08809573  0.06407069 -3.31479721 -0.22645107
+##  [1]  1.1041604 -2.4408774  0.1893304 -2.6351240 -1.8391115  2.2828173
+##  [7] -6.9364568 -5.2319864 -3.0551216  5.4756209
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -464,8 +464,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 3.818375 4.463952 4.940566 4.298444 3.577183 3.507628 2.555046 3.745107
-##  [9] 4.054925 2.624514
+##  [1] 2.901461 5.012511 3.642010 2.329912 3.341805 3.801201 5.121462 3.820371
+##  [9] 3.824450 4.874095
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -480,16 +480,15 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.473227497 -1.039610120  0.012932195 -0.230840189  0.520230812
-##  [6] -0.707543531 -2.153431111 -0.423290932 -0.362956383 -0.966195088
-## [11]  0.003730166  0.471765991  0.764671362  1.208459760  0.973855128
-## [16]  0.552880560 -2.411198537  0.972745043  0.499525821 -0.125434897
-## [21]  0.120572721 -0.625390227 -0.537452682 -0.937304434  0.449930410
-## [26]  0.640380543 -0.565002747 -2.283393450  0.047054844 -1.109704395
-## [31]  1.001740330 -0.390500017 -1.345415393  0.650216700 -1.310096226
-## [36] -0.618117651  0.414071262 -1.059551540 -1.057070593  0.005553493
-## [41]  0.448841836 -1.314949129 -0.399723488 -2.295938225  1.499387715
-## [46]  0.936421288 -0.826511017 -0.443450263 -0.907500875 -1.985842770
+##  [1] -1.35193126  1.58106587  0.89892238 -0.98692374 -2.19489135 -0.66274938
+##  [7] -1.99435789 -0.75871439 -0.76360928  1.55226649 -0.66183804  0.55079659
+## [13] -0.26950343  1.81811137  0.38366594  1.10882297 -0.74430439  1.44094003
+## [19] -0.60807632  0.55699076 -0.55448268  0.30121418  0.04234729  0.29993612
+## [25] -0.05719389  0.81856983 -1.00679132 -1.29156383 -0.23244611 -0.46500074
+## [31]  0.80627995 -0.12040647 -1.21275214 -2.12957949  0.63944735 -0.89921133
+## [37]  1.01528125  0.50202615  0.48329558  0.31986368  0.05283811 -2.06815539
+## [43] -0.71354598 -0.59078981  0.63298780 -0.92026428  0.80324869  0.65404826
+## [49] -0.82803953 -0.44314635
 \end{verbatim}
 
 A few common statistical functions include:
@@ -554,7 +553,7 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.06300444
+## [1] 0.03119983
 \end{verbatim}
 
 There are also a number of mathematical functions as well. Ones common in statistical applications include:
@@ -1000,13 +999,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -2.2869, df = 49, p-value = 0.02656
+## t = -1.0317, df = 49, p-value = 0.3073
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.59237138 -0.03823744
+##  -0.4284537  0.1377616
 ## sample estimates:
-##  mean of x 
-## -0.3153044
+## mean of x 
+## -0.145346
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1034,7 +1033,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.02655921
+## [1] 0.3072755
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -1977,7 +1976,7 @@ The following function performs Dunnett's comparison with a control. The default
 ## [1] "Dunnett, alternative=two.sided, alpha=0.05"
 ## 
 ## $Critical.D
-## [1] 17.78949
+## [1] 17.79209
 ## 
 ## $Differences
 ##   Comparison Observed.Diff Significant
@@ -3028,15 +3027,14 @@ But those weights could change later. A function can be written to take the data
 \section*{Outline}\label{outline}}
 \addcontentsline{toc}{section}{Outline}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Introduction to ggplot2
-\end{enumerate}
+\hypertarget{introduction-to-ggplot2}{%
+\paragraph*{1. Introduction to ggplot2}\label{introduction-to-ggplot2}}
+\addcontentsline{toc}{paragraph}{1. Introduction to ggplot2}
 
 \begin{itemize}
 \tightlist
+\item
+  setup
 \item
   why ggplot2
 \item
@@ -3045,20 +3043,14 @@ But those weights could change later. A function can be written to take the data
   create your first ggplot
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  ggplot2 concepts
-\end{enumerate}
+\hypertarget{ggplot2-concepts}{%
+\paragraph*{2. ggplot2 concepts}\label{ggplot2-concepts}}
+\addcontentsline{toc}{paragraph}{2. ggplot2 concepts}
 
 \begin{itemize}
 \tightlist
 \item
   the grammar of ggplot2
-\item
-  walk through example
 \item
   geometrical layers
 \item
@@ -3069,13 +3061,9 @@ But those weights could change later. A function can be written to take the data
   ggplots as objects
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Advanced customization
-\end{enumerate}
+\hypertarget{advanced-customization}{%
+\paragraph*{3. Advanced customization}\label{advanced-customization}}
+\addcontentsline{toc}{paragraph}{3. Advanced customization}
 
 \begin{itemize}
 \tightlist
@@ -3095,33 +3083,29 @@ But those weights could change later. A function can be written to take the data
   fonts
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Extensions
-\end{enumerate}
+\hypertarget{extensions}{%
+\paragraph*{4. Extensions}\label{extensions}}
+\addcontentsline{toc}{paragraph}{4. Extensions}
 
 \begin{itemize}
 \tightlist
+\item
+  patchwork
 \item
   gganimate
 \item
   ggplotly
 \item
-  ggigraph
+  ggiraph
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Introduction
-\end{enumerate}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 \begin{itemize}
 \tightlist
+\item
+  setup
 \item
   intro to ggplot2
 \item
@@ -3136,8 +3120,8 @@ But those weights could change later. A function can be written to take the data
   create your first ggplot
 \end{itemize}
 
-\hypertarget{ggplot2-concepts}{%
-\section{2. ggplot2 concepts}\label{ggplot2-concepts}}
+\hypertarget{ggplot2-concepts-1}{%
+\section{ggplot2 concepts}\label{ggplot2-concepts-1}}
 
 \begin{itemize}
 \tightlist
@@ -3193,8 +3177,8 @@ But those weights could change later. A function can be written to take the data
   \end{itemize}
 \end{itemize}
 
-\hypertarget{advanced-customization}{%
-\section{3. Advanced customization}\label{advanced-customization}}
+\hypertarget{advanced-customization-1}{%
+\section{Advanced customization}\label{advanced-customization-1}}
 
 \begin{itemize}
 \tightlist
@@ -3222,13 +3206,8 @@ But those weights could change later. A function can be written to take the data
   fonts
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Extensions
-\end{enumerate}
+\hypertarget{extensions-1}{%
+\section{Extensions}\label{extensions-1}}
 
 \begin{itemize}
 \tightlist
@@ -3239,7 +3218,7 @@ But those weights could change later. A function can be written to take the data
 \item
   ggplotly
 \item
-  ggigraph
+  ggiraph
 \end{itemize}
 
 \hypertarget{psychometric-packages}{%
