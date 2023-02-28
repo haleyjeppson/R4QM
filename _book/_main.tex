@@ -116,7 +116,7 @@
 
 \title{An Introduction to R for Quantitative Methods}
 \author{}
-\date{\vspace{-2.5em}2023-02-15}
+\date{\vspace{-2.5em}2023-02-27}
 
 \begin{document}
 \maketitle
@@ -179,10 +179,6 @@ Also very useful are the fact that in the main R Console window, the up and down
 \subsection*{RMarkdown}\label{rmarkdown}}
 \addcontentsline{toc}{subsection}{RMarkdown}
 
-\begin{figure}
-\includegraphics[width=55.24in]{img/rmarkdown_wizards} \caption{Artwork by allison horst}\label{fig:unnamed-chunk-1}
-\end{figure}
-
 Markdown is a particular type of markup language. Markup languages are designed to produce documents from plain text. Some of you may be familiar with LaTeX, another (less human friendly) markup language for creating pdf documents. LaTeX gives you much greater control, but it is restricted to pdf and has a much greater learning curve.
 
 Markdown is becoming a standard and many websites will generate HTML from Markdown (e.g.~GitHub, Stack Overflow, reddit, \ldots). It is also relatively easy:
@@ -204,6 +200,10 @@ Markdown is becoming a standard and many websites will generate HTML from Markdo
 \end{verbatim}
 
 Have a look at RStudio's \href{https://www.rstudio.com/resources/cheatsheets/}{RMarkdown cheat sheet}.
+
+\begin{figure}
+\includegraphics[width=55.24in]{img/rmarkdown_wizards} \caption{Artwork by allison horst}\label{fig:unnamed-chunk-1}
+\end{figure}
 
 \textbf{RMarkdown} is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. It combines markdown syntax with embedded R code chunks that are run so their output can be included in the final document.
 
@@ -241,7 +241,19 @@ At the heart of R are the various objects that you enter. An object could be dat
 \end{Highlighting}
 \end{Shaded}
 
-creates an object called \texttt{x} that contains the (real) number 3. If you simply cut and paste that command in at the \texttt{\textgreater{}} prompt (in the console), R will only give you another prompt. This is because you merely assigned the value\ldots{} you didn't ask R to do anything with it. Typing
+All R statements where you create objects, \textbf{assignment statements}, have the same form:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{object\_name }\OtherTok{\textless{}{-}}\NormalTok{ value}
+\end{Highlighting}
+\end{Shaded}
+
+When reading that code say ``object name gets value'' in your head.
+
+You will make lots of assignments, and \texttt{\textless{}-} is a pain to type. You can save time with \textbf{RStudio's keyboard shortcut: Alt + -} (the minus sign). Notice that RStudio automatically surrounds \texttt{\textless{}-} with spaces, which is a good code formatting practice. Code is miserable to read on a good day, so giveyoureyesabreak and use spaces.
+
+If you run \texttt{x\ \textless{}-\ 3} in your local console (at the \texttt{\textgreater{}} prompt), R will only give you another prompt. This is because you merely assigned the value; you didn't ask R to do anything with it. Typing
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -279,8 +291,52 @@ the original value is over-written. If you attempt to use the name of a built in
 Note that the up-arrow and \texttt{history()} will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved when you exit R, and this is purposeful: Attachment to your workspace indicates that you have a \textbf{non-reproducible} workflow. Any individual R process and the associated workspace is disposable and everything that really matters should be achieved through code that you save in your script.
 
 \begin{figure}
-\includegraphics[width=12.33in]{img/if-you-liked-it-you-should-have-saved-the-source-for-it} \caption{ Image via Jenny Bryan's 'What They Forgot to Teach You About R'}\label{fig:unnamed-chunk-8}
+\includegraphics[width=12.33in]{img/if-you-liked-it-you-should-have-saved-the-source-for-it} \caption{ Image via Jenny Bryan's 'What They Forgot to Teach You About R'}\label{fig:unnamed-chunk-9}
 \end{figure}
+
+\hypertarget{data-types-in-r}{%
+\subsection*{Data types in R}\label{data-types-in-r}}
+\addcontentsline{toc}{subsection}{Data types in R}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{logical}: boolean values
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ex. \texttt{TRUE} and \texttt{FALSE}
+  \end{itemize}
+\item
+  \textbf{double}: floating point numerical values (default numerical type)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ex. \texttt{1.335} and \texttt{7}
+  \end{itemize}
+\item
+  \textbf{integer}: integer numerical values (indicated with an L)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ex. \texttt{7L} and \texttt{1:3}
+  \end{itemize}
+\item
+  \textbf{character}: character string
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ex. \texttt{"hello"}\\
+  \end{itemize}
+\item
+  \textbf{lists}: 1d objects that can contain any combination of R objects
+\item
+  \& more, but we won't be focusing on those yet
+\end{itemize}
 
 \hypertarget{arithmetic-and-parentheses}{%
 \section{Arithmetic and Parentheses}\label{arithmetic-and-parentheses}}
@@ -289,7 +345,7 @@ Using R can be a lot like using a calculator. All of the basic arithmetic operat
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{X}\SpecialCharTok{{-}}\NormalTok{x}
+\NormalTok{X }\SpecialCharTok{{-}}\NormalTok{ x}
 \end{Highlighting}
 \end{Shaded}
 
@@ -299,7 +355,7 @@ Using R can be a lot like using a calculator. All of the basic arithmetic operat
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DecValTok{7{-}3}
+\DecValTok{7} \SpecialCharTok{{-}} \DecValTok{3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -342,13 +398,7 @@ Parentheses work as usual in mathematical statements, but they do not imply mult
 
 Notice that the former returns an error about looking for a function called \texttt{X}, while the latter does the arithmetic to return the value \texttt{40}.
 
-The other use of parentheses in R are to indicate that you attempting to run a function, and, if the function has any options it will contain those.
-
-\begin{verbatim}
-objects()
-\end{verbatim}
-
-will return the list of all of the objects you currently have in R. Typing it without the parentheses will just show you the function instead of trying to run it! The command:
+The other use of parentheses in R are to indicate that you attempting to run a function, and, if the function has any options it will contain those. The command:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -357,8 +407,8 @@ will return the list of all of the objects you currently have in R. Typing it wi
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.3428919  1.0146358 -1.3915508  2.0199086 -0.4716109  2.1173871
-##  [7]  0.8130218 -0.7693177 -0.1097275  1.5681082
+##  [1]  0.275823674 -0.369266272 -2.727327508 -0.237033848  0.687737859
+##  [6]  0.972640288  1.009179980  1.205299614 -0.002470501  1.652605221
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -368,9 +418,11 @@ runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case i
 
 To see this, we could run the help function on that command.
 
-\begin{verbatim}
-help(rnorm)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{help}\NormalTok{(rnorm)}
+\end{Highlighting}
+\end{Shaded}
 
 A shortcut, \texttt{?rnorm}, would also work.
 
@@ -381,6 +433,15 @@ Below the list of arguments are a brief summary of what the function does (calle
 \hypertarget{functions}{%
 \section{Functions}\label{functions}}
 
+Functions are (most often) verbs, followed by what they will be applied to in parentheses:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{do\_this}\NormalTok{(to\_this)}
+\FunctionTok{do\_that}\NormalTok{(to\_this, to\_that, with\_those)}
+\end{Highlighting}
+\end{Shaded}
+
 It is always safest to enter the values of functions using the names of the arguments:
 
 \begin{Shaded}
@@ -390,8 +451,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -2.680838  3.127364 -2.195379 -1.884342  4.827191  4.209949 -6.256804
-##  [8] -1.202007  6.294915 -2.181734
+##  [1] -2.63692299  0.50275227  1.07172885  3.90301992 -6.29930492 -0.52523908
+##  [7] -2.08809573  0.06407069 -3.31479721 -0.22645107
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -403,13 +464,13 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 2.547193 4.184813 4.792842 4.005977 4.073239 3.181536 3.253016 3.646238
-##  [9] 3.650957 2.440053
+##  [1] 3.818375 4.463952 4.940566 4.298444 3.577183 3.507628 2.555046 3.745107
+##  [9] 4.054925 2.624514
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
 
-Typing \texttt{objects()} again we see that these values we generated have not been saved as an object, and exist solely on the screen. To save the values we could have assigned the output of our function to an object.
+Note that these values we generated have not been saved as an object, and exist solely on the screen. To save the values we could have assigned the output of our function to an object.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -419,15 +480,16 @@ Typing \texttt{objects()} again we see that these values we generated have not b
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1.52524283  0.13473034 -0.25855481 -1.13939928  2.10267374  0.24873166
-##  [7] -0.80078450 -0.43774725 -0.22140988  0.66724002 -0.26572885  1.13053587
-## [13]  0.50455883 -1.73742475 -0.57044124 -1.17486670 -0.24766253  0.92789496
-## [19]  0.34255908 -1.42553848 -3.85977857 -1.18836328 -0.81046914 -0.38624315
-## [25] -0.82846620 -0.69753237 -1.15640761  1.30925009 -1.58466535 -1.54724715
-## [31] -0.19381870  0.14364728  2.80223397 -1.38288826  0.57995076 -1.64890058
-## [37]  0.25653979  0.33029319  2.03471020  0.79753713 -0.25989104  0.31598332
-## [43]  1.95485079  0.04570277  0.37178760  1.78484988 -0.93471951 -0.76680303
-## [49] -0.39306933  0.73412279
+##  [1]  0.473227497 -1.039610120  0.012932195 -0.230840189  0.520230812
+##  [6] -0.707543531 -2.153431111 -0.423290932 -0.362956383 -0.966195088
+## [11]  0.003730166  0.471765991  0.764671362  1.208459760  0.973855128
+## [16]  0.552880560 -2.411198537  0.972745043  0.499525821 -0.125434897
+## [21]  0.120572721 -0.625390227 -0.537452682 -0.937304434  0.449930410
+## [26]  0.640380543 -0.565002747 -2.283393450  0.047054844 -1.109704395
+## [31]  1.001740330 -0.390500017 -1.345415393  0.650216700 -1.310096226
+## [36] -0.618117651  0.414071262 -1.059551540 -1.057070593  0.005553493
+## [41]  0.448841836 -1.314949129 -0.399723488 -2.295938225  1.499387715
+## [46]  0.936421288 -0.826511017 -0.443450263 -0.907500875 -1.985842770
 \end{verbatim}
 
 A few common statistical functions include:
@@ -492,14 +554,8 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1130873
+## [1] 0.06300444
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# objects()}
-\end{Highlighting}
-\end{Shaded}
 
 There are also a number of mathematical functions as well. Ones common in statistical applications include:
 
@@ -739,7 +795,9 @@ In the above code, \texttt{matrix()} is the function to form a vector into a mat
 \hypertarget{data-frames-lists-and-attributes}{%
 \section{Data Frames, Lists, and Attributes}\label{data-frames-lists-and-attributes}}
 
-In many cases the data set we wish to analyze will not have all of the rows or columns in the same format. This type of data is stored in R as a data frame. \texttt{scdata.txt} is one such data set, and it can be found in the course materials (its description is found in \texttt{scdata.pdf}). The data can be read in using code similar to the below (assuming a similar file structure).
+In many cases the data set we wish to analyze will not have all of the rows or columns in the same format. This type of data is stored in R as a \textbf{data frame}. A data frame is a rectangular collection of variables (in the columns) and observations (in the rows).
+
+\texttt{scdata.txt} is one such data set, and it can be found in the course materials (its description is found in \texttt{scdata.pdf}). The data can be read in using code similar to the below (assuming a similar file structure).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -758,7 +816,27 @@ In many cases the data set we wish to analyze will not have all of the rows or c
 ## i Use `spec()` for the full column specifications.
 \end{verbatim}
 
-If you don't want to view the entire data set, you can use \texttt{head()} and \texttt{tail()} to see the first and last rows. This lets you check the variable names as well as the number of observations successfully read in.
+\hypertarget{inspecting-objects}{%
+\subsection*{Inspecting Objects}\label{inspecting-objects}}
+\addcontentsline{toc}{subsection}{Inspecting Objects}
+
+To inspect the data without needing to print out the entire data set, we can try out the following commands:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{head()}
+\item
+  \texttt{tail()}
+\item
+  \texttt{summary()}
+\item
+  \texttt{str()}
+\item
+  \texttt{dim()}
+\end{itemize}
+
+For example, use \texttt{head()} and \texttt{tail()} to see the first and last rows. This lets you check the variable names as well as the number of observations successfully read in.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -806,7 +884,24 @@ If you don't want to view the entire data set, you can use \texttt{head()} and \
 ## #   1: Minority
 \end{verbatim}
 
-There are a large number of ways to access the rows and columns of a data frame, and one of them is to treat it similarly to a matrix.
+\hypertarget{extracting-parts-of-objects}{%
+\subsection*{Extracting parts of objects}\label{extracting-parts-of-objects}}
+\addcontentsline{toc}{subsection}{Extracting parts of objects}
+
+For object \texttt{x}, we can extract parts in the following manner (\texttt{rows} and \texttt{columns} are vectors of indices):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\SpecialCharTok{$}\NormalTok{variable}
+\NormalTok{x[, }\StringTok{"variable"}\NormalTok{]}
+\NormalTok{x[rows, columns]}
+\NormalTok{x[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\NormalTok{x[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"County"}\NormalTok{, }\StringTok{"Region"}\NormalTok{)]}
+\NormalTok{x}\SpecialCharTok{$}\NormalTok{variable[rows]}
+\end{Highlighting}
+\end{Shaded}
+
+Many of these extraction methods access the rows and columns of a data frame by treating it similarly to a matrix:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -815,7 +910,7 @@ There are a large number of ways to access the rows and columns of a data frame,
 \end{Highlighting}
 \end{Shaded}
 
-This simplicity sometimes causes trouble though. While \texttt{Birth.Death} may look on the screen like it is a matrix, it is still a data frame and many functions which use matrix operations (like matrix multiplication) will give an error. The attributes function will show us the true status of our object (it returns NULL for a numeric vector and the dimensions if a matrix):
+This simplicity sometimes causes trouble though. While \texttt{Birth.Death} may look on the screen like it is a matrix, it is still a data frame and many functions which use matrix operations (like matrix multiplication) will give an error. The \texttt{attributes()} function will show us the true status of our object (it returns \texttt{NULL} for a numeric vector and the dimensions if a matrix):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -905,13 +1000,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -0.56858, df = 49, p-value = 0.5722
+## t = -2.2869, df = 49, p-value = 0.02656
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.4419368  0.2470090
+##  -0.59237138 -0.03823744
 ## sample estimates:
-##   mean of x 
-## -0.09746389
+##  mean of x 
+## -0.3153044
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -919,26 +1014,6 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{t.out }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(normal.sample)}
-\NormalTok{t.out}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  One Sample t-test
-## 
-## data:  normal.sample
-## t = -0.56858, df = 49, p-value = 0.5722
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -0.4419368  0.2470090
-## sample estimates:
-##   mean of x 
-## -0.09746389
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{attributes}\NormalTok{(t.out)}
 \end{Highlighting}
 \end{Shaded}
@@ -959,7 +1034,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5722368
+## [1] 0.02655921
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -969,7 +1044,29 @@ The \texttt{\$} is also used to access named parts of lists, which we will see c
 \hypertarget{packages}{%
 \section{Packages}\label{packages}}
 
-The ability to ``easily'' write functions in R has lead to an explosion of procedures that researchers have written and made available to the public. Several of these are automatically included with the basic instillation of R. For example, the \textbf{MASS} package (or library) contains all of the functions corresponding to the Springer text \emph{Modern Applied Statistics with S} by Venables and Ripley. The command \texttt{library()} is used to activate a downloaded package and give access to all of its functions, such as \texttt{fractions()} which finds a fraction to approximate any decimal you enter.
+The ability to ``easily'' write functions in R has lead to an explosion of procedures that researchers have written and made available to the public, typically as an R package. An R package is a collection of functions, data, and documentation that extends the capabilities of base R. Using packages is key to the successful use of R. For example, the \textbf{MASS} package contains all of the functions corresponding to the Springer text \emph{Modern Applied Statistics with S} by Venables and Ripley.
+
+While some of these are automatically included with the basic installation of R, most are not and can installed with the \texttt{install.packages()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"package\_name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When you run the code to install a package on your own computer, R will download the packages from CRAN and install them on to your computer.
+
+If you have problems installing, make sure that you are connected to the internet, and that \url{https://cloud.r-project.org/} isn't blocked by your firewall or proxy.
+
+You will not be able to use the functions, objects, and help files in a package until you load it with \texttt{library()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(package\_name)}
+\end{Highlighting}
+\end{Shaded}
+
+The command \texttt{library()} is used to activate a downloaded package and give access to all of its functions and must be done once per session.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1003,12 +1100,6 @@ The ability to ``easily'' write functions in R has lead to an explosion of proce
 \begin{verbatim}
 ## [1] 3.141593
 \end{verbatim}
-
-Additional packages can be found by using the ``Packages'' menu. ``Load package\ldots{}'' contains a list of all of the automatically installed packages, and hundreds of others can be accessed using ``Install package(s)\ldots{}'' if you are connected to the internet and have administrator rights on your computer.
-
-This large number of available packages makes it very easy to conduct a huge variety of analyses, and impossible to know even a fraction of the possibilities off the top of your head.
-
-For personal use, the source command can be used to read in a text file containing previously written functions that you have stored in a \texttt{.txt} file (perhaps on the internet for use by students).
 
 \hypertarget{statistical-analysis}{%
 \chapter{Statistical Analysis}\label{statistical-analysis}}
@@ -1086,7 +1177,7 @@ There are a variety of graphical tools we could use to get an overview of the da
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1096,7 +1187,7 @@ There are a variety of graphical tools we could use to get an overview of the da
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-38-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-44-2.pdf}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1124,9 +1215,7 @@ Each of them assumes you have created and attached the data frame \texttt{studen
 
 Test the null hypothesis that the mean score on \texttt{E1} for 1st year nursing students is greater than the historical exam average of 75.
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-39-1.pdf}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1167,7 +1256,7 @@ upper\_ci
 \bottomrule()
 \end{longtable}
 
-Note that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95\% interval in the solutions, run it without the \texttt{alternative\ =\ "greater"} part (you don't need to specify \texttt{"two-sided"} because that is the default setting). The other option is \texttt{"less"}.
+\textbf{Note} that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95\% interval in the solutions, run it without the \texttt{alternative\ =\ "greater"} part (you don't need to specify \texttt{"two-sided"} because that is the default setting). The other option is \texttt{"less"}.
 
 Using \texttt{help(t\_test)} we can also see that the default null hypothesis is \texttt{mu\ =\ 0}, the function can perform the two-sample tests, and \texttt{conf\_level} controls the confidence level for the confidence intervals.
 
@@ -1210,9 +1299,7 @@ If we save the output as an object, the values can be accessed using the \texttt
 
 Test the null hypothesis that the mean on \texttt{E1} for 1st year students from arts and sciences is less than the mean for 1st year students from nursing.
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-44-1.pdf}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1263,9 +1350,7 @@ upper\_ci
 
 Test that the mean for \texttt{E3} is greater than the mean of \texttt{E1} for first year nursing students.
 
-\includegraphics[width=0.8\linewidth]{_main_files/figure-latex/unnamed-chunk-47-1}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics[width=0.8\linewidth]{_main_files/figure-latex/unnamed-chunk-53-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1356,8 +1441,6 @@ R doesn't have this test built in (which isn't that horrible since we should pro
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-52-1.pdf}
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{chisquare.var}\NormalTok{(E1}\FloatTok{.1}\NormalTok{NU, }\AttributeTok{sigma2 =} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
@@ -1390,8 +1473,6 @@ Note that the confidence intervals here are sub-optimal in terms of length becau
 \subsection{F test for two variances}\label{f-test-for-two-variances}}
 
 Test whether the variance of \texttt{E1} for the first year nursing students is equal to the variance of \texttt{E1} for the first year arts and sciences students.
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-54-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1570,7 +1651,7 @@ shows that there is a lot more behind the scenes. The functions \texttt{anova()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-66-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1896,7 +1977,7 @@ The following function performs Dunnett's comparison with a control. The default
 ## [1] "Dunnett, alternative=two.sided, alpha=0.05"
 ## 
 ## $Critical.D
-## [1] 17.77903
+## [1] 17.78949
 ## 
 ## $Differences
 ##   Comparison Observed.Diff Significant
@@ -2074,7 +2155,7 @@ R has a large number of functions for analyzing regression data, the most basic 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2116,7 +2197,7 @@ Residuals \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-70-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2137,7 +2218,7 @@ Residuals \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-70-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-76-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2203,7 +2284,7 @@ The function \texttt{SASreg()} below will produce output similar to SAS using ju
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-71-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2257,7 +2338,7 @@ To get the Box-Cox transformation for this data set we could use the boxcox func
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spacing every \texttt{.01} to see if its better:
 
@@ -2267,7 +2348,7 @@ This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spaci
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 It looks like 1 is just outside the range, of the values that make the 95\% cut-off, the one that is ``nicest'' and close to the peak is 2. So, the transformation y-squared is recommended.
 
@@ -2284,7 +2365,7 @@ This can be done by mimicking the procedure for simple linear regression. In thi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2343,7 +2424,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2354,7 +2435,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-75-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-81-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2367,7 +2448,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-75-3.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-81-3.pdf}
 
 \hypertarget{variable-selection}{%
 \subsection{Variable Selection}\label{variable-selection}}
@@ -2618,7 +2699,7 @@ Again this can be performed using either the built in functions or SASreg.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-84-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2628,7 +2709,7 @@ Again this can be performed using either the built in functions or SASreg.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-78-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-84-2.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2697,7 +2778,7 @@ Checking whether the lines are parallel can be done simply by checking the inter
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-85-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2804,931 +2885,53 @@ For Categorical Data:
 \hypertarget{manipulating-data}{%
 \chapter{Manipulating Data}\label{manipulating-data}}
 
-\hypertarget{loading-and-saving-data}{%
-\section{Loading and Saving Data}\label{loading-and-saving-data}}
+\hypertarget{dplyr-basics}{%
+\section*{dplyr basics}\label{dplyr-basics}}
+\addcontentsline{toc}{section}{dplyr basics}
 
-Previously, we read in the data set \texttt{sctable}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sctable }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/scdata.txt"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-A table can be saved using:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{write.table}\NormalTok{(sctable[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, ], }\StringTok{"data/scdata2.txt"}\NormalTok{, }\AttributeTok{quote =}\NormalTok{ F)}
-\end{Highlighting}
-\end{Shaded}
-
-If \texttt{quote\ =\ F} is not used, then any columns of characters will be saved with quotation marks around them. By default, the table headings were saved with this file (go check!). It is always good to view your file before opening to check if you have column headings or not.
-
-Other commands for reading and writing data are \texttt{read.delim()}, \texttt{read.csv()}, \texttt{write.csv()}, and \texttt{read.fwf()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mdatab1 }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"data/mdatab.txt"}\NormalTok{, }\AttributeTok{head =}\NormalTok{ F)}
-\NormalTok{mdatab1[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 1.101111e+31 1.111110e+31
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mdatab2 }\OtherTok{\textless{}{-}} \FunctionTok{read.fwf}\NormalTok{(}\StringTok{"data/mdatab.txt"}\NormalTok{, }\AttributeTok{widths =} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{32}\NormalTok{))}
-\NormalTok{mdatab2[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
-## 1  1  1  0  1  1  1  1  1  1   1   0   0   0   1   1   0   0   0   0   0   0
-## 2  1  1  1  1  1  1  0  0  1   1   0   0   0   0   0   0   1   0   1   0   0
-##   V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32
-## 1   0   1   1   1   0   0   0   0   0   1   0
-## 2   0   1   0   0   0   1   0   0   0   0   0
-\end{verbatim}
-
-If your data doesn't follow one of these easily used formats, then the function \texttt{scan()} can also be useful.
-
-\hypertarget{data-frames-versus-matrices}{%
-\section{Data Frames versus Matrices}\label{data-frames-versus-matrices}}
-
-While tables are convenient for storing and viewing data sets (they can have multiple types of variables in them), many of the statistical functions require that the data to be in matrix form. It is often easiest to create these matrices immediately and avoid the error messages later.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{scdata }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(sctable[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{27}\NormalTok{])}
-\NormalTok{counties }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(sctable[, }\DecValTok{1}\NormalTok{])}
-\NormalTok{regions }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(sctable[, }\DecValTok{2}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-Subsets of both tables and matrices are referred to in the same manner, by using brackets, with the selected rows first, followed by the selected columns.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sctable[}\FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{38}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{18}\SpecialCharTok{:}\DecValTok{21}\NormalTok{)]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 2 x 4
-##   NoCar PlumProb PoorChild Unemp
-##   <dbl>    <dbl>     <dbl> <dbl>
-## 1  15.8      1.3      31.8   8.2
-## 2  12.8      1        27.3   8.5
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{scdata[}\FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{38}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{16}\SpecialCharTok{:}\DecValTok{19}\NormalTok{)]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##      NoCar PlumProb PoorChild Unemp
-## [1,]  15.8      1.3      31.8   8.2
-## [2,]  12.8      1.0      27.3   8.5
-\end{verbatim}
-
-Producing these (apparently) same results required different columns because the matrix was missing the two columns of characters. It is often useful to examine a matrix or table that is too large to fit on the screen by selecting either the first few rows, or by checking its dimension:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{scdata[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##      Births Death InfMort Minority Over65 PopChng PopDens Urban Income ConsInc
-## [1,]   12.5  10.3    15.1     31.7   14.7     9.7    51.5  23.4  32635   110.0
-## [2,]   12.1   9.8     9.6     28.6   12.8    17.8   132.8  60.9  37889   517.1
-##      FarmInc ManIncom RetInc FdStmps MoblHms NoCar PlumProb PoorChild Unemp
-## [1,]   298.7   3729.5  241.2    18.0    27.4   8.4      1.0      17.1   5.1
-## [2,]   343.3   7553.2  738.6    18.1    24.2   7.3      0.4      18.0   5.9
-##      Coll4 Crime HSGrad JuvDel MVDeath SchlSpnd
-## [1,]  12.7 368.0   70.1     40    37.9     7158
-## [2,]  19.9 364.8   77.7     66    19.8     6651
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dim}\NormalTok{(scdata)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 46 25
-\end{verbatim}
-
-Note that there are often several ways to refer to the variables that you want to work with.
+\hypertarget{filter-rows}{%
+\section{Filter rows}\label{filter-rows}}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{sctable\$Income}
+  Comparisons
 \item
-  \texttt{sctable{[},\ "Income"{]}}
+  Logical operators
 \item
-  \texttt{sctable{[},\ 11{]}}
-\item
-  \texttt{scdata\$Income}
-\item
-  \texttt{scdata{[},\ "Income"{]}}
-\item
-  \texttt{scdata{[},\ 9{]}}
+  Missing values
 \end{itemize}
 
-Notice that the fourth option did not work. Checking the attributes (with \texttt{attributes(sctable)} and \texttt{attributes(scdata)}) of the data frame and the matrix demonstrates why. The former has each column name listed under \texttt{\$names} (and so you can access them using \texttt{\$}), while the matrix does not.
+\hypertarget{arrange-rows}{%
+\section{Arrange rows}\label{arrange-rows}}
 
-These abbreviations can also be used when just asking for just a subset of rows and columns:
+\hypertarget{select-columns}{%
+\section{Select columns}\label{select-columns}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{scdata[regions }\SpecialCharTok{==} \StringTok{"Upstate"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{8}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)]}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{add-new-variables}{%
+\section{Add new variables}\label{add-new-variables}}
 
-\begin{verbatim}
-##       Urban Income ConsInc
-##  [1,]  23.4  32635   110.0
-##  [2,]  58.3  36807   447.2
-##  [3,]  38.7  33787   996.8
-##  [4,]  32.7  32425   461.1
-##  [5,]  83.0  41149  2144.7
-##  [6,]  56.8  34702   534.9
-##  [7,]  34.3  33933   172.7
-##  [8,]   0.0  31577   169.8
-##  [9,]  29.4  36666   502.4
-## [10,]  58.3  36214   504.2
-## [11,]  64.8  37579   994.4
-## [12,]  35.7  31441    89.9
-## [13,]  64.3  44539   552.7
-\end{verbatim}
-
-It is possible to use logical operators to ask for only particular rows or columns of a matrix or data frame, or particular elements of a vector.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sctable[sctable}\SpecialCharTok{$}\NormalTok{Income }\SpecialCharTok{\textgreater{}} \DecValTok{40000}\NormalTok{, ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 5 x 27
-##   County Region Births Death InfMort Minor~1 Over65 PopChng PopDens Urban Income
-##   <chr>  <chr>   <dbl> <dbl>   <dbl>   <dbl>  <dbl>   <dbl>   <dbl> <dbl>  <dbl>
-## 1 Beauf~ LowCo~   15.8   7.8     9      29.3   15.5    39.9    206   71.4  46992
-## 2 Dorch~ LowCo~   12.9   7.6     6      28.9    9.1    16.1    168.  73    43316
-## 3 Green~ Upsta~   14     8.4     5.1    22.5   11.7    18.6    479.  83    41149
-## 4 Lexin~ Midla~   14     8.1     6.6    15.8   10.2    28.9    308.  66.3  44659
-## 5 York   Upsta~   13.4   7.7     7.6    22.7   10.4    25.2    241.  64.3  44539
-## # ... with 16 more variables: ConsInc <dbl>, FarmInc <dbl>, ManIncom <dbl>,
-## #   RetInc <dbl>, FdStmps <dbl>, MoblHms <dbl>, NoCar <dbl>, PlumProb <dbl>,
-## #   PoorChild <dbl>, Unemp <dbl>, Coll4 <dbl>, Crime <dbl>, HSGrad <dbl>,
-## #   JuvDel <dbl>, MVDeath <dbl>, SchlSpnd <dbl>, and abbreviated variable name
-## #   1: Minority
-\end{verbatim}
-
-returns only those rows (the logical statement is before the comma) whose incomes are greater than 40000. Other logical operators include:
+\hypertarget{grouped-summaries}{%
+\section{Grouped summaries}\label{grouped-summaries}}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{!=}: is not equal to
+  Combining multiple operations with the pipe
 \item
-  \texttt{\textless{}}: less than
+  Missing values
 \item
-  \texttt{\textless{}=}: less than or equal to
+  Counts
 \item
-  \texttt{\textgreater{}=}: greater than or equal to
+  Useful summary functions
 \item
-  \texttt{\&}: and
+  Grouping by multiple variables
 \item
-  \texttt{\textbar{}}: or
+  Ungrouping
 \end{itemize}
 
-The function order (and its relatives index and sort) are often useful as well:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{sort}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] 20898 24007 24214 26526 26598 26630 26907 27131 28591 28771 29483 29567
-## [13] 29733 30376 30727 31087 31441 31577 32425 32635 32736 32867 33278 33787
-## [25] 33933 34688 34702 35144 35146 35312 35774 36214 36470 36666 36807 37579
-## [37] 37810 37889 38804 39908 39961 41149 43316 44539 44659 46992
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sctable[}\FunctionTok{order}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income), }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{11}\NormalTok{)]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 46 x 3
-##    County       Region     Income
-##    <chr>        <chr>       <dbl>
-##  1 Allendale    LowCountry  20898
-##  2 Bamberg      Midlands    24007
-##  3 Williamsburg Peedee      24214
-##  4 Marion       Peedee      26526
-##  5 Marlboro     Peedee      26598
-##  6 Dillon       Peedee      26630
-##  7 Lee          Peedee      26907
-##  8 Clarendon    Midlands    27131
-##  9 Barnwell     Midlands    28591
-## 10 Hampton      LowCountry  28771
-## # ... with 36 more rows
-\end{verbatim}
-
-While the matrix scdata inherited col names from the table used to create it, it currently lacks names for the rows.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# rownames(scdata) \textless{}{-} sctable[, 1]}
-\NormalTok{upinc }\OtherTok{\textless{}{-}}\NormalTok{ scdata[regions }\SpecialCharTok{==} \StringTok{"Upstate"}\NormalTok{, }\DecValTok{9}\NormalTok{]}
-\NormalTok{midinc }\OtherTok{\textless{}{-}}\NormalTok{ scdata[regions }\SpecialCharTok{==} \StringTok{"Midlands"}\NormalTok{, }\DecValTok{9}\NormalTok{]}
-\NormalTok{upinc}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] 32635 36807 33787 32425 41149 34702 33933 31577 36666 36214 37579 31441
-## [13] 44539
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{midinc}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] 37889 24007 28591 32736 27131 35146 30376 38804 34688 44659 32867 29567
-## [13] 39961 35774 33278
-\end{verbatim}
-
-In addition to assigning names to the rows and columns, new values can also be assigned over the previous value within the matrix:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Xmat}
-\CommentTok{\# Xmat[1, 2] \textless{}{-} 99}
-\CommentTok{\# Xmat}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{applying-functions-to-a-matrix}{%
-\section{Applying Functions to a Matrix}\label{applying-functions-to-a-matrix}}
-
-Many statistical procedures involve finding the value of a statistic separately for each row or column of a matrix. One way to do this is to use a loop. If this method is used it is necessary to first create a vector for the calculated values to be stored in:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{colmeans }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{ncol}\NormalTok{(scdata))}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(scdata)) \{}
-\NormalTok{  colmeans[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(scdata[, i])}
-\NormalTok{\}}
-\NormalTok{colmeans}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] 1.288043e+01 9.958696e+00 1.030652e+01 4.001522e+01 1.270000e+01
-##  [6] 1.365870e+01 1.230696e+02 4.268913e+01 3.359683e+04 4.770609e+02
-## [11] 5.935913e+02 2.552570e+03 7.234891e+02 2.683913e+01 2.627609e+01
-## [16] 1.102391e+01 9.065217e-01 2.214783e+01 6.630435e+00 1.556522e+01
-## [21] 4.677804e+02 7.143043e+01 6.576087e+01 3.070652e+01 7.750783e+03
-\end{verbatim}
-
-The rep function repeats the first argument (0 in this case) the number of times equal to the second argument (the number of columns of \texttt{scdata}). Similar to \texttt{ncol()}, the function \texttt{nrow()} would return the number of rows in a matrix, and length returns the number of elements in a vector.
-
-An easier way to arrive at the same result is to use the \texttt{apply()} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{apply}\NormalTok{(scdata, }\DecValTok{2}\NormalTok{, mean)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##       Births        Death      InfMort     Minority       Over65      PopChng 
-## 1.288043e+01 9.958696e+00 1.030652e+01 4.001522e+01 1.270000e+01 1.365870e+01 
-##      PopDens        Urban       Income      ConsInc      FarmInc     ManIncom 
-## 1.230696e+02 4.268913e+01 3.359683e+04 4.770609e+02 5.935913e+02 2.552570e+03 
-##       RetInc      FdStmps      MoblHms        NoCar     PlumProb    PoorChild 
-## 7.234891e+02 2.683913e+01 2.627609e+01 1.102391e+01 9.065217e-01 2.214783e+01 
-##        Unemp        Coll4        Crime       HSGrad       JuvDel      MVDeath 
-## 6.630435e+00 1.556522e+01 4.677804e+02 7.143043e+01 6.576087e+01 3.070652e+01 
-##     SchlSpnd 
-## 7.750783e+03
-\end{verbatim}
-
-\texttt{apply()} is read in reverse - the above code says to apply the mean to the columns (rows=1, columns=2) of \texttt{scdata}. Apply can also be used with functions that return more than a single value, for example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{apply}\NormalTok{(scdata, }\DecValTok{2}\NormalTok{, summary)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##           Births     Death  InfMort Minority Over65 PopChng  PopDens    Urban
-## Min.     7.60000  6.600000  3.90000  9.70000  7.900 -4.4000  27.5000  0.00000
-## 1st Qu. 12.12500  8.950000  7.60000 28.67500 11.825  8.2250  49.0000 26.50000
-## Median  12.80000 10.150000  8.95000 39.10000 12.650 12.1500  74.2000 38.65000
-## Mean    12.88043  9.958696 10.30652 40.01522 12.700 13.6587 123.0696 42.68913
-## 3rd Qu. 13.87500 10.975000 12.55000 53.82500 13.775 18.0000 157.3500 60.05000
-## Max.    15.80000 13.200000 21.70000 72.60000 16.500 39.9000 479.3000 87.20000
-##           Income   ConsInc   FarmInc ManIncom    RetInc  FdStmps  MoblHms
-## Min.    20898.00    0.0000   42.7000   204.10  203.5000  8.50000  6.60000
-## 1st Qu. 29608.50  157.0750  217.6250  1632.10  459.1750 16.32500 22.87500
-## Median  33532.50  414.2000  398.9500  2304.80  662.4500 23.85000 27.00000
-## Mean    33596.83  477.0609  593.5913  2552.57  723.4891 26.83913 26.27609
-## 3rd Qu. 36771.75  562.6500  800.2000  3513.30  939.1000 34.05000 32.67500
-## Max.    46992.00 2144.7000 2705.8000  7553.20 1623.5000 70.30000 39.10000
-##            NoCar  PlumProb PoorChild     Unemp    Coll4    Crime   HSGrad
-## Min.     5.30000 0.3000000  10.20000  3.700000  8.30000 212.5000 60.00000
-## 1st Qu.  8.17500 0.5250000  16.10000  5.325000 11.42500 340.1500 66.90000
-## Median  10.50000 0.8000000  20.95000  6.350000 14.30000 479.4500 69.95000
-## Mean    11.02391 0.9065217  22.14783  6.630435 15.56522 467.7804 71.43043
-## 3rd Qu. 13.10000 1.3000000  27.37500  7.775000 18.70000 580.1500 74.97500
-## Max.    21.80000 1.9000000  48.60000 11.700000 33.20000 834.7000 87.80000
-##            JuvDel   MVDeath  SchlSpnd
-## Min.     17.00000   9.80000  6604.000
-## 1st Qu.  45.50000  19.80000  7047.750
-## Median   61.00000  24.50000  7470.000
-## Mean     65.76087  30.70652  7750.783
-## 3rd Qu.  84.50000  38.45000  8242.000
-## Max.    179.00000 128.60000 11499.000
-\end{verbatim}
-
-In this case, the output of the summary function is a table, and so apply simply bound all of the tables from each of the columns together. In other cases the output might be in the form of a list:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{apply}\NormalTok{(scdata, }\DecValTok{2}\NormalTok{, t.test)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $Births
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 57.784, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  12.43148 13.32939
-## sample estimates:
-## mean of x 
-##  12.88043 
-## 
-## 
-## $Death
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 45.739, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##   9.520164 10.397227
-## sample estimates:
-## mean of x 
-##  9.958696 
-## 
-## 
-## $InfMort
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 15.545, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##   8.971142 11.641902
-## sample estimates:
-## mean of x 
-##  10.30652 
-## 
-## 
-## $Minority
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 17.018, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  35.27944 44.75099
-## sample estimates:
-## mean of x 
-##  40.01522 
-## 
-## 
-## $Over65
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 48.761, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  12.17542 13.22458
-## sample estimates:
-## mean of x 
-##      12.7 
-## 
-## 
-## $PopChng
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 9.2571, df = 45, p-value = 5.512e-12
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  10.68693 16.63046
-## sample estimates:
-## mean of x 
-##   13.6587 
-## 
-## 
-## $PopDens
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 7.7508, df = 45, p-value = 7.966e-10
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##   91.08884 155.05029
-## sample estimates:
-## mean of x 
-##  123.0696 
-## 
-## 
-## $Urban
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 12.775, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  35.95869 49.41958
-## sample estimates:
-## mean of x 
-##  42.68913 
-## 
-## 
-## $Income
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 39.58, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  31887.19 35306.46
-## sample estimates:
-## mean of x 
-##  33596.83 
-## 
-## 
-## $ConsInc
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 7.7445, df = 45, p-value = 8.137e-10
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  352.9918 601.1299
-## sample estimates:
-## mean of x 
-##  477.0609 
-## 
-## 
-## $FarmInc
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 7.2658, df = 45, p-value = 4.117e-09
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  429.0469 758.1357
-## sample estimates:
-## mean of x 
-##  593.5913 
-## 
-## 
-## $ManIncom
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 11.973, df = 45, p-value = 1.381e-15
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  2123.161 2981.979
-## sample estimates:
-## mean of x 
-##   2552.57 
-## 
-## 
-## $RetInc
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 13.42, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  614.9073 832.0709
-## sample estimates:
-## mean of x 
-##  723.4891 
-## 
-## 
-## $FdStmps
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 12.751, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  22.59984 31.07842
-## sample estimates:
-## mean of x 
-##  26.83913 
-## 
-## 
-## $MoblHms
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 22.86, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  23.96099 28.59118
-## sample estimates:
-## mean of x 
-##  26.27609 
-## 
-## 
-## $NoCar
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 18.996, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##   9.855049 12.192777
-## sample estimates:
-## mean of x 
-##  11.02391 
-## 
-## 
-## $PlumProb
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 13.636, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  0.7726279 1.0404156
-## sample estimates:
-## mean of x 
-## 0.9065217 
-## 
-## 
-## $PoorChild
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 18.57, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  19.74571 24.54995
-## sample estimates:
-## mean of x 
-##  22.14783 
-## 
-## 
-## $Unemp
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 24.739, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  6.090616 7.170254
-## sample estimates:
-## mean of x 
-##  6.630435 
-## 
-## 
-## $Coll4
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 16.956, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  13.71633 17.41410
-## sample estimates:
-## mean of x 
-##  15.56522 
-## 
-## 
-## $Crime
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 19.995, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  420.6604 514.9005
-## sample estimates:
-## mean of x 
-##  467.7804 
-## 
-## 
-## $HSGrad
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 72.262, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  69.43950 73.42137
-## sample estimates:
-## mean of x 
-##  71.43043 
-## 
-## 
-## $JuvDel
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 15.503, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  57.21732 74.30442
-## sample estimates:
-## mean of x 
-##  65.76087 
-## 
-## 
-## $MVDeath
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 10.806, df = 45, p-value = 4.341e-14
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  24.98308 36.42996
-## sample estimates:
-## mean of x 
-##  30.70652 
-## 
-## 
-## $SchlSpnd
-## 
-##  One Sample t-test
-## 
-## data:  newX[, i]
-## t = 52.233, df = 45, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  7451.912 8049.653
-## sample estimates:
-## mean of x 
-##  7750.783
-\end{verbatim}
-
-\hypertarget{lists}{%
-\section{Lists}\label{lists}}
-
-Lists are perhaps the most free-form of R's various objects:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{valuelist }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{means =} \FunctionTok{apply}\NormalTok{(scdata, }\DecValTok{2}\NormalTok{, mean), }\AttributeTok{t.test.1 =} \FunctionTok{t.test}\NormalTok{(scdata[}\DecValTok{1}\NormalTok{, ]))}
-\NormalTok{valuelist}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $means
-##       Births        Death      InfMort     Minority       Over65      PopChng 
-## 1.288043e+01 9.958696e+00 1.030652e+01 4.001522e+01 1.270000e+01 1.365870e+01 
-##      PopDens        Urban       Income      ConsInc      FarmInc     ManIncom 
-## 1.230696e+02 4.268913e+01 3.359683e+04 4.770609e+02 5.935913e+02 2.552570e+03 
-##       RetInc      FdStmps      MoblHms        NoCar     PlumProb    PoorChild 
-## 7.234891e+02 2.683913e+01 2.627609e+01 1.102391e+01 9.065217e-01 2.214783e+01 
-##        Unemp        Coll4        Crime       HSGrad       JuvDel      MVDeath 
-## 6.630435e+00 1.556522e+01 4.677804e+02 7.143043e+01 6.576087e+01 3.070652e+01 
-##     SchlSpnd 
-## 7.750783e+03 
-## 
-## $t.test.1
-## 
-##  One Sample t-test
-## 
-## data:  scdata[1, ]
-## t = 1.3593, df = 24, p-value = 0.1867
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -931.9975 4527.7575
-## sample estimates:
-## mean of x 
-##   1797.88
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{valuelist}\SpecialCharTok{$}\NormalTok{t.test}\FloatTok{.1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  One Sample t-test
-## 
-## data:  scdata[1, ]
-## t = 1.3593, df = 24, p-value = 0.1867
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -931.9975 4527.7575
-## sample estimates:
-## mean of x 
-##   1797.88
-\end{verbatim}
-
-There are a variety of ways to add new elements to a list. The safest is possibly to simply put it in with the name you want:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{valuelist}\SpecialCharTok{$}\NormalTok{t.test}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(scdata[}\DecValTok{2}\NormalTok{, ])}
-\NormalTok{valuelist}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $means
-##       Births        Death      InfMort     Minority       Over65      PopChng 
-## 1.288043e+01 9.958696e+00 1.030652e+01 4.001522e+01 1.270000e+01 1.365870e+01 
-##      PopDens        Urban       Income      ConsInc      FarmInc     ManIncom 
-## 1.230696e+02 4.268913e+01 3.359683e+04 4.770609e+02 5.935913e+02 2.552570e+03 
-##       RetInc      FdStmps      MoblHms        NoCar     PlumProb    PoorChild 
-## 7.234891e+02 2.683913e+01 2.627609e+01 1.102391e+01 9.065217e-01 2.214783e+01 
-##        Unemp        Coll4        Crime       HSGrad       JuvDel      MVDeath 
-## 6.630435e+00 1.556522e+01 4.677804e+02 7.143043e+01 6.576087e+01 3.070652e+01 
-##     SchlSpnd 
-## 7.750783e+03 
-## 
-## $t.test.1
-## 
-##  One Sample t-test
-## 
-## data:  scdata[1, ]
-## t = 1.3593, df = 24, p-value = 0.1867
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -931.9975 4527.7575
-## sample estimates:
-## mean of x 
-##   1797.88 
-## 
-## 
-## $t.test.2
-## 
-##  One Sample t-test
-## 
-## data:  scdata[2, ]
-## t = 1.4203, df = 24, p-value = 0.1684
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -989.7187 5357.6147
-## sample estimates:
-## mean of x 
-##  2183.948
-\end{verbatim}
-
-Using the \texttt{append()} command can often have unintended consequences:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{append}\NormalTok{(valuelist, }\FunctionTok{t.test}\NormalTok{(scdata[}\DecValTok{3}\NormalTok{, ]))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $means
-##       Births        Death      InfMort     Minority       Over65      PopChng 
-## 1.288043e+01 9.958696e+00 1.030652e+01 4.001522e+01 1.270000e+01 1.365870e+01 
-##      PopDens        Urban       Income      ConsInc      FarmInc     ManIncom 
-## 1.230696e+02 4.268913e+01 3.359683e+04 4.770609e+02 5.935913e+02 2.552570e+03 
-##       RetInc      FdStmps      MoblHms        NoCar     PlumProb    PoorChild 
-## 7.234891e+02 2.683913e+01 2.627609e+01 1.102391e+01 9.065217e-01 2.214783e+01 
-##        Unemp        Coll4        Crime       HSGrad       JuvDel      MVDeath 
-## 6.630435e+00 1.556522e+01 4.677804e+02 7.143043e+01 6.576087e+01 3.070652e+01 
-##     SchlSpnd 
-## 7.750783e+03 
-## 
-## $t.test.1
-## 
-##  One Sample t-test
-## 
-## data:  scdata[1, ]
-## t = 1.3593, df = 24, p-value = 0.1867
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -931.9975 4527.7575
-## sample estimates:
-## mean of x 
-##   1797.88 
-## 
-## 
-## $t.test.2
-## 
-##  One Sample t-test
-## 
-## data:  scdata[2, ]
-## t = 1.4203, df = 24, p-value = 0.1684
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  -989.7187 5357.6147
-## sample estimates:
-## mean of x 
-##  2183.948 
-## 
-## 
-## $statistic
-##        t 
-## 1.605274 
-## 
-## $parameter
-## df 
-## 24 
-## 
-## $p.value
-## [1] 0.1215129
-## 
-## $conf.int
-## [1] -427.6675 3421.5075
-## attr(,"conf.level")
-## [1] 0.95
-## 
-## $estimate
-## mean of x 
-##   1496.92 
-## 
-## $null.value
-## mean 
-##    0 
-## 
-## $stderr
-## [1] 932.501
-## 
-## $alternative
-## [1] "two.sided"
-## 
-## $method
-## [1] "One Sample t-test"
-## 
-## $data.name
-## [1] "scdata[3, ]"
-\end{verbatim}
-
-This happened because the output of \texttt{t.test()} (like many functions) was already a list, and so \texttt{append()} simply concatonated the two lists.
+\hypertarget{grouped-mutates-and-filters}{%
+\section{Grouped mutates (and filters)}\label{grouped-mutates-and-filters}}
 
 \hypertarget{an-example}{%
 \section{An example}\label{an-example}}
@@ -3815,224 +3018,229 @@ But those weights could change later. A function can be written to take the data
 ## 6 NU          1  94.7    89    96    79  88.9 B
 \end{verbatim}
 
+\hypertarget{extra-working-with-factor-variables}{%
+\section{Extra: Working with factor variables}\label{extra-working-with-factor-variables}}
+
 \hypertarget{graphics}{%
 \chapter{Graphics}\label{graphics}}
 
-The most basic of the graphics functions are plot, lines, text, and par. Almost everything can be done with these four functions and their many options. You can save the graphics by right-clicking on them or using the \texttt{jpeg()} function (among others).
+\hypertarget{outline}{%
+\section*{Outline}\label{outline}}
+\addcontentsline{toc}{section}{Outline}
 
-Say, for example, we want to plot High School Graduation Rate as a function of Income.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Introduction to ggplot2
+\end{enumerate}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\NormalTok{sctable }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/scdata.txt"}\NormalTok{)}
-\FunctionTok{ggplot}\NormalTok{(sctable, }\FunctionTok{aes}\NormalTok{(Income, HSGrad)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\tightlist
+\item
+  why ggplot2
+\item
+  the evolution of a ggplot
+\item
+  create your first ggplot
+\end{itemize}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-100-1.pdf}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  ggplot2 concepts
+\end{enumerate}
 
-A few things we might want to change here are the x and y labels and the main title\ldots{}
+\begin{itemize}
+\tightlist
+\item
+  the grammar of ggplot2
+\item
+  walk through example
+\item
+  geometrical layers
+\item
+  statistical layers
+\item
+  facets
+\item
+  ggplots as objects
+\end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(sctable, }\FunctionTok{aes}\NormalTok{(Income, HSGrad)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-       \AttributeTok{title =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Advanced customization
+\end{enumerate}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-101-1.pdf}
+\begin{itemize}
+\tightlist
+\item
+  scales
+\item
+  coordinates
+\item
+  labels
+\item
+  annotations
+\item
+  themes
+\item
+  legends
+\item
+  fonts
+\end{itemize}
 
-Changing the symbols being plotted and their size is done by using the parameters \texttt{shape} and \texttt{size}:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Extensions
+\end{enumerate}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(sctable, }\FunctionTok{aes}\NormalTok{(Income, HSGrad)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \DecValTok{8}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-       \AttributeTok{title =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\tightlist
+\item
+  gganimate
+\item
+  ggplotly
+\item
+  ggigraph
+\end{itemize}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-102-1.pdf}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Introduction
+\end{enumerate}
 
-The details of these and many other functions can be found \textbf{link to cheatsheet}. To add the names of the counties, we could use the text geom:
+\begin{itemize}
+\tightlist
+\item
+  intro to ggplot2
+\item
+  why ggplot2
+\item
+  showcase (glimpse)
+\item
+  the evolution of a ggplot
+\item
+  showcase in detail?
+\item
+  create your first ggplot
+\end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{pch =} \StringTok{"*"}\NormalTok{, }\AttributeTok{cex =} \DecValTok{5}
-\NormalTok{)}
-\FunctionTok{text}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad, }\AttributeTok{labels =}\NormalTok{ counties)}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{ggplot2-concepts}{%
+\section{2. ggplot2 concepts}\label{ggplot2-concepts}}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-103-1.pdf}
+\begin{itemize}
+\tightlist
+\item
+  the grammar of ggplot2
+\item
+  walk through example
 
-Notice that this has the previous symbol underneath the (too-large) words. We can remove that using type=``n'' to not plot the points, and then use cex in the plot command to make the words smaller.
+  \begin{itemize}
+  \tightlist
+  \item
+    aesthetic mapping
+  \end{itemize}
+\item
+  geometrical layers
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(sctable, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Income, }\AttributeTok{y =}\NormalTok{ HSGrad)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \DecValTok{8}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ County)) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-       \AttributeTok{title =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+  \begin{itemize}
+  \tightlist
+  \item
+    geoms
+  \item
+    Setting vs Mapping of Visual Properties
+  \item
+    Local vs.~Global Encoding
+  \item
+    Adding More Layers
+  \item
+    The \texttt{group} Aesthetic
+  \item
+    Overwrite Global Aesthetics
+  \end{itemize}
+\item
+  statistical layers
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-104-1.pdf}
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{stat\_*()} and \texttt{geom\_*()}
+  \item
+    statistical summaries
+  \end{itemize}
+\item
+  facets
+\item
+  Store a ggplot as Object
 
-\hypertarget{annotations}{%
-\subsection{Annotations}\label{annotations}}
+  \begin{itemize}
+  \tightlist
+  \item
+    inspect a ggplot Object
+  \item
+    extend a ggplot Object
+  \end{itemize}
+\end{itemize}
 
-You shouldn't feel like you have to add texts and lines only at data points:
+\hypertarget{advanced-customization}{%
+\section{3. Advanced customization}\label{advanced-customization}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{type =} \StringTok{"n"}
-\NormalTok{)}
-\FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{35000}\NormalTok{, }\DecValTok{45000}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{65}\NormalTok{, }\DecValTok{65}\NormalTok{), }\AttributeTok{lty =} \DecValTok{3}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
-\FunctionTok{text}\NormalTok{(}\DecValTok{40000}\NormalTok{, }\DecValTok{66}\NormalTok{, }\StringTok{"A line with some more options"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\tightlist
+\item
+  scales
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-105-1.pdf}
+  \begin{itemize}
+  \tightlist
+  \item
+    continuous vs.~discrete
+  \item
+    aesthetics + scales
+  \end{itemize}
+\item
+  coordinates
+\item
+  labels
+\item
+  annotations
+\item
+  themes
+\item
+  legends
+\item
+  fonts
+\end{itemize}
 
-The following demonstrates how we could color code this map by region of the state:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Extensions
+\end{enumerate}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{type =} \StringTok{"n"}
-\NormalTok{)}
-
-\FunctionTok{text}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income[regions }\SpecialCharTok{==} \StringTok{"Upstate"}\NormalTok{],}
-\NormalTok{  sctable}\SpecialCharTok{$}\NormalTok{HSGrad[regions }\SpecialCharTok{==} \StringTok{"Upstate"}\NormalTok{],}
-  \AttributeTok{labels =}\NormalTok{ counties[regions }\SpecialCharTok{==} \StringTok{"Upstate"}\NormalTok{],}
-  \AttributeTok{col =} \StringTok{"orangered1"}
-\NormalTok{)}
-
-\FunctionTok{text}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income[regions }\SpecialCharTok{==} \StringTok{"Midlands"}\NormalTok{],}
-\NormalTok{  sctable}\SpecialCharTok{$}\NormalTok{HSGrad[regions }\SpecialCharTok{==} \StringTok{"Midlands"}\NormalTok{],}
-  \AttributeTok{labels =}\NormalTok{ counties[regions }\SpecialCharTok{==} \StringTok{"Midlands"}\NormalTok{],}
-  \AttributeTok{col =} \StringTok{"firebrick4"}
-\NormalTok{)}
-
-\FunctionTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Upstate"}\NormalTok{, }\StringTok{"Midlands"}\NormalTok{),}
-  \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"orangered1"}\NormalTok{, }\StringTok{"firebrick4"}\NormalTok{),}
-  \AttributeTok{lty =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{lwd =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-  \AttributeTok{cex =}\NormalTok{ .}\DecValTok{7}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-106-1.pdf}
-
-A list of colors can be found in the file col.html on the CD. A few other useful tricks are shown below:
-
-Displaying the graphs in 2 row by 1 column format:
-
-\begin{verbatim}
-par(mfrow=c(2,1))
-\end{verbatim}
-
-Make the size of the plotting symbols be proportional with another variable and don't show the axes:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{cex =} \DecValTok{3} \SpecialCharTok{*}\NormalTok{ sctable}\SpecialCharTok{$}\NormalTok{PopDens }\SpecialCharTok{/} \FunctionTok{max}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{PopDens),}
-  \AttributeTok{xaxt =} \StringTok{"n"}\NormalTok{, }\AttributeTok{yaxt =} \StringTok{"n"}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-107-1.pdf}
-
-Make the axes a different size:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{100000}\NormalTok{), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-108-1.pdf}
-
-And plot the previous graph on top of this latest one to compare them:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income, sctable}\SpecialCharTok{$}\NormalTok{HSGrad,}
-  \AttributeTok{xlab =} \StringTok{"Average Income in Dollars"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"High School Graduate Percentage"}\NormalTok{,}
-  \AttributeTok{main =} \StringTok{"Graduate Rate versus Income by County"}\NormalTok{,}
-  \AttributeTok{cex =} \DecValTok{3} \SpecialCharTok{*}\NormalTok{ sctable}\SpecialCharTok{$}\NormalTok{PopDens }\SpecialCharTok{/} \FunctionTok{max}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{PopDens),}
-  \AttributeTok{xaxt =} \StringTok{"n"}\NormalTok{, }\AttributeTok{yaxt =} \StringTok{"n"}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-109-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-A variety of specialized statistical functions also use plot appropriately, such as the cluster analysis function hclust:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{hclust}\NormalTok{(}\FunctionTok{dist}\NormalTok{(}
-  \FunctionTok{apply}\NormalTok{(scdata[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{19}\NormalTok{], }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) \{}
-\NormalTok{    (x }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(x)) }\SpecialCharTok{/} \FunctionTok{sd}\NormalTok{(x)}
-\NormalTok{  \}),}
-  \AttributeTok{method =} \StringTok{"maximum"}
-\NormalTok{), }\AttributeTok{method =} \StringTok{"complete"}\NormalTok{), }\AttributeTok{labels =}\NormalTok{ counties)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-110-1.pdf}
-
-Other, more specialized graphical functions include: boxplot, hist, and piechart.
-
-There are also several packages that will do three-dimensional graphics, including the lattice package that is automatically installed:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(lattice)}
-\FunctionTok{cloud}\NormalTok{(sctable}\SpecialCharTok{$}\NormalTok{Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sctable}\SpecialCharTok{$}\NormalTok{HSGrad }\SpecialCharTok{*}\NormalTok{ sctable}\SpecialCharTok{$}\NormalTok{PopDens)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-111-1.pdf}
+\begin{itemize}
+\tightlist
+\item
+  ggplot2 extensions
+\item
+  gganimate
+\item
+  ggplotly
+\item
+  ggigraph
+\end{itemize}
 
 \hypertarget{psychometric-packages}{%
 \chapter{Psychometric Packages}\label{psychometric-packages}}

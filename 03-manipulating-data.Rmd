@@ -1,171 +1,44 @@
 # Manipulating Data
 
-## Loading and Saving Data
+## dplyr basics {-}
 
-Previously, we read in the data set `sctable`:
+## Filter rows
 
-```{r}
-sctable <- readr::read_table("data/scdata.txt")
-```
-
-A table can be saved using:
-
-```{r eval = FALSE}
-write.table(sctable[1:3, ], "data/scdata2.txt", quote = F)
-```
-
-If `quote = F` is not used, then any columns of characters will be saved with quotation marks around them. By default, the table headings were saved with this file (go check!). It is always good to view your file before opening to check if you have column headings or not.
-
-Other commands for reading and writing data are `read.delim()`, `read.csv()`, `write.csv()`, and `read.fwf()`.
-
-```{r}
-mdatab1 <- read.table("data/mdatab.txt", head = F)
-mdatab1[1:2, ]
-mdatab2 <- read.fwf("data/mdatab.txt", widths = rep(1, 32))
-mdatab2[1:2, ]
-```
-
-If your data doesn't follow one of these easily used formats, then the function `scan()` can also be useful.
+- Comparisons
+- Logical operators
+- Missing values
 
 
+## Arrange rows
 
-## Data Frames versus Matrices
+## Select columns
 
-While tables are convenient for storing and viewing data sets (they can have multiple types of variables in them), many of the statistical functions require that the data to be in matrix form. It is often easiest to create these matrices immediately and avoid the error messages later.
+## Add new variables 
 
-```{r}
-scdata <- as.matrix(sctable[, 3:27])
-counties <- as.matrix(sctable[, 1])
-regions <- as.matrix(sctable[, 2])
-```
 
-Subsets of both tables and matrices are referred to in the same manner, by using brackets, with the selected rows first, followed by the selected columns.
+##  Grouped summaries
 
-```{r}
-sctable[c(34, 38), c(18:21)]
-scdata[c(34, 38), c(16:19)]
-```
+- Combining multiple operations with the pipe
+- Missing values
+- Counts
+- Useful summary functions
+- Grouping by multiple variables
+- Ungrouping
 
-Producing these (apparently) same results required different columns because the matrix was missing the two columns of characters. It is often useful to examine a matrix or table that is too large to fit on the screen by selecting either the first few rows, or by checking its dimension:
 
-```{r}
-scdata[1:2, ]
-dim(scdata)
-```
+## Grouped mutates (and filters)
 
-Note that there are often several ways to refer to the variables that you want to work with.
 
-- `sctable$Income`
-- `sctable[, "Income"]`
-- `sctable[, 11]`
-- `scdata$Income`
-- `scdata[, "Income"]`
-- `scdata[, 9]`
 
-Notice that the fourth option did not work. Checking the attributes (with `attributes(sctable)` and `attributes(scdata)`) of the data frame and the matrix demonstrates why. The former has each column name listed under `$names` (and so you can access them using `$`), while the matrix does not.
 
-These abbreviations can also be used when just asking for just a subset of rows and columns:
 
-```{r}
-scdata[regions == "Upstate", c(8:10)]
-```
 
-It is possible to use logical operators to ask for only particular rows or columns of a matrix or data frame, or particular elements of a vector.
 
-```{r}
-sctable[sctable$Income > 40000, ]
-```
 
-returns only those rows (the logical statement is before the comma) whose incomes are greater than 40000. Other logical operators include:
 
-- `!=`:	is not equal to
-- `<`: less than
-- `<=`:	less than or equal to
-- `>=`: greater than or equal to
-- `&`: and
-- `|`: or
 
-The function order (and its relatives index and sort) are often useful as well:
 
-```{r}
-sort(sctable$Income)
-sctable[order(sctable$Income), c(1, 2, 11)]
-```
 
-While the matrix scdata inherited col names from the table used to create it, it currently lacks names for the rows.
-
-```{r}
-# rownames(scdata) <- sctable[, 1]
-upinc <- scdata[regions == "Upstate", 9]
-midinc <- scdata[regions == "Midlands", 9]
-upinc
-midinc
-```
-
-In addition to assigning names to the rows and columns, new values can also be assigned over the previous value within the matrix:
-
-```{r}
-# Xmat
-# Xmat[1, 2] <- 99
-# Xmat
-```
-
-## Applying Functions to a Matrix
-
-Many statistical procedures involve finding the value of a statistic separately for each row or column of a matrix. One way to do this is to use a loop. If this method is used it is necessary to first create a vector for the calculated values to be stored in:
-
-```{r}
-colmeans <- rep(0, ncol(scdata))
-for (i in 1:ncol(scdata)) {
-  colmeans[i] <- mean(scdata[, i])
-}
-colmeans
-```
-
-The rep function repeats the first argument (0 in this case) the number of times equal to the second argument (the number of columns of `scdata`). Similar to `ncol()`, the function `nrow()` would return the number of rows in a matrix, and length returns the number of elements in a vector.
-
-An easier way to arrive at the same result is to use the `apply()` function:
-
-```{r}
-apply(scdata, 2, mean)
-```
-
-`apply()` is read in reverse - the above code says to apply the mean to the columns (rows=1, columns=2) of `scdata`. Apply can also be used with functions that return more than a single value, for example:
-
-```{r}
-apply(scdata, 2, summary)
-```
-
-In this case, the output of the summary function is a table, and so apply simply bound all of the tables from each of the columns together. In other cases the output might be in the form of a list:
-
-```{r}
-apply(scdata, 2, t.test)
-```
-
-## Lists
-
-Lists are perhaps the most free-form of R's various objects:
-
-```{r}
-valuelist <- list(means = apply(scdata, 2, mean), t.test.1 = t.test(scdata[1, ]))
-valuelist
-valuelist$t.test.1
-```
-
-There are a variety of ways to add new elements to a list. The safest is possibly to simply put it in with the name you want:
-
-```{r}
-valuelist$t.test.2 <- t.test(scdata[2, ])
-valuelist
-```
-
-Using the `append()` command can often have unintended consequences:
-
-```{r}
-append(valuelist, t.test(scdata[3, ]))
-```
-
-This happened because the output of `t.test()` (like many functions) was already a list, and so `append()` simply concatonated the two lists.
 
 ## An example
 
@@ -198,5 +71,10 @@ students <- students %>%
 
 head(students)
 ```
+
+
+## Extra: Working with factor variables
+
+
 
 

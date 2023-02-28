@@ -93,14 +93,18 @@ students %>%
   dplyr::filter(College == "NU") %>%
   ggplot(aes(x = E1)) + 
   geom_vline(aes(xintercept = mean(E1)), linetype = "dashed", color = "#363636") +
+  geom_vline(aes(xintercept = 75), linetype = "dashed", color = "#363636") + #c62f34") +
+  geom_dotplot(method="histodot", binwidth = 4, fill = "white", dotsize = 0.95) +
   geom_dotplot(method="histodot", binwidth = 4, fill = nces_pal[3], alpha = 0.8, dotsize = 0.95) +
-  annotate("text", x = 84.3, y = .985, label = "observed mean score", hjust = "left") +
+  annotate("text", x = 84.3, y = .985, label = "observed mean", hjust = "left") +
   # annotate(geom = "curve", x = 85, y = .96, xend = 82.5, yend = .91, curvature = -.3, arrow = arrow(length = unit(2, "mm"))) +
   annotate(geom = "segment", x = 84, y = .98, xend = 82.5, yend = .98, arrow = arrow(length = unit(2, "mm"))) +
-  labs(title = "Distribution of scores on Exam 1 for 1st year nursing students")
+  annotate("text", x = 72.7, y = .985, label = "historical average", hjust = "right") +
+  annotate(geom = "segment", x = 73, y = .98, xend = 74.6, yend = .98, arrow = arrow(length = unit(2, "mm"))) +
+  labs(title = "Distribution of scores on Exam 1 for 1st year nursing students", x = NULL, y = NULL)
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, include = FALSE}
 students %>%
   dplyr::filter(College == "NU") %>%
   ggplot(aes(sample = E1)) +
@@ -118,7 +122,9 @@ students %>%
   pander::pander()
 ```
 
-Note that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95% interval in the solutions, run it without the `alternative = "greater"` part (you don't need to specify `"two-sided"` because that is the default setting). The other option is `"less"`. 
+::: rmdnote
+**Note** that this produces a one-sided confidence bound because of the alternative selected. To get the standard 95% interval in the solutions, run it without the `alternative = "greater"` part (you don't need to specify `"two-sided"` because that is the default setting). The other option is `"less"`. 
+:::
 
 Using `help(t_test)` we can also see that the default null hypothesis is `mu = 0`, the function can perform the two-sample tests, and `conf_level` controls the confidence level for the confidence intervals.
 
@@ -158,7 +164,7 @@ students %>%
 ```
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, include = FALSE}
 students %>%
   dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
   ggplot(aes(sample = E1)) +
@@ -200,7 +206,7 @@ students %>%
 ```
 
 
-```{r echo = FALSE}
+```{r echo = FALSE, include = FALSE}
 students %>%
   dplyr::filter(College == "NU") %>%
   ggplot(aes(sample = E3 - E1)) +
@@ -250,7 +256,7 @@ chisquare.var <- function(y, sigma2 = 1, alpha = 0.05) {
 }
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, include = FALSE}
 students %>%
   dplyr::filter(College == "NU") %>%
   ggplot(aes(sample = E1)) +
@@ -271,7 +277,7 @@ Note that the confidence intervals here are sub-optimal in terms of length becau
 
 Test whether the variance of `E1` for the first year nursing students is equal to the variance of `E1` for the first year arts and sciences students.
 
-```{r echo = FALSE}
+```{r echo = FALSE, include = FALSE}
 students %>%
   dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
   ggplot(aes(sample = E1)) +
