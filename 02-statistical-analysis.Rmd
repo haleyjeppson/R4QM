@@ -93,7 +93,7 @@ students %>%
   dplyr::filter(College == "NU") %>%
   ggplot(aes(x = E1)) + 
   geom_vline(aes(xintercept = mean(E1)), linetype = "dashed", color = "#363636") +
-  geom_vline(aes(xintercept = 75), linetype = "dashed", color = "#363636") + #c62f34") +
+  geom_vline(aes(xintercept = 75), linetype = "dashed", color = "#606060") + #c62f34") +
   geom_dotplot(method="histodot", binwidth = 4, fill = "white", dotsize = 0.95) +
   geom_dotplot(method="histodot", binwidth = 4, fill = nces_pal[3], alpha = 0.8, dotsize = 0.95) +
   annotate("text", x = 84.3, y = .985, label = "observed mean", hjust = "left") +
@@ -277,7 +277,7 @@ Note that the confidence intervals here are sub-optimal in terms of length becau
 
 Test whether the variance of `E1` for the first year nursing students is equal to the variance of `E1` for the first year arts and sciences students.
 
-```{r echo = FALSE, include = FALSE}
+```{r echo = FALSE}
 students %>%
   dplyr::filter(College %in% c("NU", "AS"), Year == 1) %>%
   ggplot(aes(sample = E1)) +
@@ -340,22 +340,46 @@ Unfortunately the output from `lm()` seems pretty meager - it is just the estima
 attributes(lm(E1 ~ grp))
 ```
 
-shows that there is a lot more behind the scenes. The functions `anova()`, `summary()`, and `plot()` can be used to extract much of this information.
+shows that there is a lot more behind the scenes. The functions `anova()`, `summary()`, `broom::tidy()`, `broom::glance()`, and `broom::augment()` can be used to extract much of this information.
 
 ```{r}
 E1fit <- lm(E1 ~ grp)
 anova(E1fit)
 summary(E1fit)
-
-par(mfrow = c(1, 2))
-plot(E1fit, 1)
-plot(E1fit, 2)
-par(mfrow = c(1, 1))
+broom::tidy(E1fit)
+broom::glance(E1fit)
+broom::augment(E1fit)
 ```
 
-The 1 and 2 in the plot function request the first two graphs that are automatically produced when plotting the result of `lm()` - the first is the residual vs. predicted plot, and the second is the qq-plot of the residuals. Leaving out the number will produce four plots, but only one at a time (you have to click on the graphics window to advance to the next one).
 
-In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a "factor". For example, imagine that you had the vector E1 entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are `1NU`, 11-20 are `1PM`, etc...). One way we could do a set of labels is:
+```{r}
+# par(mfrow = c(1, 2))
+# plot(E1fit, 1)
+# plot(E1fit, 2)
+# par(mfrow = c(1, 1))
+E1fit_resids <- broom::augment(E1fit) %>% 
+  ggplot(aes(x = .fitted, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  labs(title = "Residual Plot", 
+       x = "Predicted Values", 
+       y = "Residuals")
+# devtools::install_github("aloy/qqplotr")
+E1fit_qqplot <- broom::augment(E1fit) %>% 
+  ggplot(aes(sample = .std.resid)) +
+  qqplotr::geom_qq_band(fill = "#363636", alpha = 0.15) +
+  stat_qq_line(color = "#3273c2", size = 1) +
+  stat_qq(size = 1.5, alpha = .7) +
+  labs(x = "Theoretical Quantiles",
+       y = "Standardized residuals",
+       title = "Normal Q-Q Plot")
+
+library(patchwork)
+E1fit_resids + E1fit_qqplot
+```
+The first is the residual vs. predicted plot, and the second is the qq-plot of the residuals.
+
+In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a "factor". For example, imagine that you had the vector `E1` entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are `1NU`, 11-20 are `1PM`, etc...). One way we could do a set of labels is:
 
 ```{r}
 grplabs <- c(
@@ -657,24 +681,57 @@ Residuals ...
 
 ```{r}
 ## The two standard residual plots
-par(mfrow = c(1, 2))
-plot(Regfit, 1)
-plot(Regfit, 2)
-par(mfrow = c(1, 1))
+# par(mfrow = c(1, 2))
+# plot(Regfit, 1)
+# plot(Regfit, 2)
+# par(mfrow = c(1, 1))
 
+Regfit_resids <- broom::augment(Regfit) %>% 
+  ggplot(aes(x = .fitted, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  labs(title = "Residual Plot", 
+       x = "Fitted Values", 
+       y = "Residuals")
+Regfit_qqplot <- broom::augment(Regfit) %>% 
+  ggplot(aes(sample = .std.resid)) +
+  qqplotr::geom_qq_band(fill = "#363636", alpha = 0.15) +
+  stat_qq_line(color = "#3273c2", size = 1) +
+  stat_qq(size = 1.5, alpha = .7) +
+  labs(x = "Theoretical Quantiles",
+       y = "Standardized residuals",
+       title = "Normal Q-Q Plot")
+
+Regfit_resids + Regfit_qqplot
+```
+
+
+```{r}
 ## The plots of the residuals vs. other variables to check independence. 
 ## Looks like the errors might have some dependence due to college.
-residuals <- Regfit$residuals
-par(mfrow = c(2, 2))
-plot(E3, residuals)
-lines(c(-1e10, 1e10), c(0, 0))
-plot(Hmwk, residuals)
-lines(c(-1e10, 1e10), c(0, 0))
-plot(as.numeric(as.factor(College)), residuals)
-lines(c(-1e10, 1e10), c(0, 0))
-plot(Year, residuals)
-lines(c(-1e10, 1e10), c(0, 0))
-par(mfrow = c(1, 1))
+# residuals <- Regfit$residuals
+# par(mfrow = c(2, 2))
+# plot(E3, residuals)
+# lines(c(-1e10, 1e10), c(0, 0))
+# plot(Hmwk, residuals)
+# lines(c(-1e10, 1e10), c(0, 0))
+# plot(as.numeric(as.factor(College)), residuals)
+# lines(c(-1e10, 1e10), c(0, 0))
+# plot(Year, residuals)
+# lines(c(-1e10, 1e10), c(0, 0))
+# par(mfrow = c(1, 1))
+
+broom::augment(Regfit, data = students) %>% 
+  mutate(College = as.numeric(as.factor(College))) %>% 
+  gather(key = "key", value = "value", College:E3) %>% 
+  filter(key %in% c("E3", "Hmwk", "College", "Year")) %>% 
+  ggplot(aes(x = value, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  facet_wrap(~key, scales = "free") +
+  labs(title = "Residual Plots", 
+       x = NULL, 
+       y = NULL)
 ```
 
 The function `SASreg()` below will produce output similar to SAS using just one function. It requires that you have loaded in and installed the car package. To use it, simply copy the function in once, and then apply it to your data set.
@@ -760,29 +817,84 @@ Predict the performance on Exam3 from the performance of the first two exams and
 This can be done by mimicking the procedure for simple linear regression. In this case the model statement must be of the form `E3 ~ Hmwk + E1 + E2`. An interaction could be added by something like `+ E2*E3` if it were needed.
 
 ```{r}
-SASreg(E3 ~ Hmwk + E1 + E2)
+mlr_fit <- lm(E3 ~ Hmwk + E1 + E2)
 ```
+
+```{r}
+# SASreg(E3 ~ Hmwk + E1 + E2)
+mlr_fit_resids <- broom::augment(mlr_fit) %>% 
+  ggplot(aes(x = .fitted, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  labs(title = "Residual Plot", 
+       x = "Fitted Values", 
+       y = "Residuals")
+mlr_fit_qqplot <- broom::augment(mlr_fit) %>% 
+  ggplot(aes(sample = .std.resid)) +
+  qqplotr::geom_qq_band(fill = "#363636", alpha = 0.15) +
+  stat_qq_line(color = "#3273c2", size = 1) +
+  stat_qq(size = 1.5, alpha = .7) +
+  labs(x = "Theoretical Quantiles",
+       y = "Standardized residuals",
+       title = "Normal Q-Q Plot")
+
+mlr_fit_resids + mlr_fit_qqplot
+```
+
 
 The plots to help assess independence (the residuals versus other variables not included in the model) and to check for needing higher order terms (the residual versus independent variables) could be generated as follows:
 
 ```{r}
 residuals <- lm(E3 ~ Hmwk + E1 + E2)$residuals
+```
 
+
+
+```{r}
 ## Sign of non-constant variance based on College?
-par(mfrow = c(1, 2))
-plot(as.numeric(as.factor(College)), residuals)
-plot(Year, residuals)
-par(mfrow = c(1, 1))
+broom::augment(mlr_fit, data = students) %>% 
+  gather(key = "key", value = "value", College:E3) %>% 
+  filter(key %in% c("College", "Year")) %>% 
+  ggplot(aes(x = value, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  facet_wrap(~key, scales = "free") +
+  labs(title = "Residual Plots", 
+       x = NULL, 
+       y = NULL)
+```
 
+
+
+
+```{r}
 ## Plotting against group might be better
-plot(grp, residuals)
+# plot(grp, residuals)
+broom::augment(mlr_fit, data = students) %>% 
+  ggplot(aes(College, .resid)) +
+  geom_boxplot(aes(fill = stage(College, after_scale = alpha(fill, 0.8))), show.legend = FALSE) +
+  facet_grid(~Year, scales = "free", space = "free_x", labeller = labeller(Year = label_both)) +
+  labs(x = NULL, y = "Residuals")
+```
 
+
+```{r}
 ## No signs of needing higher order terms
-par(mfrow = c(2, 2))
-plot(Hmwk, residuals)
-plot(E1, residuals)
-plot(E2, residuals)
-par(mfrow = c(1, 1))
+# par(mfrow = c(2, 2))
+# plot(Hmwk, residuals)
+# plot(E1, residuals)
+# plot(E2, residuals)
+# par(mfrow = c(1, 1))
+broom::augment(mlr_fit, data = students) %>% 
+  select(3:5, 8:13) %>% 
+  gather(key = "key", value = "value", Hmwk:E2) %>% 
+  ggplot(aes(x = value, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  facet_wrap(~key, scales = "free") +
+  labs(title = "Residual Plots", 
+       x = NULL, 
+       y = NULL)
 ```
 
 ### Variable Selection
@@ -902,14 +1014,36 @@ Again this can be performed using either the built in functions or SASreg.
 
 
 ```{r}
-summary(lm(E3 ~ Hmwk + grp))
-par(mfrow = c(1, 2))
-plot(lm(E3 ~ Hmwk + grp), 1)
-plot(lm(E3 ~ Hmwk + grp), 2)
-par(mfrow = c(1, 1))
+ancova_fit <- lm(E3 ~ Hmwk + grp)
+summary(ancova_fit)
+# par(mfrow = c(1, 2))
+# plot(lm(E3 ~ Hmwk + grp), 1)
+# plot(lm(E3 ~ Hmwk + grp), 2)
+# par(mfrow = c(1, 1))
+ancova_fit_resids <- broom::augment(ancova_fit) %>% 
+  ggplot(aes(x = .fitted, y = .resid)) + 
+  geom_hline(yintercept = 0, color = "#3273c2", size = 1) +
+  geom_point(size = 2, alpha = 0.7) + #shape = 1) +
+  labs(title = "Residual Plot", 
+       x = "Fitted Values", 
+       y = "Residuals")
+ancova_fit_qqplot <- broom::augment(ancova_fit) %>% 
+  ggplot(aes(sample = .std.resid)) +
+  qqplotr::geom_qq_band(fill = "#363636", alpha = 0.15) +
+  stat_qq_line(color = "#3273c2", size = 1) +
+  stat_qq(size = 1.5, alpha = .7) +
+  labs(x = "Theoretical Quantiles",
+       y = "Standardized residuals",
+       title = "Normal Q-Q Plot")
 
+ancova_fit_resids + ancova_fit_qqplot
+```
+
+
+```{r}
 SASreg(lm(E3 ~ Hmwk + grp))
 ```
+
 
 Note that the VIFs should not be part of the output in SASreg when categorical variables are present, and this is currently a bug.
 

@@ -1,6 +1,9 @@
-# Manipulating Data
+# Manipulating Data {#manipulation-data}
 
-## dplyr basics {-}
+## `{dplyr basics}` {-}
+
+The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful reference guide. [Chapter 5](https://r4ds.had.co.nz/transform.html) covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic. 
+
 
 ## Filter rows
 

@@ -32,7 +32,7 @@ prediction-intervals-and-confidence-intervals-for-the-regression-line
 factorial-anova
 ancova
 other-methods
-manipulating-data
+manipulation-data
 filter-rows
 arrange-rows
 select-columns

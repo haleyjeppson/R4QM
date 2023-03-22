@@ -116,7 +116,7 @@
 
 \title{An Introduction to R for Quantitative Methods}
 \author{}
-\date{\vspace{-2.5em}2023-02-28}
+\date{\vspace{-2.5em}2023-03-21}
 
 \begin{document}
 \maketitle
@@ -288,6 +288,10 @@ will create a separate object. If you reassign an object, say:
 
 the original value is over-written. If you attempt to use the name of a built in function or constant (such as \texttt{c()}, \texttt{t()}, \texttt{t.test()}, or \texttt{pi()}) for one of your variable names, you will likely find that future work you are trying to do gives unexpected results. Notice in the name of \texttt{t.test()} that periods are allowed in names of objects. Other symbols (except numbers and letters) are not allowed.
 
+\hypertarget{your-workspace}{%
+\subsection*{Your workspace}\label{your-workspace}}
+\addcontentsline{toc}{subsection}{Your workspace}
+
 Note that the up-arrow and \texttt{history()} will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved when you exit R, and this is purposeful: Attachment to your workspace indicates that you have a \textbf{non-reproducible} workflow. Any individual R process and the associated workspace is disposable and everything that really matters should be achieved through code that you save in your script.
 
 \begin{figure}
@@ -407,8 +411,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -0.95996508  0.02171223  0.81844349  0.52626597  2.76736701  0.01628693
-##  [7]  2.91319046 -1.42907179  0.12750983  0.20419454
+##  [1]  0.18479027  0.85627401  0.38957325 -1.92954446  0.40828369 -0.81424842
+##  [7]  0.36032664  1.66789705  0.00805013  1.00989400
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -451,8 +455,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1.1041604 -2.4408774  0.1893304 -2.6351240 -1.8391115  2.2828173
-##  [7] -6.9364568 -5.2319864 -3.0551216  5.4756209
+##  [1]  1.8086322  5.6315370  3.1821880  3.0119029 -3.4158716 -1.0244701
+##  [7] -1.0057732  0.9574447 -0.3632915 -1.9678095
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -464,8 +468,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 2.901461 5.012511 3.642010 2.329912 3.341805 3.801201 5.121462 3.820371
-##  [9] 3.824450 4.874095
+##  [1] 5.501469 4.062815 5.553212 5.403071 5.140526 1.772284 3.822231 3.446867
+##  [9] 2.190922 2.788196
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -480,16 +484,20 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -1.35193126  1.58106587  0.89892238 -0.98692374 -2.19489135 -0.66274938
-##  [7] -1.99435789 -0.75871439 -0.76360928  1.55226649 -0.66183804  0.55079659
-## [13] -0.26950343  1.81811137  0.38366594  1.10882297 -0.74430439  1.44094003
-## [19] -0.60807632  0.55699076 -0.55448268  0.30121418  0.04234729  0.29993612
-## [25] -0.05719389  0.81856983 -1.00679132 -1.29156383 -0.23244611 -0.46500074
-## [31]  0.80627995 -0.12040647 -1.21275214 -2.12957949  0.63944735 -0.89921133
-## [37]  1.01528125  0.50202615  0.48329558  0.31986368  0.05283811 -2.06815539
-## [43] -0.71354598 -0.59078981  0.63298780 -0.92026428  0.80324869  0.65404826
-## [49] -0.82803953 -0.44314635
+##  [1] -1.51393286 -0.66745324 -0.18130102 -0.11450219 -1.10549406 -0.85164677
+##  [7] -0.48199573 -0.88622313  1.54994510  0.42596662 -0.61365015  1.45453538
+## [13] -0.51346216 -0.60567675 -0.04338957 -0.15268047  0.84800033  0.34064212
+## [19] -0.74855266  0.95684997  0.08791361 -1.86616670  0.97965911 -1.42939042
+## [25]  0.13210834  0.02760328  0.48451304  1.14907335 -0.69148792 -0.14229263
+## [31]  0.23281527 -0.03613269 -0.48883338 -1.45440761 -1.21387914  0.55146816
+## [37]  0.10661764  0.08144129 -1.45056500 -0.16729116  0.50603398 -0.47184288
+## [43] -0.55153257 -0.09142793 -2.41579936  0.63703569  1.44845690 -0.62953758
+## [49]  0.71238142  1.02479283
 \end{verbatim}
+
+\hypertarget{common-statistical-functions}{%
+\subsection*{Common statistical functions}\label{common-statistical-functions}}
+\addcontentsline{toc}{subsection}{Common statistical functions}
 
 A few common statistical functions include:
 
@@ -553,8 +561,12 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.03119983
+## [1] -0.0320829
 \end{verbatim}
+
+\hypertarget{common-mathematical-functions}{%
+\subsection*{Common mathematical functions}\label{common-mathematical-functions}}
+\addcontentsline{toc}{subsection}{Common mathematical functions}
 
 There are also a number of mathematical functions as well. Ones common in statistical applications include:
 
@@ -578,6 +590,10 @@ There are also a number of mathematical functions as well. Ones common in statis
 
 \hypertarget{vectors-matrices-and-arrays}{%
 \section{Vectors, Matrices, and Arrays}\label{vectors-matrices-and-arrays}}
+
+\hypertarget{vectors}{%
+\subsection*{Vectors}\label{vectors}}
+\addcontentsline{toc}{subsection}{Vectors}
 
 The output from \texttt{rnorm()} is different from the \texttt{X} and \texttt{x} we created as it contains more than just a single value - they are vectors. While we can think of them as vectors in the mathematical sense, we can also think of a vector as simply listing the values of a variable.
 
@@ -736,6 +752,10 @@ Once we have our desired vector, an element in the vector can be referred to by 
 
 By using the \texttt{c()} function, and the \texttt{:} to indicate a sequence of numbers, you can quickly refer to the particular portion of the data you are concerned with.
 
+\hypertarget{matrices-and-arrays}{%
+\subsection*{Matrices and arrays}\label{matrices-and-arrays}}
+\addcontentsline{toc}{subsection}{Matrices and arrays}
+
 Matrices (two-dimensional) and arrays (more than two dimensions) work similarly - they use brackets to find particular values, and all the values in an array or matrix must be of the same type (e.g.~numeric, character, or factor). In the case of matrices, the first values in the brackets indicates the desired rows, and the ones after the comma indicate the desired columns.
 
 \begin{Shaded}
@@ -794,6 +814,10 @@ In the above code, \texttt{matrix()} is the function to form a vector into a mat
 \hypertarget{data-frames-lists-and-attributes}{%
 \section{Data Frames, Lists, and Attributes}\label{data-frames-lists-and-attributes}}
 
+\hypertarget{data-frames}{%
+\subsection*{Data frames}\label{data-frames}}
+\addcontentsline{toc}{subsection}{Data frames}
+
 In many cases the data set we wish to analyze will not have all of the rows or columns in the same format. This type of data is stored in R as a \textbf{data frame}. A data frame is a rectangular collection of variables (in the columns) and observations (in the rows).
 
 \texttt{scdata.txt} is one such data set, and it can be found in the course materials (its description is found in \texttt{scdata.pdf}). The data can be read in using code similar to the below (assuming a similar file structure).
@@ -816,8 +840,8 @@ In many cases the data set we wish to analyze will not have all of the rows or c
 \end{verbatim}
 
 \hypertarget{inspecting-objects}{%
-\subsection*{Inspecting Objects}\label{inspecting-objects}}
-\addcontentsline{toc}{subsection}{Inspecting Objects}
+\subsection*{Inspecting objects}\label{inspecting-objects}}
+\addcontentsline{toc}{subsection}{Inspecting objects}
 
 To inspect the data without needing to print out the entire data set, we can try out the following commands:
 
@@ -999,13 +1023,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -1.0317, df = 49, p-value = 0.3073
+## t = -1.2505, df = 49, p-value = 0.2171
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.4284537  0.1377616
+##  -0.40892711  0.09521934
 ## sample estimates:
-## mean of x 
-## -0.145346
+##  mean of x 
+## -0.1568539
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1033,7 +1057,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3072755
+## [1] 0.217067
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -1473,6 +1497,8 @@ Note that the confidence intervals here are sub-optimal in terms of length becau
 
 Test whether the variance of \texttt{E1} for the first year nursing students is equal to the variance of \texttt{E1} for the first year arts and sciences students.
 
+\includegraphics{_main_files/figure-latex/unnamed-chunk-60-1.pdf}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{var.test}\NormalTok{(E1}\FloatTok{.1}\NormalTok{NU, E1}\FloatTok{.1}\NormalTok{AS)}
@@ -1592,7 +1618,7 @@ Unfortunately the output from \texttt{lm()} seems pretty meager - it is just the
 ## [1] "lm"
 \end{verbatim}
 
-shows that there is a lot more behind the scenes. The functions \texttt{anova()}, \texttt{summary()}, and \texttt{plot()} can be used to extract much of this information.
+shows that there is a lot more behind the scenes. The functions \texttt{anova()}, \texttt{summary()}, \texttt{broom::tidy()}, \texttt{broom::glance()}, and \texttt{broom::augment()} can be used to extract much of this information.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1644,23 +1670,93 @@ shows that there is a lot more behind the scenes. The functions \texttt{anova()}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(E1fit, }\DecValTok{1}\NormalTok{)}
-\FunctionTok{plot}\NormalTok{(E1fit, }\DecValTok{2}\NormalTok{)}
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{tidy}\NormalTok{(E1fit)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-66-1.pdf}
+\begin{verbatim}
+## # A tibble: 7 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)    72.5       3.62    20.0   4.87e-29
+## 2 grp1MC          3.8       5.11     0.743 4.60e- 1
+## 3 grp1NU          9.6       5.11     1.88  6.51e- 2
+## 4 grp1PM          5.60      5.11     1.09  2.78e- 1
+## 5 grp2AS         -1.80      5.11    -0.352 7.26e- 1
+## 6 grp2MC          3.30      5.11     0.645 5.21e- 1
+## 7 grp3AS          6.60      5.11     1.29  2.02e- 1
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{glance}\NormalTok{(E1fit)}
 \end{Highlighting}
 \end{Shaded}
 
-The 1 and 2 in the plot function request the first two graphs that are automatically produced when plotting the result of \texttt{lm()} - the first is the residual vs.~predicted plot, and the second is the qq-plot of the residuals. Leaving out the number will produce four plots, but only one at a time (you have to click on the graphics window to advance to the next one).
+\begin{verbatim}
+## # A tibble: 1 x 12
+##   r.squ~1 adj.r~2 sigma stati~3 p.value    df logLik   AIC   BIC devia~4 df.re~5
+##     <dbl>   <dbl> <dbl>   <dbl>   <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>   <int>
+## 1  0.0992  0.0134  11.4    1.16   0.341     6  -266.  548.  566.    8239      63
+## # ... with 1 more variable: nobs <int>, and abbreviated variable names
+## #   1: r.squared, 2: adj.r.squared, 3: statistic, 4: deviance, 5: df.residual
+\end{verbatim}
 
-In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a ``factor''. For example, imagine that you had the vector E1 entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are \texttt{1NU}, 11-20 are \texttt{1PM}, etc\ldots). One way we could do a set of labels is:
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(E1fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 70 x 8
+##       E1 grp   .fitted  .resid  .hat .sigma  .cooksd .std.resid
+##    <dbl> <fct>   <dbl>   <dbl> <dbl>  <dbl>    <dbl>      <dbl>
+##  1    79 1NU      82.1  -3.10  0.100   11.5 0.00130     -0.286 
+##  2    60 1NU      82.1 -22.1   0.100   11.1 0.0659      -2.04  
+##  3    83 1NU      82.1   0.900 0.100   11.5 0.000109     0.0830
+##  4    91 1NU      82.1   8.90  0.1     11.5 0.0107       0.820 
+##  5    68 1NU      82.1 -14.1   0.1     11.4 0.0268      -1.30  
+##  6    89 1NU      82.1   6.90  0.1     11.5 0.00642      0.636 
+##  7    76 1NU      82.1  -6.10  0.1     11.5 0.00502     -0.562 
+##  8    92 1NU      82.1   9.90  0.1     11.5 0.0132       0.913 
+##  9    84 1NU      82.1   1.90  0.1     11.5 0.000487     0.175 
+## 10    99 1NU      82.1  16.9   0.1     11.3 0.0385       1.56  
+## # ... with 60 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# par(mfrow = c(1, 2))}
+\CommentTok{\# plot(E1fit, 1)}
+\CommentTok{\# plot(E1fit, 2)}
+\CommentTok{\# par(mfrow = c(1, 1))}
+\NormalTok{E1fit\_resids }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(E1fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .fitted, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plot"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Predicted Values"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+\CommentTok{\# devtools::install\_github("aloy/qqplotr")}
+\NormalTok{E1fit\_qqplot }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(E1fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ .std.resid)) }\SpecialCharTok{+}
+\NormalTok{  qqplotr}\SpecialCharTok{::}\FunctionTok{geom\_qq\_band}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#363636"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Normal Q{-}Q Plot"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(patchwork)}
+\NormalTok{E1fit\_resids }\SpecialCharTok{+}\NormalTok{ E1fit\_qqplot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{_main_files/figure-latex/unnamed-chunk-67-1.pdf}
+The first is the residual vs.~predicted plot, and the second is the qq-plot of the residuals.
+
+In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a ``factor''. For example, imagine that you had the vector \texttt{E1} entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are \texttt{1NU}, 11-20 are \texttt{1PM}, etc\ldots). One way we could do a set of labels is:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1976,7 +2072,7 @@ The following function performs Dunnett's comparison with a control. The default
 ## [1] "Dunnett, alternative=two.sided, alpha=0.05"
 ## 
 ## $Critical.D
-## [1] 17.79209
+## [1] 17.78183
 ## 
 ## $Differences
 ##   Comparison Observed.Diff Significant
@@ -2154,7 +2250,7 @@ R has a large number of functions for analyzing regression data, the most basic 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2190,40 +2286,64 @@ Residuals \ldots{}
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# The two standard residual plots}
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(Regfit, }\DecValTok{1}\NormalTok{)}
-\FunctionTok{plot}\NormalTok{(Regfit, }\DecValTok{2}\NormalTok{)}
+\CommentTok{\# par(mfrow = c(1, 2))}
+\CommentTok{\# plot(Regfit, 1)}
+\CommentTok{\# plot(Regfit, 2)}
+\CommentTok{\# par(mfrow = c(1, 1))}
+
+\NormalTok{Regfit\_resids }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(Regfit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .fitted, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plot"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+\NormalTok{Regfit\_qqplot }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(Regfit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ .std.resid)) }\SpecialCharTok{+}
+\NormalTok{  qqplotr}\SpecialCharTok{::}\FunctionTok{geom\_qq\_band}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#363636"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Normal Q{-}Q Plot"}\NormalTok{)}
+
+\NormalTok{Regfit\_resids }\SpecialCharTok{+}\NormalTok{ Regfit\_qqplot}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
 \DocumentationTok{\#\# The plots of the residuals vs. other variables to check independence. }
 \DocumentationTok{\#\# Looks like the errors might have some dependence due to college.}
-\NormalTok{residuals }\OtherTok{\textless{}{-}}\NormalTok{ Regfit}\SpecialCharTok{$}\NormalTok{residuals}
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(E3, residuals)}
-\FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1e10}\NormalTok{, }\FloatTok{1e10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(Hmwk, residuals)}
-\FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1e10}\NormalTok{, }\FloatTok{1e10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(College)), residuals)}
-\FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1e10}\NormalTok{, }\FloatTok{1e10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(Year, residuals)}
-\FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1e10}\NormalTok{, }\FloatTok{1e10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\CommentTok{\# residuals \textless{}{-} Regfit$residuals}
+\CommentTok{\# par(mfrow = c(2, 2))}
+\CommentTok{\# plot(E3, residuals)}
+\CommentTok{\# lines(c({-}1e10, 1e10), c(0, 0))}
+\CommentTok{\# plot(Hmwk, residuals)}
+\CommentTok{\# lines(c({-}1e10, 1e10), c(0, 0))}
+\CommentTok{\# plot(as.numeric(as.factor(College)), residuals)}
+\CommentTok{\# lines(c({-}1e10, 1e10), c(0, 0))}
+\CommentTok{\# plot(Year, residuals)}
+\CommentTok{\# lines(c({-}1e10, 1e10), c(0, 0))}
+\CommentTok{\# par(mfrow = c(1, 1))}
+
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(Regfit, }\AttributeTok{data =}\NormalTok{ students) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{College =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(College))) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"key"}\NormalTok{, }\AttributeTok{value =} \StringTok{"value"}\NormalTok{, College}\SpecialCharTok{:}\NormalTok{E3) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(key }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"E3"}\NormalTok{, }\StringTok{"Hmwk"}\NormalTok{, }\StringTok{"College"}\NormalTok{, }\StringTok{"Year"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plots"}\NormalTok{, }
+       \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }
+       \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-76-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 The function \texttt{SASreg()} below will produce output similar to SAS using just one function. It requires that you have loaded in and installed the car package. To use it, simply copy the function in once, and then apply it to your data set.
 
@@ -2283,7 +2403,7 @@ The function \texttt{SASreg()} below will produce output similar to SAS using ju
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2337,7 +2457,7 @@ To get the Box-Cox transformation for this data set we could use the boxcox func
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spacing every \texttt{.01} to see if its better:
 
@@ -2347,7 +2467,7 @@ This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spaci
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 It looks like 1 is just outside the range, of the values that make the 95\% cut-off, the one that is ``nicest'' and close to the peak is 2. So, the transformation y-squared is recommended.
 
@@ -2360,94 +2480,97 @@ This can be done by mimicking the procedure for simple linear regression. In thi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{SASreg}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ E1 }\SpecialCharTok{+}\NormalTok{ E2)}
+\NormalTok{mlr\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ E1 }\SpecialCharTok{+}\NormalTok{ E2)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-80-1.pdf}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# SASreg(E3 \textasciitilde{} Hmwk + E1 + E2)}
+\NormalTok{mlr\_fit\_resids }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(mlr\_fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .fitted, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plot"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+\NormalTok{mlr\_fit\_qqplot }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(mlr\_fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ .std.resid)) }\SpecialCharTok{+}
+\NormalTok{  qqplotr}\SpecialCharTok{::}\FunctionTok{geom\_qq\_band}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#363636"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Normal Q{-}Q Plot"}\NormalTok{)}
 
-\begin{verbatim}
-## $Model.Equation
-## E3 ~ Hmwk + E1 + E2
-## 
-## $Coefficients
-## (Intercept)        Hmwk          E1          E2 
-##  14.3989784   0.3708761   0.2345946   0.1820907 
-## 
-## $Summary
-##  Root MSE  R square Adj R-Squ 
-##   13.4719    0.3425    0.3126 
-## 
-## $Analysis.of.Variance
-##         Df  Sum Sq Mean Sq F value    Pr(>F)    
-## Model    3  6239.5  2079.8   11.46 3.859e-06 ***
-## Error   66 11978.5   181.5                      
-## C Total 69 18218.0  6421.0                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## $Type.I.Tests
-##      Df Sum Sq Mean Sq F value   Pr(>F)    
-## Hmwk  1 5047.1  5047.1 27.8092 1.59e-06 ***
-## E1    1  688.8   688.8  3.7955  0.05565 .  
-## E2    1  503.5   503.5  2.7743  0.10053    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## $Type.III.Tests
-##      Df  Sum Sq F value    Pr(>F)    
-## Hmwk  1 2290.06 12.6179 0.0007109 ***
-## E1    1  445.25  2.4533 0.1220639    
-## E2    1  503.51  2.7743 0.1005295    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## $Parameter.Estimates
-##             Estimate Std. Error t value Pr(>|t|)    VIF
-## (Intercept)  14.3990    11.8819  1.2118   0.2299 0.0000
-## Hmwk          0.3709     0.1044  3.5522   0.0007 1.2667
-## E1            0.2346     0.1498  1.5663   0.1221 1.1305
-## E2            0.1821     0.1093  1.6656   0.1005 1.2824
-\end{verbatim}
+\NormalTok{mlr\_fit\_resids }\SpecialCharTok{+}\NormalTok{ mlr\_fit\_qqplot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{_main_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 The plots to help assess independence (the residuals versus other variables not included in the model) and to check for needing higher order terms (the residual versus independent variables) could be generated as follows:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{residuals }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ E1 }\SpecialCharTok{+}\NormalTok{ E2)}\SpecialCharTok{$}\NormalTok{residuals}
-
-\DocumentationTok{\#\# Sign of non{-}constant variance based on College?}
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(College)), residuals)}
-\FunctionTok{plot}\NormalTok{(Year, residuals)}
 \end{Highlighting}
 \end{Shaded}
-
-\includegraphics{_main_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
-\DocumentationTok{\#\# Plotting against group might be better}
-\FunctionTok{plot}\NormalTok{(grp, residuals)}
+\DocumentationTok{\#\# Sign of non{-}constant variance based on College?}
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(mlr\_fit, }\AttributeTok{data =}\NormalTok{ students) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"key"}\NormalTok{, }\AttributeTok{value =} \StringTok{"value"}\NormalTok{, College}\SpecialCharTok{:}\NormalTok{E3) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(key }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"College"}\NormalTok{, }\StringTok{"Year"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plots"}\NormalTok{, }
+       \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }
+       \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-81-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-85-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Plotting against group might be better}
+\CommentTok{\# plot(grp, residuals)}
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(mlr\_fit, }\AttributeTok{data =}\NormalTok{ students) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(College, .resid)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =} \FunctionTok{stage}\NormalTok{(College, }\AttributeTok{after\_scale =} \FunctionTok{alpha}\NormalTok{(fill, }\FloatTok{0.8}\NormalTok{))), }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{space =} \StringTok{"free\_x"}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{labeller}\NormalTok{(}\AttributeTok{Year =}\NormalTok{ label\_both)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{_main_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# No signs of needing higher order terms}
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(Hmwk, residuals)}
-\FunctionTok{plot}\NormalTok{(E1, residuals)}
-\FunctionTok{plot}\NormalTok{(E2, residuals)}
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\CommentTok{\# par(mfrow = c(2, 2))}
+\CommentTok{\# plot(Hmwk, residuals)}
+\CommentTok{\# plot(E1, residuals)}
+\CommentTok{\# plot(E2, residuals)}
+\CommentTok{\# par(mfrow = c(1, 1))}
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(mlr\_fit, }\AttributeTok{data =}\NormalTok{ students) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{8}\SpecialCharTok{:}\DecValTok{13}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"key"}\NormalTok{, }\AttributeTok{value =} \StringTok{"value"}\NormalTok{, Hmwk}\SpecialCharTok{:}\NormalTok{E2) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plots"}\NormalTok{, }
+       \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }
+       \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-81-3.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-87-1.pdf}
 
 \hypertarget{variable-selection}{%
 \subsection{Variable Selection}\label{variable-selection}}
@@ -2659,7 +2782,8 @@ Again this can be performed using either the built in functions or SASreg.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ grp))}
+\NormalTok{ancova\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ grp)}
+\FunctionTok{summary}\NormalTok{(ancova\_fit)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2692,23 +2816,39 @@ Again this can be performed using either the built in functions or SASreg.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ grp), }\DecValTok{1}\NormalTok{)}
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ grp), }\DecValTok{2}\NormalTok{)}
+\CommentTok{\# par(mfrow = c(1, 2))}
+\CommentTok{\# plot(lm(E3 \textasciitilde{} Hmwk + grp), 1)}
+\CommentTok{\# plot(lm(E3 \textasciitilde{} Hmwk + grp), 2)}
+\CommentTok{\# par(mfrow = c(1, 1))}
+\NormalTok{ancova\_fit\_resids }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(ancova\_fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .fitted, }\AttributeTok{y =}\NormalTok{ .resid)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#shape = 1) +}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Residual Plot"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+\NormalTok{ancova\_fit\_qqplot }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{::}\FunctionTok{augment}\NormalTok{(ancova\_fit) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ .std.resid)) }\SpecialCharTok{+}
+\NormalTok{  qqplotr}\SpecialCharTok{::}\FunctionTok{geom\_qq\_band}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#363636"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3273c2"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Normal Q{-}Q Plot"}\NormalTok{)}
+
+\NormalTok{ancova\_fit\_resids }\SpecialCharTok{+}\NormalTok{ ancova\_fit\_qqplot}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-84-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-90-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
 \FunctionTok{SASreg}\NormalTok{(}\FunctionTok{lm}\NormalTok{(E3 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Hmwk }\SpecialCharTok{+}\NormalTok{ grp))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-84-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-91-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2777,7 +2917,7 @@ Checking whether the lines are parallel can be done simply by checking the inter
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-92-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2881,12 +3021,14 @@ For Categorical Data:
   \texttt{mantel.haen.test()}
 \end{itemize}
 
-\hypertarget{manipulating-data}{%
-\chapter{Manipulating Data}\label{manipulating-data}}
+\hypertarget{manipulation-data}{%
+\chapter{Manipulating Data}\label{manipulation-data}}
 
 \hypertarget{dplyr-basics}{%
-\section*{dplyr basics}\label{dplyr-basics}}
-\addcontentsline{toc}{section}{dplyr basics}
+\section*{\texorpdfstring{\texttt{\{dplyr\ basics\}}}{\{dplyr basics\}}}\label{dplyr-basics}}
+\addcontentsline{toc}{section}{\texttt{\{dplyr\ basics\}}}
+
+The book \href{https://r4ds.had.co.nz/}{R for Data Science} is a \emph{very} helpful reference guide. \href{https://r4ds.had.co.nz/transform.html}{Chapter 5} covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic.
 
 \hypertarget{filter-rows}{%
 \section{Filter rows}\label{filter-rows}}
