@@ -1,6 +1,15 @@
-# Manipulating Data {#manipulation-data}
+# Transforming Data
 
-## `{dplyr basics}` {-}
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+library(tidyverse)
+```
+
+## `{dplyr}` basics {-}
 
 The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful reference guide. [Chapter 5](https://r4ds.had.co.nz/transform.html) covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic. 
 
@@ -80,4 +89,25 @@ head(students)
 
 
 
+
+
+# Reshaping Data
+
+## `{tidyr}` basics {-}
+
+The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful reference guide. [Chapter 12](https://r4ds.had.co.nz/tidy-data.html) covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic. 
+
+
+## Tidy data
+
+
+## Pivoting
+
+
+### Longer
+
+### Wider
+
+
+## Separate & unite
 

@@ -1,6 +1,6 @@
 --- 
 title: "An Introduction to R for Quantitative Methods"
-author: " "
+author: "Brian Habing, Haley Jeppson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -16,3 +16,11 @@ github-repo: rstudio/bookdown-demo
 ---
 
 # PREFACE {-}
+
+
+This ebook serves as a companion to the ....
+
+
+
+It pulls from many sources, including ....
+

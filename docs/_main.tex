@@ -111,12 +111,13 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={An Introduction to R for Quantitative Methods},
+  pdfauthor={Brian Habing, Haley Jeppson},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \title{An Introduction to R for Quantitative Methods}
-\author{}
-\date{\vspace{-2.5em}2023-03-21}
+\author{Brian Habing, Haley Jeppson}
+\date{2023-03-24}
 
 \begin{document}
 \maketitle
@@ -128,6 +129,10 @@
 \hypertarget{preface}{%
 \chapter*{PREFACE}\label{preface}}
 \addcontentsline{toc}{chapter}{PREFACE}
+
+This ebook serves as a companion to the \ldots.
+
+It pulls from many sources, including \ldots.
 
 \hypertarget{an-introduction}{%
 \chapter{An Introduction}\label{an-introduction}}
@@ -411,8 +416,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.18479027  0.85627401  0.38957325 -1.92954446  0.40828369 -0.81424842
-##  [7]  0.36032664  1.66789705  0.00805013  1.00989400
+##  [1] -0.0525403 -0.2264235 -0.4853508 -1.1381637  1.7838127 -1.6505416
+##  [7]  1.6124078  0.2315971 -0.8013489 -0.4000530
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -455,8 +460,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1.8086322  5.6315370  3.1821880  3.0119029 -3.4158716 -1.0244701
-##  [7] -1.0057732  0.9574447 -0.3632915 -1.9678095
+##  [1] -3.9063761  2.2765973  3.0381877 -0.2588315  0.2878706  2.8585012
+##  [7] -3.8125093  2.7551731  0.4706417 -7.3545757
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -468,8 +473,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 5.501469 4.062815 5.553212 5.403071 5.140526 1.772284 3.822231 3.446867
-##  [9] 2.190922 2.788196
+##  [1] 5.251843 5.547703 5.161922 3.330111 5.293310 4.962238 5.957459 4.872844
+##  [9] 4.063995 3.671120
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -484,15 +489,16 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -1.51393286 -0.66745324 -0.18130102 -0.11450219 -1.10549406 -0.85164677
-##  [7] -0.48199573 -0.88622313  1.54994510  0.42596662 -0.61365015  1.45453538
-## [13] -0.51346216 -0.60567675 -0.04338957 -0.15268047  0.84800033  0.34064212
-## [19] -0.74855266  0.95684997  0.08791361 -1.86616670  0.97965911 -1.42939042
-## [25]  0.13210834  0.02760328  0.48451304  1.14907335 -0.69148792 -0.14229263
-## [31]  0.23281527 -0.03613269 -0.48883338 -1.45440761 -1.21387914  0.55146816
-## [37]  0.10661764  0.08144129 -1.45056500 -0.16729116  0.50603398 -0.47184288
-## [43] -0.55153257 -0.09142793 -2.41579936  0.63703569  1.44845690 -0.62953758
-## [49]  0.71238142  1.02479283
+##  [1] -0.348060697 -0.317068368 -1.022448247 -1.487466210 -0.181647381
+##  [6] -1.674069034  2.013465437 -0.813361887  0.008619126 -1.815510241
+## [11]  0.597348998  1.075861403 -2.089936716 -0.078590893 -0.030519305
+## [16] -0.214432679  0.234272827  0.096882646 -0.103432520 -0.319322010
+## [21]  1.230830390  2.060566337 -0.839316079  0.895362396 -0.735982900
+## [26] -0.652895987 -0.341271443 -0.981846480 -2.076386599 -0.200424411
+## [31]  0.025268773 -0.014000964  0.084182086  1.639351402 -1.622144863
+## [36] -0.097403518  0.327736420  0.980428559  1.537727662 -0.692205241
+## [41]  1.367258110 -1.044769132  1.807058627 -0.551201001  0.198072472
+## [46]  0.139520538 -1.160104931  1.772887892  0.204862913 -0.132317639
 \end{verbatim}
 
 \hypertarget{common-statistical-functions}{%
@@ -561,7 +567,7 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.0320829
+## [1] 0.03193353
 \end{verbatim}
 
 \hypertarget{common-mathematical-functions}{%
@@ -1023,13 +1029,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -1.2505, df = 49, p-value = 0.2171
+## t = -0.44891, df = 49, p-value = 0.6555
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.40892711  0.09521934
+##  -0.3658978  0.2322749
 ## sample estimates:
-##  mean of x 
-## -0.1568539
+##   mean of x 
+## -0.06681145
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1057,7 +1063,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.217067
+## [1] 0.6554763
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -1123,6 +1129,398 @@ The command \texttt{library()} is used to activate a downloaded package and give
 \begin{verbatim}
 ## [1] 3.141593
 \end{verbatim}
+
+\hypertarget{graphics}{%
+\chapter{Graphics}\label{graphics}}
+
+\hypertarget{outline}{%
+\section*{Outline}\label{outline}}
+\addcontentsline{toc}{section}{Outline}
+
+\hypertarget{introduction-to-ggplot2}{%
+\paragraph*{1. Introduction to ggplot2}\label{introduction-to-ggplot2}}
+\addcontentsline{toc}{paragraph}{1. Introduction to ggplot2}
+
+\begin{itemize}
+\tightlist
+\item
+  setup
+\item
+  why ggplot2
+\item
+  the evolution of a ggplot
+\item
+  create your first ggplot
+\end{itemize}
+
+\hypertarget{ggplot2-concepts}{%
+\paragraph*{2. ggplot2 concepts}\label{ggplot2-concepts}}
+\addcontentsline{toc}{paragraph}{2. ggplot2 concepts}
+
+\begin{itemize}
+\tightlist
+\item
+  the grammar of ggplot2
+\item
+  geometrical layers
+\item
+  statistical layers
+\item
+  facets
+\item
+  ggplots as objects
+\end{itemize}
+
+\hypertarget{advanced-customization}{%
+\paragraph*{3. Advanced customization}\label{advanced-customization}}
+\addcontentsline{toc}{paragraph}{3. Advanced customization}
+
+\begin{itemize}
+\tightlist
+\item
+  scales
+\item
+  coordinates
+\item
+  labels
+\item
+  annotations
+\item
+  themes
+\item
+  legends
+\item
+  fonts
+\end{itemize}
+
+\hypertarget{extensions}{%
+\paragraph*{4. Extensions}\label{extensions}}
+\addcontentsline{toc}{paragraph}{4. Extensions}
+
+\begin{itemize}
+\tightlist
+\item
+  patchwork
+\item
+  gganimate
+\item
+  ggplotly
+\item
+  ggiraph
+\end{itemize}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{setup}{%
+\subsection*{setup}\label{setup}}
+\addcontentsline{toc}{subsection}{setup}
+
+\hypertarget{intro-to-ggplot2}{%
+\subsection*{intro to ggplot2}\label{intro-to-ggplot2}}
+\addcontentsline{toc}{subsection}{intro to ggplot2}
+
+\hypertarget{why-ggplot2}{%
+\subsection*{why ggplot2}\label{why-ggplot2}}
+\addcontentsline{toc}{subsection}{why ggplot2}
+
+\hypertarget{the-evolution-of-a-ggplot}{%
+\subsection*{the evolution of a ggplot}\label{the-evolution-of-a-ggplot}}
+\addcontentsline{toc}{subsection}{the evolution of a ggplot}
+
+\hypertarget{create-your-first-ggplot}{%
+\subsection*{create your first ggplot}\label{create-your-first-ggplot}}
+\addcontentsline{toc}{subsection}{create your first ggplot}
+
+\hypertarget{ggplot2-concepts-1}{%
+\section{ggplot2 concepts}\label{ggplot2-concepts-1}}
+
+\hypertarget{the-grammar-of-ggplot2}{%
+\subsection*{the grammar of ggplot2}\label{the-grammar-of-ggplot2}}
+\addcontentsline{toc}{subsection}{the grammar of ggplot2}
+
+\hypertarget{aesthetic-mapping}{%
+\subsection*{aesthetic mapping}\label{aesthetic-mapping}}
+\addcontentsline{toc}{subsection}{aesthetic mapping}
+
+\hypertarget{geometrical-layers}{%
+\subsection*{geometrical layers}\label{geometrical-layers}}
+\addcontentsline{toc}{subsection}{geometrical layers}
+
+\hypertarget{geoms}{%
+\subsubsection*{geoms}\label{geoms}}
+\addcontentsline{toc}{subsubsection}{geoms}
+
+\hypertarget{setting-vs-mapping-of-visual-properties}{%
+\subsubsection*{Setting vs Mapping of Visual Properties}\label{setting-vs-mapping-of-visual-properties}}
+\addcontentsline{toc}{subsubsection}{Setting vs Mapping of Visual Properties}
+
+\hypertarget{local-vs.-global-encoding}{%
+\subsubsection*{Local vs.~Global Encoding}\label{local-vs.-global-encoding}}
+\addcontentsline{toc}{subsubsection}{Local vs.~Global Encoding}
+
+\hypertarget{adding-more-layers}{%
+\subsubsection*{Adding More Layers}\label{adding-more-layers}}
+\addcontentsline{toc}{subsubsection}{Adding More Layers}
+
+\hypertarget{the-group-aesthetic}{%
+\subsubsection*{\texorpdfstring{The \texttt{group} Aesthetic}{The group Aesthetic}}\label{the-group-aesthetic}}
+\addcontentsline{toc}{subsubsection}{The \texttt{group} Aesthetic}
+
+\hypertarget{overwrite-global-aesthetics}{%
+\subsubsection*{Overwrite Global Aesthetics}\label{overwrite-global-aesthetics}}
+\addcontentsline{toc}{subsubsection}{Overwrite Global Aesthetics}
+
+\hypertarget{statistical-layers}{%
+\subsection*{statistical layers}\label{statistical-layers}}
+\addcontentsline{toc}{subsection}{statistical layers}
+
+\hypertarget{stat_-and-geom_}{%
+\subsubsection*{\texorpdfstring{\texttt{stat\_*()} and \texttt{geom\_*()}}{stat\_*() and geom\_*()}}\label{stat_-and-geom_}}
+\addcontentsline{toc}{subsubsection}{\texttt{stat\_*()} and \texttt{geom\_*()}}
+
+\hypertarget{statistical-summaries}{%
+\subsubsection*{statistical summaries}\label{statistical-summaries}}
+\addcontentsline{toc}{subsubsection}{statistical summaries}
+
+\hypertarget{facets}{%
+\subsection*{facets}\label{facets}}
+\addcontentsline{toc}{subsection}{facets}
+
+\hypertarget{store-a-ggplot-as-object}{%
+\subsection*{Store a ggplot as Object}\label{store-a-ggplot-as-object}}
+\addcontentsline{toc}{subsection}{Store a ggplot as Object}
+
+\hypertarget{inspect-a-ggplot-object}{%
+\subsubsection*{inspect a ggplot Object}\label{inspect-a-ggplot-object}}
+\addcontentsline{toc}{subsubsection}{inspect a ggplot Object}
+
+\hypertarget{extend-a-ggplot-object}{%
+\subsubsection*{extend a ggplot Object}\label{extend-a-ggplot-object}}
+\addcontentsline{toc}{subsubsection}{extend a ggplot Object}
+
+\hypertarget{advanced-customization-1}{%
+\section{Advanced customization}\label{advanced-customization-1}}
+
+\hypertarget{scales}{%
+\subsection*{scales}\label{scales}}
+\addcontentsline{toc}{subsection}{scales}
+
+\hypertarget{continuous-vs.-discrete}{%
+\subsubsection*{continuous vs.~discrete}\label{continuous-vs.-discrete}}
+\addcontentsline{toc}{subsubsection}{continuous vs.~discrete}
+
+\hypertarget{aesthetics-scales}{%
+\subsubsection*{aesthetics + scales}\label{aesthetics-scales}}
+\addcontentsline{toc}{subsubsection}{aesthetics + scales}
+
+\hypertarget{coordinates}{%
+\subsection*{coordinates}\label{coordinates}}
+\addcontentsline{toc}{subsection}{coordinates}
+
+\hypertarget{labels}{%
+\subsection*{labels}\label{labels}}
+\addcontentsline{toc}{subsection}{labels}
+
+\hypertarget{annotations}{%
+\subsection*{annotations}\label{annotations}}
+\addcontentsline{toc}{subsection}{annotations}
+
+\hypertarget{themes}{%
+\subsection*{themes}\label{themes}}
+\addcontentsline{toc}{subsection}{themes}
+
+\hypertarget{legends}{%
+\subsection*{legends}\label{legends}}
+\addcontentsline{toc}{subsection}{legends}
+
+\hypertarget{fonts}{%
+\subsection*{fonts}\label{fonts}}
+\addcontentsline{toc}{subsection}{fonts}
+
+\hypertarget{extensions-1}{%
+\section{Extensions}\label{extensions-1}}
+
+\hypertarget{ggplot2-extensions}{%
+\subsection*{ggplot2 extensions}\label{ggplot2-extensions}}
+\addcontentsline{toc}{subsection}{ggplot2 extensions}
+
+\hypertarget{gganimate}{%
+\subsection*{gganimate}\label{gganimate}}
+\addcontentsline{toc}{subsection}{gganimate}
+
+\hypertarget{ggplotly}{%
+\subsection*{ggplotly}\label{ggplotly}}
+\addcontentsline{toc}{subsection}{ggplotly}
+
+\hypertarget{ggiraph}{%
+\subsection*{ggiraph}\label{ggiraph}}
+\addcontentsline{toc}{subsection}{ggiraph}
+
+\hypertarget{transforming-data}{%
+\chapter{Transforming Data}\label{transforming-data}}
+
+\hypertarget{dplyr-basics}{%
+\section*{\texorpdfstring{\texttt{\{dplyr\}} basics}{\{dplyr\} basics}}\label{dplyr-basics}}
+\addcontentsline{toc}{section}{\texttt{\{dplyr\}} basics}
+
+The book \href{https://r4ds.had.co.nz/}{R for Data Science} is a \emph{very} helpful reference guide. \href{https://r4ds.had.co.nz/transform.html}{Chapter 5} covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic.
+
+\hypertarget{filter-rows}{%
+\section{Filter rows}\label{filter-rows}}
+
+\begin{itemize}
+\tightlist
+\item
+  Comparisons
+\item
+  Logical operators
+\item
+  Missing values
+\end{itemize}
+
+\hypertarget{arrange-rows}{%
+\section{Arrange rows}\label{arrange-rows}}
+
+\hypertarget{select-columns}{%
+\section{Select columns}\label{select-columns}}
+
+\hypertarget{add-new-variables}{%
+\section{Add new variables}\label{add-new-variables}}
+
+\hypertarget{grouped-summaries}{%
+\section{Grouped summaries}\label{grouped-summaries}}
+
+\begin{itemize}
+\tightlist
+\item
+  Combining multiple operations with the pipe
+\item
+  Missing values
+\item
+  Counts
+\item
+  Useful summary functions
+\item
+  Grouping by multiple variables
+\item
+  Ungrouping
+\end{itemize}
+
+\hypertarget{grouped-mutates-and-filters}{%
+\section{Grouped mutates (and filters)}\label{grouped-mutates-and-filters}}
+
+\hypertarget{an-example}{%
+\section{An example}\label{an-example}}
+
+The following example ties several of the above ideas together. Imagine that we have a set of grades from a course that we would like to convert to letter grades using a particular weighting and letter-grade cut-offs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/CourseData.txt"}\NormalTok{)[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\FunctionTok{head}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   College  Year  Hmwk    E1    E2    E3
+##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 NU          1  83.8    79    89    59
+## 2 NU          1  77.1    60    97    63
+## 3 NU          1  94.5    83    88    69
+## 4 NU          1  84.3    91    77    72
+## 5 NU          1  73.4    68    79    76
+## 6 NU          1  94.7    89    96    79
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   College  Year  Hmwk    E1    E2    E3
+##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 MC          2  83.2    69    77    93
+## 2 MC          2  95.7    88    89    92
+## 3 MC          2  79.3    80    61    97
+## 4 MC          2  78.1    69    89    97
+## 5 MC          2  99.1    84    89    96
+## 6 MC          2  95.8    96   100   100
+\end{verbatim}
+
+In this particular case we want the weighting to be:
+
+\begin{itemize}
+\tightlist
+\item
+  20\% to Hmwk (col 3)
+\item
+  25\% to E1 (col 4)
+\item
+  25\% to E2 (col 5)
+\item
+  30\% to E3 (col 6)
+\end{itemize}
+
+But those weights could change later. A function can be written to take the data, and the weights and calculate the weighted average. We can then add that score to the students data frame, and add a final column with the actual letter grades on a 90-80-70-60 scale.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students }\OtherTok{\textless{}{-}}\NormalTok{ students }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Final =}\NormalTok{ .}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Hmwk }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{25}\SpecialCharTok{*}\NormalTok{E1 }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{25}\SpecialCharTok{*}\NormalTok{E2 }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{3}\SpecialCharTok{*}\NormalTok{E3,}
+         \AttributeTok{Grade =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{60} \SpecialCharTok{\textasciitilde{}} \StringTok{"F"}\NormalTok{,}
+\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{69} \SpecialCharTok{\textasciitilde{}} \StringTok{"D"}\NormalTok{,}
+\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{79} \SpecialCharTok{\textasciitilde{}} \StringTok{"C"}\NormalTok{,}
+\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{89} \SpecialCharTok{\textasciitilde{}} \StringTok{"B"}\NormalTok{,}
+\NormalTok{           Final }\SpecialCharTok{\textgreater{}=} \DecValTok{90} \SpecialCharTok{\textasciitilde{}} \StringTok{"A"}\NormalTok{))}
+
+\FunctionTok{head}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 8
+##   College  Year  Hmwk    E1    E2    E3 Final Grade
+##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <chr>
+## 1 NU          1  83.8    79    89    59  76.5 C    
+## 2 NU          1  77.1    60    97    63  73.6 C    
+## 3 NU          1  94.5    83    88    69  82.4 B    
+## 4 NU          1  84.3    91    77    72  80.5 B    
+## 5 NU          1  73.4    68    79    76  74.2 C    
+## 6 NU          1  94.7    89    96    79  88.9 B
+\end{verbatim}
+
+\hypertarget{extra-working-with-factor-variables}{%
+\section{Extra: Working with factor variables}\label{extra-working-with-factor-variables}}
+
+\hypertarget{reshaping-data}{%
+\chapter{Reshaping Data}\label{reshaping-data}}
+
+\hypertarget{tidyr-basics}{%
+\section*{\texorpdfstring{\texttt{\{tidyr\}} basics}{\{tidyr\} basics}}\label{tidyr-basics}}
+\addcontentsline{toc}{section}{\texttt{\{tidyr\}} basics}
+
+The book \href{https://r4ds.had.co.nz/}{R for Data Science} is a \emph{very} helpful reference guide. \href{https://r4ds.had.co.nz/tidy-data.html}{Chapter 12} covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic.
+
+\hypertarget{tidy-data}{%
+\section{Tidy data}\label{tidy-data}}
+
+\hypertarget{pivoting}{%
+\section{Pivoting}\label{pivoting}}
+
+\hypertarget{longer}{%
+\subsection{Longer}\label{longer}}
+
+\hypertarget{wider}{%
+\subsection{Wider}\label{wider}}
+
+\hypertarget{separate-unite}{%
+\section{Separate \& unite}\label{separate-unite}}
 
 \hypertarget{statistical-analysis}{%
 \chapter{Statistical Analysis}\label{statistical-analysis}}
@@ -1200,7 +1598,7 @@ There are a variety of graphical tools we could use to get an overview of the da
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1210,7 +1608,7 @@ There are a variety of graphical tools we could use to get an overview of the da
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-44-2.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-47-2.pdf}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1238,7 +1636,7 @@ Each of them assumes you have created and attached the data frame \texttt{studen
 
 Test the null hypothesis that the mean score on \texttt{E1} for 1st year nursing students is greater than the historical exam average of 75.
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1322,7 +1720,7 @@ If we save the output as an object, the values can be accessed using the \texttt
 
 Test the null hypothesis that the mean on \texttt{E1} for 1st year students from arts and sciences is less than the mean for 1st year students from nursing.
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1373,7 +1771,7 @@ upper\_ci
 
 Test that the mean for \texttt{E3} is greater than the mean of \texttt{E1} for first year nursing students.
 
-\includegraphics[width=0.8\linewidth]{_main_files/figure-latex/unnamed-chunk-53-1}
+\includegraphics[width=0.8\linewidth]{_main_files/figure-latex/unnamed-chunk-56-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1497,7 +1895,7 @@ Note that the confidence intervals here are sub-optimal in terms of length becau
 
 Test whether the variance of \texttt{E1} for the first year nursing students is equal to the variance of \texttt{E1} for the first year arts and sciences students.
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-63-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1753,7 +2151,7 @@ shows that there is a lot more behind the scenes. The functions \texttt{anova()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-70-1.pdf}
 The first is the residual vs.~predicted plot, and the second is the qq-plot of the residuals.
 
 In some cases it is necessary to enter the data on your own, and then it is important to be sure that the group variable is a ``factor''. For example, imagine that you had the vector \texttt{E1} entered, but did not have the vector of group memberships yet. We know however that the test scores go with different groups in sets of 10 (observations 1-10 are \texttt{1NU}, 11-20 are \texttt{1PM}, etc\ldots). One way we could do a set of labels is:
@@ -2072,7 +2470,7 @@ The following function performs Dunnett's comparison with a control. The default
 ## [1] "Dunnett, alternative=two.sided, alpha=0.05"
 ## 
 ## $Critical.D
-## [1] 17.78183
+## [1] 17.7856
 ## 
 ## $Differences
 ##   Comparison Observed.Diff Significant
@@ -2250,7 +2648,7 @@ R has a large number of functions for analyzing regression data, the most basic 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2311,7 +2709,7 @@ Residuals \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2343,7 +2741,7 @@ Residuals \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 The function \texttt{SASreg()} below will produce output similar to SAS using just one function. It requires that you have loaded in and installed the car package. To use it, simply copy the function in once, and then apply it to your data set.
 
@@ -2403,7 +2801,7 @@ The function \texttt{SASreg()} below will produce output similar to SAS using ju
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-82-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2457,7 +2855,7 @@ To get the Box-Cox transformation for this data set we could use the boxcox func
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-80-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spacing every \texttt{.01} to see if its better:
 
@@ -2467,7 +2865,7 @@ This plot doesn't have the peak! So try from \texttt{0} to \texttt{5} with spaci
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-81-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-84-1.pdf}
 
 It looks like 1 is just outside the range, of the values that make the 95\% cut-off, the one that is ``nicest'' and close to the peak is 2. So, the transformation y-squared is recommended.
 
@@ -2507,7 +2905,7 @@ This can be done by mimicking the procedure for simple linear regression. In thi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-83-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 The plots to help assess independence (the residuals versus other variables not included in the model) and to check for needing higher order terms (the residual versus independent variables) could be generated as follows:
 
@@ -2533,7 +2931,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-88-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2547,7 +2945,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2570,7 +2968,7 @@ The plots to help assess independence (the residuals versus other variables not 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-87-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-90-1.pdf}
 
 \hypertarget{variable-selection}{%
 \subsection{Variable Selection}\label{variable-selection}}
@@ -2840,7 +3238,7 @@ Again this can be performed using either the built in functions or SASreg.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-90-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2848,7 +3246,7 @@ Again this can be performed using either the built in functions or SASreg.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-91-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -2917,7 +3315,7 @@ Checking whether the lines are parallel can be done simply by checking the inter
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 \begin{verbatim}
 ## $Model.Equation
@@ -3019,348 +3417,6 @@ For Categorical Data:
   \texttt{fisher.test()}
 \item
   \texttt{mantel.haen.test()}
-\end{itemize}
-
-\hypertarget{manipulation-data}{%
-\chapter{Manipulating Data}\label{manipulation-data}}
-
-\hypertarget{dplyr-basics}{%
-\section*{\texorpdfstring{\texttt{\{dplyr\ basics\}}}{\{dplyr basics\}}}\label{dplyr-basics}}
-\addcontentsline{toc}{section}{\texttt{\{dplyr\ basics\}}}
-
-The book \href{https://r4ds.had.co.nz/}{R for Data Science} is a \emph{very} helpful reference guide. \href{https://r4ds.had.co.nz/transform.html}{Chapter 5} covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic.
-
-\hypertarget{filter-rows}{%
-\section{Filter rows}\label{filter-rows}}
-
-\begin{itemize}
-\tightlist
-\item
-  Comparisons
-\item
-  Logical operators
-\item
-  Missing values
-\end{itemize}
-
-\hypertarget{arrange-rows}{%
-\section{Arrange rows}\label{arrange-rows}}
-
-\hypertarget{select-columns}{%
-\section{Select columns}\label{select-columns}}
-
-\hypertarget{add-new-variables}{%
-\section{Add new variables}\label{add-new-variables}}
-
-\hypertarget{grouped-summaries}{%
-\section{Grouped summaries}\label{grouped-summaries}}
-
-\begin{itemize}
-\tightlist
-\item
-  Combining multiple operations with the pipe
-\item
-  Missing values
-\item
-  Counts
-\item
-  Useful summary functions
-\item
-  Grouping by multiple variables
-\item
-  Ungrouping
-\end{itemize}
-
-\hypertarget{grouped-mutates-and-filters}{%
-\section{Grouped mutates (and filters)}\label{grouped-mutates-and-filters}}
-
-\hypertarget{an-example}{%
-\section{An example}\label{an-example}}
-
-The following example ties several of the above ideas together. Imagine that we have a set of grades from a course that we would like to convert to letter grades using a particular weighting and letter-grade cut-offs.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{students }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/CourseData.txt"}\NormalTok{)[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
-\FunctionTok{head}\NormalTok{(students)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 6
-##   College  Year  Hmwk    E1    E2    E3
-##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 NU          1  83.8    79    89    59
-## 2 NU          1  77.1    60    97    63
-## 3 NU          1  94.5    83    88    69
-## 4 NU          1  84.3    91    77    72
-## 5 NU          1  73.4    68    79    76
-## 6 NU          1  94.7    89    96    79
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{tail}\NormalTok{(students)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 6
-##   College  Year  Hmwk    E1    E2    E3
-##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 MC          2  83.2    69    77    93
-## 2 MC          2  95.7    88    89    92
-## 3 MC          2  79.3    80    61    97
-## 4 MC          2  78.1    69    89    97
-## 5 MC          2  99.1    84    89    96
-## 6 MC          2  95.8    96   100   100
-\end{verbatim}
-
-In this particular case we want the weighting to be:
-
-\begin{itemize}
-\tightlist
-\item
-  20\% to Hmwk (col 3)
-\item
-  25\% to E1 (col 4)
-\item
-  25\% to E2 (col 5)
-\item
-  30\% to E3 (col 6)
-\end{itemize}
-
-But those weights could change later. A function can be written to take the data, and the weights and calculate the weighted average. We can then add that score to the students data frame, and add a final column with the actual letter grades on a 90-80-70-60 scale.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{students }\OtherTok{\textless{}{-}}\NormalTok{ students }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Final =}\NormalTok{ .}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Hmwk }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{25}\SpecialCharTok{*}\NormalTok{E1 }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{25}\SpecialCharTok{*}\NormalTok{E2 }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{3}\SpecialCharTok{*}\NormalTok{E3,}
-         \AttributeTok{Grade =} \FunctionTok{case\_when}\NormalTok{(}
-\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{60} \SpecialCharTok{\textasciitilde{}} \StringTok{"F"}\NormalTok{,}
-\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{69} \SpecialCharTok{\textasciitilde{}} \StringTok{"D"}\NormalTok{,}
-\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{79} \SpecialCharTok{\textasciitilde{}} \StringTok{"C"}\NormalTok{,}
-\NormalTok{           Final }\SpecialCharTok{\textless{}} \DecValTok{89} \SpecialCharTok{\textasciitilde{}} \StringTok{"B"}\NormalTok{,}
-\NormalTok{           Final }\SpecialCharTok{\textgreater{}=} \DecValTok{90} \SpecialCharTok{\textasciitilde{}} \StringTok{"A"}\NormalTok{))}
-
-\FunctionTok{head}\NormalTok{(students)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 8
-##   College  Year  Hmwk    E1    E2    E3 Final Grade
-##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <chr>
-## 1 NU          1  83.8    79    89    59  76.5 C    
-## 2 NU          1  77.1    60    97    63  73.6 C    
-## 3 NU          1  94.5    83    88    69  82.4 B    
-## 4 NU          1  84.3    91    77    72  80.5 B    
-## 5 NU          1  73.4    68    79    76  74.2 C    
-## 6 NU          1  94.7    89    96    79  88.9 B
-\end{verbatim}
-
-\hypertarget{extra-working-with-factor-variables}{%
-\section{Extra: Working with factor variables}\label{extra-working-with-factor-variables}}
-
-\hypertarget{graphics}{%
-\chapter{Graphics}\label{graphics}}
-
-\hypertarget{outline}{%
-\section*{Outline}\label{outline}}
-\addcontentsline{toc}{section}{Outline}
-
-\hypertarget{introduction-to-ggplot2}{%
-\paragraph*{1. Introduction to ggplot2}\label{introduction-to-ggplot2}}
-\addcontentsline{toc}{paragraph}{1. Introduction to ggplot2}
-
-\begin{itemize}
-\tightlist
-\item
-  setup
-\item
-  why ggplot2
-\item
-  the evolution of a ggplot
-\item
-  create your first ggplot
-\end{itemize}
-
-\hypertarget{ggplot2-concepts}{%
-\paragraph*{2. ggplot2 concepts}\label{ggplot2-concepts}}
-\addcontentsline{toc}{paragraph}{2. ggplot2 concepts}
-
-\begin{itemize}
-\tightlist
-\item
-  the grammar of ggplot2
-\item
-  geometrical layers
-\item
-  statistical layers
-\item
-  facets
-\item
-  ggplots as objects
-\end{itemize}
-
-\hypertarget{advanced-customization}{%
-\paragraph*{3. Advanced customization}\label{advanced-customization}}
-\addcontentsline{toc}{paragraph}{3. Advanced customization}
-
-\begin{itemize}
-\tightlist
-\item
-  scales
-\item
-  coordinates
-\item
-  labels
-\item
-  annotations
-\item
-  themes
-\item
-  legends
-\item
-  fonts
-\end{itemize}
-
-\hypertarget{extensions}{%
-\paragraph*{4. Extensions}\label{extensions}}
-\addcontentsline{toc}{paragraph}{4. Extensions}
-
-\begin{itemize}
-\tightlist
-\item
-  patchwork
-\item
-  gganimate
-\item
-  ggplotly
-\item
-  ggiraph
-\end{itemize}
-
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
-
-\begin{itemize}
-\tightlist
-\item
-  setup
-\item
-  intro to ggplot2
-\item
-  why ggplot2
-\item
-  showcase (glimpse)
-\item
-  the evolution of a ggplot
-\item
-  showcase in detail?
-\item
-  create your first ggplot
-\end{itemize}
-
-\hypertarget{ggplot2-concepts-1}{%
-\section{ggplot2 concepts}\label{ggplot2-concepts-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  the grammar of ggplot2
-\item
-  walk through example
-
-  \begin{itemize}
-  \tightlist
-  \item
-    aesthetic mapping
-  \end{itemize}
-\item
-  geometrical layers
-
-  \begin{itemize}
-  \tightlist
-  \item
-    geoms
-  \item
-    Setting vs Mapping of Visual Properties
-  \item
-    Local vs.~Global Encoding
-  \item
-    Adding More Layers
-  \item
-    The \texttt{group} Aesthetic
-  \item
-    Overwrite Global Aesthetics
-  \end{itemize}
-\item
-  statistical layers
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{stat\_*()} and \texttt{geom\_*()}
-  \item
-    statistical summaries
-  \end{itemize}
-\item
-  facets
-\item
-  Store a ggplot as Object
-
-  \begin{itemize}
-  \tightlist
-  \item
-    inspect a ggplot Object
-  \item
-    extend a ggplot Object
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{advanced-customization-1}{%
-\section{Advanced customization}\label{advanced-customization-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  scales
-
-  \begin{itemize}
-  \tightlist
-  \item
-    continuous vs.~discrete
-  \item
-    aesthetics + scales
-  \end{itemize}
-\item
-  coordinates
-\item
-  labels
-\item
-  annotations
-\item
-  themes
-\item
-  legends
-\item
-  fonts
-\end{itemize}
-
-\hypertarget{extensions-1}{%
-\section{Extensions}\label{extensions-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  ggplot2 extensions
-\item
-  gganimate
-\item
-  ggplotly
-\item
-  ggiraph
 \end{itemize}
 
 \hypertarget{psychometric-packages}{%
