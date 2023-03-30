@@ -13,7 +13,27 @@ library(tidyverse)
 
 The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful reference guide. [Chapter 5](https://r4ds.had.co.nz/transform.html) covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic. 
 
+Topics:
 
+- Filter rows
+  - Comparisons
+  - Logical operators
+  - Missing values
+- Arrange rows
+- Select columns
+- Add new variables 
+- Grouped summaries
+  - Combining multiple operations with the pipe
+  - Missing values
+  - Counts
+  - Useful summary functions
+  - Grouping by multiple variables
+  - Ungrouping
+- Grouped mutates (and filters)
+- Extra: Working with factor variables
+
+
+<!--
 ## Filter rows
 
 - Comparisons
@@ -42,7 +62,7 @@ The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful refer
 
 
 
-
+-->
 
 
 
@@ -85,7 +105,7 @@ head(students)
 ```
 
 
-## Extra: Working with factor variables
+<!-- ## Extra: Working with factor variables -->
 
 
 
@@ -97,17 +117,59 @@ head(students)
 
 The book [R for Data Science](https://r4ds.had.co.nz/) is a *very* helpful reference guide. [Chapter 12](https://r4ds.had.co.nz/tidy-data.html) covers many of the topics covered in this section, and may be useful as a resource later or to dive deeper into a topic. 
 
+Topics:
 
-## Tidy data
-
-
-## Pivoting
-
-
-### Longer
-
-### Wider
+- Tidy data
+- Pivoting
+  - Longer
+  - Wider
+- Separate & unite
 
 
-## Separate & unite
+
+## An example
+
+Reshape data into long form:
+
+```{r}
+## load data
+library(psych)
+data(bfi)
+bfi_trim <- bfi %>% 
+  dplyr::select(matches('^A[1-5]|^N'))
+
+## Compare the 1 to 3 factor solutions
+model1 = fa(bfi_trim, 1)
+model2 = fa(bfi_trim, 2)
+model3 = fa(bfi_trim, 3)
+
+## as a matrix
+obs = cor(bfi_trim, use = "pairwise.complete.obs") 
+obs
+```
+
+
+```{r}
+## in long form
+obs_long <- obs %>% 
+  as_tibble() %>% 
+  mutate(i = names(.)) %>% 
+  pivot_longer(cols = -i, names_to = "j", values_to = "obs")
+obs_long
+
+## add model residuals
+fa_models <- obs_long %>% 
+  mutate(resid1 = c(model1$residual),
+         resid2 = c(model2$residual),
+         resid3 = c(model3$residual)) 
+fa_models
+
+## pivot to long form
+fa_models_long <- fa_models %>% 
+  pivot_longer(cols = resid1:resid3, names_to = "model", values_to = "resid")
+fa_models_long
+```
+
+
+
 

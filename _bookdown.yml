@@ -1,4 +1,11 @@
 delete_merged_file: true
+rmd_files:
+  - index.Rmd
+  - 01-intro.Rmd
+  - 02-graphics.Rmd
+  - 03-manipulating-data.Rmd
+  
+  - 07-references.Rmd
 language:
   ui:
     chapter_name: "Chapter "

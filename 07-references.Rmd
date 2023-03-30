@@ -1,3 +1,10 @@
 `r if (knitr::is_html_output()) '
 # References {-}
 '`
+
+## Packages {-}
+
+```{r }
+subset(data.frame(sessioninfo::package_info()), attached==TRUE, c(package, loadedversion))
+```
+

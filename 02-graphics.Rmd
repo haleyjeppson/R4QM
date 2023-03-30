@@ -35,23 +35,43 @@
 - ggiraph
 
 
+## An example
+
+The data is a stratified sample of 70 students from a large section course. The strata were based on the college the students belonged to (AS = Arts & Sciences, PM = Professional Management, MC = Mass Communications, and NU=Nursing) and their year in school (ranging from 1st to 3rd based on credit hours, and limited based on expectation of having at least 10 students from that college at that grade level). The response variables are their Hmwk = Homework Average and E1 to E3 = their grades on the first three exams.
+
+```{r}
+library(ggplot2)
+students <- readr::read_table("data/CourseData.txt")[, -1]
+students
+```
 
 
+```{r}
+ggplot(students, aes(College, E1)) +
+  geom_boxplot(aes(fill = stage(College, after_scale = alpha(fill, 0.8))), show.legend = FALSE) +
+  facet_grid(~Year, scales = "free", space = "free_x", labeller = labeller(Year = label_both)) +
+  theme_bw() +
+  scale_fill_manual(values = c("#69cadf", "#f4602a", "#fbb03b", "#3273c2"))
+```
+
+
+
+
+
+
+<!--
 ## Introduction
 
 ### setup  {-}
 ### intro to ggplot2   {-}
 ### why ggplot2   {-}
-<!-- ### showcase (glimpse) {-} -->
 ### the evolution of a ggplot   {-}
-<!-- ### showcase (in detail) {-} -->
 ### create your first ggplot  {-}
 
 
 ## ggplot2 concepts
 
 ### the grammar of ggplot2 {-}
-<!-- ### walk through example {-} -->
 ### aesthetic mapping {-}
 ### geometrical layers {-}
 #### geoms {-}
@@ -90,5 +110,6 @@
 ### ggplotly {-}
 ### ggiraph {-}
 
+-->
 
 

@@ -1,82 +1,51 @@
 # An Introduction
 
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
 ## Getting Started in R with RStudio {-}
+
+The book is designed for you to follow along in an active way, writing out the examples and experimenting with the code as you go. You will need to install some software first. 
 
 ### R {-}
 
-R, like the commercial S-Plus, is based on the statistical programming language S. Unlike S-Plus, it can be downloaded for free from [www.r-project.org](www.r-project.org) [Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then "Download R 3.4.0 for Windows"]. This page also has links to FAQs and other information about R.
+R is based on the statistical programming language S and can be downloaded for free from [www.r-project.org](https://www.r-project.org/). Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then "Download R 4.3.0 for Windows". This page also has links to FAQs and other information about R.
+
+R itself is a relatively small application with next to no user interface. Everything works through a command line, or console. At its most basic, you launch it from your Terminal application (on a Mac) or Command Prompt (on Windows) by typing `R`. Once launched, R awaits your instructions at a command line of its own, denoted by the right angle bracket symbol, `>`. When you type an instruction and hit return, R interprets it and sends any resulting output back to the console. But although a plain text file and a command line is the absolute minimum you need to work with R, it is a rather spartan arrangement. We can make life easier for ourselves by using RStudio.
 
 ### RStudio {-}
 
-RStudio is an IDE (integrated development environment), and a convenient interface for R. Think of R as like a car's engine and RStudio as a car's dashboard. You can download and install Rstudio from the official [Rstudio website](https://rstudio.com/products/rstudio/download/).
+RStudio is an IDE (integrated development environment), and a convenient interface for R. Think of R as like a car's engine and RStudio as a car's dashboard. You can download and install Rstudio from the official [Rstudio website](https://rstudio.com/products/rstudio/download/). When launched, it starts up an instance of R’s console inside of itself. It also conveniently pulls together various other elements to help you get your work done. These include the document where you are writing your code, the output it produces, and R’s help system. RStudio also knows about RMarkdown, and understands a lot about the R language and the organization of your project. 
 
 
-Once you have both R and Rstudio installed, open Rstudio. You should now see four panels: 
+Once you have both R and Rstudio installed, open Rstudio. You should now see four panels: (1) Source editor, (2) Console window,
+(3) Environment pane, and
+(4) Other tabs/panes.
 
-(1) **Source editor**: Docking station for multiple files, Useful shortcuts ("Knit"), Highlighting/Tab-completion, Code-checking (R, HTML, JS), Debugging features
-(2) **Console window**: Highlighting/Tab-completion, Search recent commands
-(3) **Environment pane**: Tools for package development, git, etc
-(4) **Other tabs/panes**: Plots, R documentation, File system navigation/access
+<!-- (1) **Source editor**: Docking station for multiple files, Useful shortcuts ("Knit"), Highlighting/Tab-completion, Code-checking (R, HTML, JS), Debugging features--> 
+<!-- (2) **Console window**: Highlighting/Tab-completion, Search recent commands--> 
+<!-- (3) **Environment pane**: Tools for package development, git, etc--> 
+<!-- (4) **Other tabs/panes**: Plots, R documentation, File system navigation/access -->
 
 ![](img/rstudio-panes.png)
 
 
 #### Executing code and R script files {-}
 
-You can start coding by typing commands in the Console panel. This window is also where the output will appear. Because this window is used for so many things it often fills up quickly — and so, if you are doing anything involving a large number of steps, it is often easiest to type them in a script first. 
+You can start coding by typing commands in the **Console panel (2)**. This window is also where the output will appear.  For example if you were to type 2+2 and hit return in that window it will return the answer 4. 
+
+When using the Console window in RStudio or R, the up and down-arrow on the key-board can be used to scroll through previously entered lines. `history()` will open a window of previously entered commands (which we'll see below after entering some). If the font in this R Console is too small, or if you dislike the color or font, you can change it by selecting "Global Options" under the "Tools" menu and clicking on the "Appearance" tab in the pop up window.
+
+Because this Console window is used for so many things it often fills up quickly — and so, if you are doing anything involving a large number of steps, it is often easiest to type them in a script first, which can be viewed in the **Source editor (1)**.
 
 You can create a new script by clicking on the "File" menu and selecting "New File" then "R Script". A script is a collection of commands that you can save and run again later. To run a command, click in a given line or highlight the text and hit `Ctrl+Enter`, or click the “Run” button at the top of the script window. You can save your scripts for later use. 
 
-Also very useful are the fact that in the main R Console window, the up and down-arrow on the key-board can be used to scroll through previously entered lines in R, and that `history()` will open a window of previously entered commands (which we'll see below after entering some). If the font in this R Console is too small, or if you dislike the color or font, you can change it by selecting "Global Options" under the "Tools" menu and clicking on the "Appearance" tab in the pop up window.
 
-### RMarkdown {-}
-
-
-Markdown is a particular type of markup language. Markup languages are designed to produce documents from plain text. Some of you may be familiar with LaTeX, another (less human friendly) markup language for creating pdf documents. LaTeX gives you much greater control, but it is restricted to pdf and has a much greater learning curve. 
-
-Markdown is becoming a standard and many websites will generate HTML from Markdown (e.g. GitHub, Stack Overflow, reddit, ...). It is also relatively easy:
-
-```
-*italic*
-**bold**
-# Header 1
-## Header 2
-### Header 3
-- List item 1
-- List item 2
-    - item 2a
-    - item 2b
-1. Numbered list item 1
-1. Numbered list item 2
-    - item 2a
-    - item 2b
-```
-
-Have a look at RStudio's [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/).
-
-```{r fig.cap = "Artwork by allison horst", echo = FALSE}
-knitr::include_graphics("img/rmarkdown_wizards.png")
-```
-
-**RMarkdown** is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. It combines markdown syntax with embedded R code chunks that are run so their output can be included in the final document. 
-
-```{r, echo = FALSE}
-knitr::include_graphics("img/rmarkdown.png")
-```
-
-
-Most importantly, RMarkdown creates fully reproducible reports since each time you knit the analysis is run from the beginning, encouraging transparency. Collaborators (including your future self) will thank you for integrating your analysis and report.
-
-#### Exercise: Create your first Rmarkdown. {-}
-
-1. Open RStudio, create a new project.
-2. Create a new RMarkdown file and knit it.
-3. Make changes to the markdown formatting and knit again (use the [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/))
-4. If you feel adventurous, change some of the R code and knit again.
-
-```{r, echo = FALSE}
-knitr::include_graphics("img/hello-rmarkdown.png")
-```
 
 
 ## Objects
@@ -106,30 +75,33 @@ If you run `x <- 3` in your local console (at the `>` prompt), R will only give 
 x
 ```
 
-will now return the number 3, the value of `x`. R is case sensitive, so entering
+will now return the number 3, the value of `x`. R is case sensitive, so entering `X <- 5` will create a separate object:
 
 ```{r}
 X <- 5
 X
 ```
 
-will create a separate object. If you reassign an object, say:
+If you reassign an object, say `X <- 7`, the original value is over-written:
 
 ```{r}
 X <- 7
+X
 ```
 
-the original value is over-written. If you attempt to use the name of a built in function or constant (such as `c()`, `t()`, `t.test()`, or `pi()`) for one of your variable names, you will likely find that future work you are trying to do gives unexpected results. Notice in the name of `t.test()` that periods are allowed in names of objects. Other symbols (except numbers and letters) are not allowed.
+If you attempt to use the name of a built in function or constant (such as `c()`, `t()`, `t.test()`, or `pi()`) for one of your variable names, you will likely find that future work you are trying to do gives unexpected results. Notice in the name of `t.test()` that periods are allowed in names of objects. Other symbols (except numbers and letters) are not allowed.
 
 ### Your workspace {-}
 
-Note that the up-arrow and `history()` will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved when you exit R, and this is purposeful: Attachment to your workspace indicates that you have a **non-reproducible** workflow. Any individual R process and the associated workspace is disposable and everything that really matters should be achieved through code that you save in your script.
+Note that the up-arrow and `history()` will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved by default when you exit R, and this is probably a good thing! Attachment to your workspace indicates that you have a **non-reproducible** workflow. Everything that really matters should be achieved through code that you save in your script, and so any individual R process and the associated workspace is disposable.
 
 ```{r fig.cap = " Image via Jenny Bryan's 'What They Forgot to Teach You About R'", echo = FALSE}
 knitr::include_graphics("img/if-you-liked-it-you-should-have-saved-the-source-for-it.jpg")
 ```
 
 ### Data types in R {-}
+
+R has a veriety of data types:
 
 - **logical**: boolean values
   - ex. `TRUE` and `FALSE`
@@ -190,7 +162,7 @@ help(rnorm)
 
 A shortcut, `?rnorm`, would also work.
 
-Every help file in R begins with a brief description of the function (or group of functions) in question, followed by all of the possible options (a.k.a. Arguments) that you can provide. In this case the value `n` (the number of observations) is required. Notice that all of the other options are shown as being = some value -- this indicates the defaults those values take if you do not enter them. The sample we generated above thus has mean 0 and standard deviation 1.
+Every help file in R begins with a brief description of the function (or group of functions) in question, followed by all of the possible options (a.k.a. arguments) that you can provide. In this case the value `n` (the number of observations) is required. Notice that all of the other options are shown as being = some value -- this indicates the defaults those values take if you do not enter them. The sample we generated above thus has mean 0 and standard deviation 1.
 
 Below the list of arguments are a brief summary of what the function does (called the *Details*), a list of the *Value* (or values) returned by running the function, the *Source* of the algorithm, and general *References* on the topic. *See Also* is often the most useful part of the help for a function as it provides a list of related functions. Finally, there are some *Examples* that you can cut and paste in to observe the function in action.
 
@@ -361,6 +333,21 @@ In many cases the data set we wish to analyze will not have all of the rows or c
 sctable <- readr::read_table("data/scdata.txt")
 ```
 
+The function `read_table()` reads in our file as a **tibble**, unlike `read.table()` which reads in the file as R's traditional `data.table`. Tibbles are data frames, but more opinionated, and they tweak some older behaviors to make working in the tidyverse a little easier.
+
+There are a few good reasons to favor **{readr}** functions over the base equivalents:
+
+- They are typically much faster than their base equivalents. Long running jobs have a progress bar, so you can see what’s happening. If you’re looking for raw speed, try `data.table::fread()`. It doesn’t fit quite so well into the tidyverse, but it can be quite a bit faster.
+
+- They produce tibbles, they don’t convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions.
+
+- They are more reproducible. Base R functions inherit some behavior from your operating system and environment variables, so import code that works on your computer might not work on someone else’s.
+
+- Tibbles are designed so that you don’t accidentally overwhelm your console when you print large data frames.
+
+::: rmdwarning
+Some older functions don’t work with tibbles. If you encounter one of these functions, use `as.data.frame()` to turn a tibble back to a data.frame. The main reason that some older functions don’t work with tibble is the `[` function. With base R data frames, `[` sometimes returns a data frame, and sometimes returns a vector. With tibbles, `[` always returns another tibble.
+:::
 
 ### Inspecting objects {-}
 
@@ -466,6 +453,83 @@ fractions(0.5)
 fractions(pi)
 4272943/1360120
 ```
+
+### Required packages {-} 
+
+The remainder of this ebook (and the workshop) requires that you install the tidyverse library and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse’s family of packages at its website.
+
+
+To install the necessary packages, type the following lines of code at R’s command prompt, located in the console window, and hit return. 
+
+```{r eval = FALSE}
+course_packages <- c("tidyverse", "GGally", "ggrepel", "MASS")
+
+install.packages(course_packages)
+```
+
+R should then download and install these packages for you. It may take a little while to download everything.
+
+
+
+
+
+
+## RMarkdown
+
+Beyond data analysis, coding, and creating graphics, R and RStudio also allow for the creation of documents using Markdown. Markdown is a particular type of markup language. Markup languages are designed to produce documents from plain text. Some of you may be familiar with LaTeX, another (less human friendly) markup language for creating pdf documents. LaTeX gives you much greater control, but it is restricted to pdf and has a much greater learning curve. 
+
+Markdown is becoming a standard and many websites will generate HTML from Markdown (e.g. GitHub, Stack Overflow, reddit, ...). It is also relatively easy:
+
+```
+*italic*
+**bold**
+# Header 1
+## Header 2
+### Header 3
+- List item 1
+- List item 2
+    - item 2a
+    - item 2b
+1. Numbered list item 1
+1. Numbered list item 2
+    - item 2a
+    - item 2b
+```
+
+Have a look at RStudio's [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/).
+
+```{r fig.cap = "Artwork by allison horst", echo = FALSE}
+knitr::include_graphics("img/rmarkdown_wizards.png")
+```
+
+**RMarkdown** is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. It combines markdown syntax with embedded R code chunks that are run so their output can be included in the final document. 
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/rmarkdown.png")
+```
+
+
+Most importantly, RMarkdown creates fully reproducible reports since each time you knit the analysis is run from the beginning, encouraging transparency. Collaborators (including your future self) will thank you for integrating your analysis and report.
+
+#### Exercise: Create your first Rmarkdown. {-}
+
+1. Open RStudio, create a new project.
+2. Create a new RMarkdown file and knit it.
+3. Make changes to the markdown formatting and knit again (use the [RMarkdown cheat sheet](https://www.rstudio.com/resources/cheatsheets/))
+4. If you feel adventurous, change some of the R code and knit again.
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/hello-rmarkdown.png")
+```
+
+
+
+
+
+
+
+
+
 
 
 
