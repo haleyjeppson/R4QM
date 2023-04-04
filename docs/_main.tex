@@ -117,7 +117,7 @@
 
 \title{An Introduction to R for Quantitative Methods}
 \author{Brian Habing, Haley Jeppson}
-\date{2023-03-30}
+\date{2023-04-04}
 
 \begin{document}
 \maketitle
@@ -130,9 +130,7 @@
 \chapter*{PREFACE}\label{preface}}
 \addcontentsline{toc}{chapter}{PREFACE}
 
-This ebook serves as a companion to the \ldots.
-
-It pulls from many sources, including \ldots.
+This book provides an introduction to R programming and serves as a companion to the data visualization workshop at NCME. It pulls from many sources, including \href{https://people.stat.sc.edu/habing/RforQM/RforQM.htm}{An Introduction to R for Quantitative Methods}, \href{https://r4ds.had.co.nz/}{R for Data Science}, and \href{https://rstats.wtf/}{What They Forgot to Teach You About R}.
 
 \hypertarget{conventions}{%
 \section*{Conventions}\label{conventions}}
@@ -402,8 +400,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.27295989 -0.09160783  1.15266936 -0.24327485  0.37587060  0.51197044
-##  [7]  0.08132139 -0.28832786  1.59372961  0.59645344
+##  [1]  0.2631387  1.8752579  1.1486833 -1.1221379 -0.4733657  0.4149713
+##  [7]  0.9768609  0.3285278  0.2062373 -1.4611283
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -446,8 +444,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  2.99134569 -7.83058372 -1.72869290  1.76037404  9.80795085 -1.34039251
-##  [7]  3.11136362 -4.72959683  4.15348466 -0.06756075
+##  [1]  1.79026562  2.37694147 -0.37064936 -3.03166536 -3.97063989  0.07295468
+##  [7] -0.11129388  5.44160501 -0.11636767  1.02287144
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -459,8 +457,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 1.975991 3.813287 4.211239 3.740403 4.677397 3.961957 5.272437 2.761109
-##  [9] 5.065342 4.491828
+##  [1] 3.850148 3.315667 3.199099 3.291708 5.273520 3.143993 3.399510 3.976144
+##  [9] 3.289327 3.777684
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -475,15 +473,16 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.16088251  1.19187176 -0.05581521  1.36707628 -0.57489274  0.53135209
-##  [7] -1.01917247  0.28844676 -0.61998477 -1.59275741 -0.12127975  1.24635302
-## [13] -0.80590756 -1.15324685  0.10249056  3.35817033 -1.28773799 -1.64507491
-## [19]  0.72708797 -1.30735049  0.22218463  0.06590515 -0.45782861 -1.35197327
-## [25] -0.32314969  2.10043821  2.19003980  1.14233353 -0.32151714  1.61858786
-## [31] -0.55743538 -0.14142498  0.89420097 -1.28365168  1.11901900  0.64394148
-## [37]  0.83422645  1.21427123 -0.02319139 -2.56404869 -0.62111655 -2.05421653
-## [43]  0.71465098 -1.58440886 -0.63240944 -1.31609410 -1.18910419 -1.70491666
-## [49]  0.26193377 -0.65165461
+##  [1]  1.475007847 -0.046271038 -0.264772708 -2.337407124 -1.097348304
+##  [6] -0.369543244 -0.623268491 -0.180579446 -0.414145243 -2.559928172
+## [11]  0.640074953 -2.941827224 -0.774473114 -1.309581801  0.312178833
+## [16]  0.639891373  0.431923522 -0.230329421  0.463993505  0.840445249
+## [21]  0.162522267  1.712076312  0.035379280 -0.056334717 -0.364903523
+## [26] -0.468979153 -1.169226700  1.770683649  0.344279934  0.953177692
+## [31] -0.566627634  0.283804724 -0.053347178 -1.704057689 -1.092606093
+## [36] -0.003955208 -0.038440241 -0.588619862  0.806658305 -1.853666310
+## [41]  0.808169096 -2.448769237 -0.123230657  0.307448021  0.455226519
+## [46] -0.140054024  0.235504886  0.989265715 -0.937726108 -1.017910756
 \end{verbatim}
 
 \hypertarget{common-statistical-functions}{%
@@ -552,7 +551,7 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.02640619
+## [1] -0.1451548
 \end{verbatim}
 
 \hypertarget{common-mathematical-functions}{%
@@ -1020,13 +1019,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -0.5789, df = 49, p-value = 0.5653
+## t = -1.631, df = 49, p-value = 0.1093
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.4440885  0.2454526
+##  -0.5406289  0.0562202
 ## sample estimates:
-##   mean of x 
-## -0.09931795
+##  mean of x 
+## -0.2422044
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1054,7 +1053,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.56531
+## [1] 0.1093039
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -1629,7 +1628,7 @@ Reshape data into long form:
 ## dplyr         dplyr        1.0.10
 ## forcats     forcats         0.5.1
 ## ggplot2     ggplot2         3.4.0
-## MASS           MASS      7.3-58.2
+## MASS           MASS      7.3-58.3
 ## psych         psych         2.2.9
 ## purrr         purrr         1.0.1
 ## readr         readr         2.1.2

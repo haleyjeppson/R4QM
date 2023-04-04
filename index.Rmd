@@ -18,11 +18,8 @@ github-repo: rstudio/bookdown-demo
 # PREFACE {-}
 
 
-This ebook serves as a companion to the ....
-
-
-
-It pulls from many sources, including ....
+This book provides an introduction to R programming and serves as a companion to the data visualization workshop at NCME. It pulls from many sources, including [An Introduction to R for Quantitative Methods
+](https://people.stat.sc.edu/habing/RforQM/RforQM.htm), [R for Data Science](https://r4ds.had.co.nz/), and [What They Forgot to Teach You About R](https://rstats.wtf/).
 
 
 ## Conventions {-}
