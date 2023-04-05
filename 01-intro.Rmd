@@ -14,7 +14,7 @@ The book is designed for you to follow along in an active way, writing out the e
 
 ### R {-}
 
-R is based on the statistical programming language S and can be downloaded for free from [www.r-project.org](https://www.r-project.org/). Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then "Download R 4.3.0 for Windows". This page also has links to FAQs and other information about R.
+R is based on the statistical programming language S and can be downloaded for free from [www.r-project.org](https://www.r-project.org/). Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then "Download R 4.2.3 for Windows". This page also has links to FAQs and other information about R.
 
 R itself is a relatively small application with next to no user interface. Everything works through a command line, or console. At its most basic, you launch it from your Terminal application (on a Mac) or Command Prompt (on Windows) by typing `R`. Once launched, R awaits your instructions at a command line of its own, denoted by the right angle bracket symbol, `>`. When you type an instruction and hit return, R interprets it and sends any resulting output back to the console. But although a plain text file and a command line is the absolute minimum you need to work with R, it is a rather spartan arrangement. We can make life easier for ourselves by using RStudio.
 
@@ -44,6 +44,50 @@ When using the Console window in RStudio or R, the up and down-arrow on the key-
 Because this Console window is used for so many things it often fills up quickly — and so, if you are doing anything involving a large number of steps, it is often easiest to type them in a script first, which can be viewed in the **Source editor (1)**.
 
 You can create a new script by clicking on the "File" menu and selecting "New File" then "R Script". A script is a collection of commands that you can save and run again later. To run a command, click in a given line or highlight the text and hit `Ctrl+Enter`, or click the “Run” button at the top of the script window. You can save your scripts for later use. 
+
+
+## Packages
+
+You’ll also need to install some R packages. An R package is a collection of functions, data, and documentation that extends the capabilities of base R. Using packages is key to the successful use of R. For example, the **MASS** package contains all of the functions corresponding to the Springer text *Modern Applied Statistics with S* by Venables and Ripley. 
+
+While some of these are automatically included with the basic installation of R, most are not and can installed with the `install.packages()` function. 
+
+```{r eval = FALSE}
+install.packages("package_name")
+```
+
+When you run the code to install a package on your own computer, R will download the packages from CRAN and install them on to your computer.
+
+::: rmdwarning
+If you have problems installing, make sure that you are connected to the internet, and that https://cloud.r-project.org/ isn’t blocked by your firewall or proxy.
+:::
+
+You will not be able to use the functions, objects, and help files in a package until you load it with `library()`. 
+
+```{r eval = FALSE}
+library(package_name)
+```
+
+The command `library()` is used to activate a downloaded package and give access to all of its functions and must be done once per session.
+
+### Required packages {-} 
+
+The remainder of this ebook (and the workshop) requires that you install the tidyverse library and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse’s family of packages at its website.
+
+
+To install the necessary packages, type the following line of code at R’s command prompt, located in the console window, and hit return. 
+
+```{r eval = FALSE}
+install.packages("tidyverse")
+```
+
+R should then download and install these packages for you. It may take a little while to download everything.
+
+Once you have installed the tidyverse package, you can load it with the `library()` function:
+
+```{r}
+library(tidyverse)
+```
 
 
 
@@ -137,8 +181,8 @@ R will often try to do the "common-sense" thing when using arithmetic arguments.
 
 Parentheses work as usual in mathematical statements, but they do not imply multiplication.
 
-```{r}
-#X(x+5)
+```{r, error=TRUE}
+X(x+5)
 X*(x+5)
 ```
 
@@ -228,9 +272,9 @@ Note that braces `{ }` in R are used to group several separate commands together
 
 After entering or new function, it works like any built in function, except that it appears in our objects list.
 
-```{r}
-# Skew
-# Skew()
+```{r, error=TRUE}
+Skew
+Skew()
 Skew(normal.sample)
 ```
 
@@ -285,13 +329,13 @@ YandZ
 
 However, when asked to combine vectors of two different types, R will try to force them to be of the same type:
 
-```{r}
+```{r, error=TRUE}
 nums <- c(1, 2, 3)
 nums
 lttrs <- c("a", "b", "c")
 lttrs
 c(nums, lttrs)
-# c(nums, lttrs) + 2
+c(nums, lttrs) + 2
 ```
 
 Once we have our desired vector, an element in the vector can be referred to by using square brackets:
@@ -330,7 +374,8 @@ In many cases the data set we wish to analyze will not have all of the rows or c
 `scdata.txt` is one such data set, and it can be found in the course materials (its description is found in `scdata.pdf`). The data can be read in using code similar to the below (assuming a similar file structure).
 
 ```{r}
-sctable <- readr::read_table("data/scdata.txt")
+url <- "https://people.stat.sc.edu/habing/RforQM/scdata.txt"
+sctable <- readr::read_table(url)
 ```
 
 The function `read_table()` reads in our file as a **tibble**, unlike `read.table()` which reads in the file as R's traditional `data.table`. Tibbles are data frames, but more opinionated, and they tweak some older behaviors to make working in the tidyverse a little easier.
@@ -421,56 +466,6 @@ We could then save the resulting value as part of a vector or matrix of other p-
 
 The `$` is also used to access named parts of lists, which we will see can be used to store a variety of kinds of information in a single object.
 
-## Packages
-
-The ability to "easily" write functions in R has lead to an explosion of procedures that researchers have written and made available to the public, typically as an R package. An R package is a collection of functions, data, and documentation that extends the capabilities of base R. Using packages is key to the successful use of R. For example, the **MASS** package contains all of the functions corresponding to the Springer text *Modern Applied Statistics with S* by Venables and Ripley. 
-
-While some of these are automatically included with the basic installation of R, most are not and can installed with the `install.packages()` function. 
-
-```{r eval = FALSE}
-install.packages("package_name")
-```
-
-When you run the code to install a package on your own computer, R will download the packages from CRAN and install them on to your computer.
-
-::: rmdwarning
-If you have problems installing, make sure that you are connected to the internet, and that https://cloud.r-project.org/ isn’t blocked by your firewall or proxy.
-:::
-
-You will not be able to use the functions, objects, and help files in a package until you load it with `library()`. 
-
-```{r eval = FALSE}
-library(package_name)
-```
-
-The command `library()` is used to activate a downloaded package and give access to all of its functions and must be done once per session.
-
-```{r}
-# help(fractions)
-library(MASS)
-help(fractions)
-fractions(0.5)
-fractions(pi)
-4272943/1360120
-```
-
-### Required packages {-} 
-
-The remainder of this ebook (and the workshop) requires that you install the tidyverse library and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse’s family of packages at its website.
-
-
-To install the necessary packages, type the following lines of code at R’s command prompt, located in the console window, and hit return. 
-
-```{r eval = FALSE}
-course_packages <- c("tidyverse", "GGally", "ggrepel", "MASS")
-
-install.packages(course_packages)
-```
-
-R should then download and install these packages for you. It may take a little while to download everything.
-
-
-
 
 
 
@@ -510,6 +505,8 @@ knitr::include_graphics("img/rmarkdown.png")
 
 
 Most importantly, RMarkdown creates fully reproducible reports since each time you knit the analysis is run from the beginning, encouraging transparency. Collaborators (including your future self) will thank you for integrating your analysis and report.
+
+For a more in depth introduction, see [Getting Started with R Markdown — Guide and Cheatsheet](https://www.dataquest.io/blog/r-markdown-guide-cheatsheet/?utm_source=rbloggers&utm_medium=referral&utm_campaign=affiliate), and to expand on your introduction, see [R Markdown tips, tricks, and shortcuts](https://www.dataquest.io/blog/r-markdown-tips-tricks-and-shortcuts/?utm_source=rbloggers&utm_medium=referral&utm_campaign=affiliate).
 
 #### Exercise: Create your first Rmarkdown. {-}
 

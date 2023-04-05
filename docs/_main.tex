@@ -117,7 +117,7 @@
 
 \title{An Introduction to R for Quantitative Methods}
 \author{Brian Habing, Haley Jeppson}
-\date{2023-04-04}
+\date{2023-04-05}
 
 \begin{document}
 \maketitle
@@ -130,10 +130,10 @@
 \chapter*{PREFACE}\label{preface}}
 \addcontentsline{toc}{chapter}{PREFACE}
 
-This book provides an introduction to R programming and serves as a companion to the data visualization workshop at NCME. It pulls from many sources, including \href{https://people.stat.sc.edu/habing/RforQM/RforQM.htm}{An Introduction to R for Quantitative Methods}, \href{https://r4ds.had.co.nz/}{R for Data Science}, and \href{https://rstats.wtf/}{What They Forgot to Teach You About R}.
+This book provides an introduction to R programming and serves as a companion to the data visualization workshop at NCME. It pulls from many sources, including \href{https://people.stat.sc.edu/habing/RforQM/RforQM.htm}{An Introduction to R for Quantitative Methods}, \href{https://r4ds.had.co.nz/}{R for Data Science}, \href{https://rstats.wtf/}{What They Forgot to Teach You About R}, \href{https://socviz.co/}{Data Visualization: A Practical Introduction}, \href{https://www.tmwr.org/}{Tidy Modeling with R}, and \href{https://stat480-at-isu.github.io/schedule.html}{Applied Statistical Computing}.
 
 \hypertarget{conventions}{%
-\section*{Conventions}\label{conventions}}
+\section*{\texorpdfstring{Conventions\footnote{This section is repurposed from \href{https://socviz.co/}{Data Visualization: A Practical Introduction}}}{Conventions}}\label{conventions}}
 \addcontentsline{toc}{section}{Conventions}
 
 In this book, we alternate between regular text (like this), samples of code that you can type and run yourself, and the output of that code. In the main text, references to objects or other things that exist in the R language or in your R project---like tables of data, variables, functions, and so on---will also appear in \texttt{a\ monospaced} or \texttt{"typewriter"\ typeface}. Code you can type directly into R at the console will be in gray boxes, and also monospaced. Like this:
@@ -184,7 +184,7 @@ The book is designed for you to follow along in an active way, writing out the e
 \subsection*{R}\label{r}}
 \addcontentsline{toc}{subsection}{R}
 
-R is based on the statistical programming language S and can be downloaded for free from \href{https://www.r-project.org/}{www.r-project.org}. Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then ``Download R 4.3.0 for Windows''. This page also has links to FAQs and other information about R.
+R is based on the statistical programming language S and can be downloaded for free from \href{https://www.r-project.org/}{www.r-project.org}. Currently, to do so, choose: CRAN, then a mirror site in the US, then Download R for Windows, then base, then ``Download R 4.2.3 for Windows''. This page also has links to FAQs and other information about R.
 
 R itself is a relatively small application with next to no user interface. Everything works through a command line, or console. At its most basic, you launch it from your Terminal application (on a Mac) or Command Prompt (on Windows) by typing \texttt{R}. Once launched, R awaits your instructions at a command line of its own, denoted by the right angle bracket symbol, \texttt{\textgreater{}}. When you type an instruction and hit return, R interprets it and sends any resulting output back to the console. But although a plain text file and a command line is the absolute minimum you need to work with R, it is a rather spartan arrangement. We can make life easier for ourselves by using RStudio.
 
@@ -211,6 +211,57 @@ When using the Console window in RStudio or R, the up and down-arrow on the key-
 Because this Console window is used for so many things it often fills up quickly --- and so, if you are doing anything involving a large number of steps, it is often easiest to type them in a script first, which can be viewed in the \textbf{Source editor (1)}.
 
 You can create a new script by clicking on the ``File'' menu and selecting ``New File'' then ``R Script''. A script is a collection of commands that you can save and run again later. To run a command, click in a given line or highlight the text and hit \texttt{Ctrl+Enter}, or click the ``Run'' button at the top of the script window. You can save your scripts for later use.
+
+\hypertarget{packages}{%
+\section{Packages}\label{packages}}
+
+You'll also need to install some R packages. An R package is a collection of functions, data, and documentation that extends the capabilities of base R. Using packages is key to the successful use of R. For example, the \textbf{MASS} package contains all of the functions corresponding to the Springer text \emph{Modern Applied Statistics with S} by Venables and Ripley.
+
+While some of these are automatically included with the basic installation of R, most are not and can installed with the \texttt{install.packages()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"package\_name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When you run the code to install a package on your own computer, R will download the packages from CRAN and install them on to your computer.
+
+If you have problems installing, make sure that you are connected to the internet, and that \url{https://cloud.r-project.org/} isn't blocked by your firewall or proxy.
+
+You will not be able to use the functions, objects, and help files in a package until you load it with \texttt{library()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(package\_name)}
+\end{Highlighting}
+\end{Shaded}
+
+The command \texttt{library()} is used to activate a downloaded package and give access to all of its functions and must be done once per session.
+
+\hypertarget{required-packages}{%
+\subsection*{Required packages}\label{required-packages}}
+\addcontentsline{toc}{subsection}{Required packages}
+
+The remainder of this ebook (and the workshop) requires that you install the tidyverse library and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse's family of packages at its website.
+
+To install the necessary packages, type the following line of code at R's command prompt, located in the console window, and hit return.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+R should then download and install these packages for you. It may take a little while to download everything.
+
+Once you have installed the tidyverse package, you can load it with the \texttt{library()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{objects}{%
 \section{Objects}\label{objects}}
@@ -282,7 +333,7 @@ If you attempt to use the name of a built in function or constant (such as \text
 Note that the up-arrow and \texttt{history()} will now show us the commands we entered previously. This set of all of your created objects (your Workspace) is not saved by default when you exit R, and this is probably a good thing! Attachment to your workspace indicates that you have a \textbf{non-reproducible} workflow. Everything that really matters should be achieved through code that you save in your script, and so any individual R process and the associated workspace is disposable.
 
 \begin{figure}
-\includegraphics[width=12.33in]{img/if-you-liked-it-you-should-have-saved-the-source-for-it} \caption{ Image via Jenny Bryan's 'What They Forgot to Teach You About R'}\label{fig:unnamed-chunk-9}
+\includegraphics[width=12.33in]{img/if-you-liked-it-you-should-have-saved-the-source-for-it} \caption{ Image via Jenny Bryan's 'What They Forgot to Teach You About R'}\label{fig:unnamed-chunk-13}
 \end{figure}
 
 \hypertarget{data-types-in-r}{%
@@ -380,7 +431,16 @@ Parentheses work as usual in mathematical statements, but they do not imply mult
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#X(x+5)}
+\FunctionTok{X}\NormalTok{(x}\SpecialCharTok{+}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in X(x + 5): could not find function "X"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{X}\SpecialCharTok{*}\NormalTok{(x}\SpecialCharTok{+}\DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -400,8 +460,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.2631387  1.8752579  1.1486833 -1.1221379 -0.4733657  0.4149713
-##  [7]  0.9768609  0.3285278  0.2062373 -1.4611283
+##  [1] -0.11492669 -0.26176296 -0.99128612  0.70691272  0.66817719 -0.63488312
+##  [7]  0.55394243  0.39784382  0.23487649 -0.01937339
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -444,8 +504,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1.79026562  2.37694147 -0.37064936 -3.03166536 -3.97063989  0.07295468
-##  [7] -0.11129388  5.44160501 -0.11636767  1.02287144
+##  [1] -0.02506472  1.84964821  0.02400532  0.52510981  1.64060915 -5.49654826
+##  [7]  1.65520942  4.38404904 -2.90423394 -7.26580412
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -457,8 +517,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 3.850148 3.315667 3.199099 3.291708 5.273520 3.143993 3.399510 3.976144
-##  [9] 3.289327 3.777684
+##  [1] 3.626206 3.727469 1.889742 4.269961 5.298835 5.857827 4.461045 5.939952
+##  [9] 3.533907 6.647373
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -473,16 +533,15 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1.475007847 -0.046271038 -0.264772708 -2.337407124 -1.097348304
-##  [6] -0.369543244 -0.623268491 -0.180579446 -0.414145243 -2.559928172
-## [11]  0.640074953 -2.941827224 -0.774473114 -1.309581801  0.312178833
-## [16]  0.639891373  0.431923522 -0.230329421  0.463993505  0.840445249
-## [21]  0.162522267  1.712076312  0.035379280 -0.056334717 -0.364903523
-## [26] -0.468979153 -1.169226700  1.770683649  0.344279934  0.953177692
-## [31] -0.566627634  0.283804724 -0.053347178 -1.704057689 -1.092606093
-## [36] -0.003955208 -0.038440241 -0.588619862  0.806658305 -1.853666310
-## [41]  0.808169096 -2.448769237 -0.123230657  0.307448021  0.455226519
-## [46] -0.140054024  0.235504886  0.989265715 -0.937726108 -1.017910756
+##  [1]  0.53803214 -1.13678741  1.34026712  0.79189896  0.96073442 -0.84028196
+##  [7]  0.25099615  0.75366399 -0.37298563 -0.79599057  1.03114445  0.55203307
+## [13] -0.55167032  0.13223272  0.84960665  0.76585583  1.87508712 -1.09612390
+## [19]  0.67843965 -0.87294353 -0.62300578 -0.11713812 -0.84450538  1.19053059
+## [25] -1.74251366  1.35331684  0.65762741 -0.54393908  1.46836902 -0.02613009
+## [31]  0.66888426 -0.99112765 -0.08127737 -1.00478480  0.15023546  0.15325123
+## [37]  1.56350633 -0.82970819  0.94803788 -1.16093335 -0.95458657  1.54295461
+## [43] -0.29003075  0.33424113 -0.90852157  0.11842786 -0.37716858  1.66808076
+## [49] -0.47358322 -1.18959605
 \end{verbatim}
 
 \hypertarget{common-statistical-functions}{%
@@ -544,14 +603,33 @@ After entering or new function, it works like any built in function, except that
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Skew}
-\CommentTok{\# Skew()}
+\NormalTok{Skew}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function(x){
+##     (mean(x) - median(x))/sd(x)}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Skew}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in mean(x): argument "x" is missing, with no default
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{Skew}\NormalTok{(normal.sample)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.1451548
+## [1] -0.03762385
 \end{verbatim}
 
 \hypertarget{common-mathematical-functions}{%
@@ -704,9 +782,13 @@ However, when asked to combine vectors of two different types, R will try to for
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# c(nums, lttrs) + 2}
+\FunctionTok{c}\NormalTok{(nums, lttrs) }\SpecialCharTok{+} \DecValTok{2}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Error in c(nums, lttrs) + 2: non-numeric argument to binary operator
+\end{verbatim}
 
 Once we have our desired vector, an element in the vector can be referred to by using square brackets:
 
@@ -814,7 +896,8 @@ In many cases the data set we wish to analyze will not have all of the rows or c
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{sctable }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/scdata.txt"}\NormalTok{)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://people.stat.sc.edu/habing/RforQM/scdata.txt"}
+\NormalTok{sctable }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(url)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1019,13 +1102,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -1.631, df = 49, p-value = 0.1093
+## t = 0.68423, df = 49, p-value = 0.4971
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.5406289  0.0562202
+##  -0.1747983  0.3552832
 ## sample estimates:
 ##  mean of x 
-## -0.2422044
+## 0.09024244
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1053,90 +1136,12 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1093039
+## [1] 0.4970531
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
 
 The \texttt{\$} is also used to access named parts of lists, which we will see can be used to store a variety of kinds of information in a single object.
-
-\hypertarget{packages}{%
-\section{Packages}\label{packages}}
-
-The ability to ``easily'' write functions in R has lead to an explosion of procedures that researchers have written and made available to the public, typically as an R package. An R package is a collection of functions, data, and documentation that extends the capabilities of base R. Using packages is key to the successful use of R. For example, the \textbf{MASS} package contains all of the functions corresponding to the Springer text \emph{Modern Applied Statistics with S} by Venables and Ripley.
-
-While some of these are automatically included with the basic installation of R, most are not and can installed with the \texttt{install.packages()} function.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"package\_name"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-When you run the code to install a package on your own computer, R will download the packages from CRAN and install them on to your computer.
-
-If you have problems installing, make sure that you are connected to the internet, and that \url{https://cloud.r-project.org/} isn't blocked by your firewall or proxy.
-
-You will not be able to use the functions, objects, and help files in a package until you load it with \texttt{library()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(package\_name)}
-\end{Highlighting}
-\end{Shaded}
-
-The command \texttt{library()} is used to activate a downloaded package and give access to all of its functions and must be done once per session.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# help(fractions)}
-\FunctionTok{library}\NormalTok{(MASS)}
-\FunctionTok{help}\NormalTok{(fractions)}
-\FunctionTok{fractions}\NormalTok{(}\FloatTok{0.5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 1/2
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{fractions}\NormalTok{(pi)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 4272943/1360120
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\DecValTok{4272943}\SpecialCharTok{/}\DecValTok{1360120}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 3.141593
-\end{verbatim}
-
-\hypertarget{required-packages}{%
-\subsection*{Required packages}\label{required-packages}}
-\addcontentsline{toc}{subsection}{Required packages}
-
-The remainder of this ebook (and the workshop) requires that you install the tidyverse library and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse's family of packages at its website.
-
-To install the necessary packages, type the following lines of code at R's command prompt, located in the console window, and hit return.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{course\_packages }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"GGally"}\NormalTok{, }\StringTok{"ggrepel"}\NormalTok{, }\StringTok{"MASS"}\NormalTok{)}
-
-\FunctionTok{install.packages}\NormalTok{(course\_packages)}
-\end{Highlighting}
-\end{Shaded}
-
-R should then download and install these packages for you. It may take a little while to download everything.
 
 \hypertarget{rmarkdown}{%
 \section{RMarkdown}\label{rmarkdown}}
@@ -1172,6 +1177,8 @@ Have a look at RStudio's \href{https://www.rstudio.com/resources/cheatsheets/}{R
 \includegraphics[width=19.36in]{img/rmarkdown}
 
 Most importantly, RMarkdown creates fully reproducible reports since each time you knit the analysis is run from the beginning, encouraging transparency. Collaborators (including your future self) will thank you for integrating your analysis and report.
+
+For a more in depth introduction, see \href{https://www.dataquest.io/blog/r-markdown-guide-cheatsheet/?utm_source=rbloggers\&utm_medium=referral\&utm_campaign=affiliate}{Getting Started with R Markdown --- Guide and Cheatsheet}, and to expand on your introduction, see \href{https://www.dataquest.io/blog/r-markdown-tips-tricks-and-shortcuts/?utm_source=rbloggers\&utm_medium=referral\&utm_campaign=affiliate}{R Markdown tips, tricks, and shortcuts}.
 
 \hypertarget{exercise-create-your-first-rmarkdown.}{%
 \subsubsection*{Exercise: Create your first Rmarkdown.}\label{exercise-create-your-first-rmarkdown.}}
@@ -1376,6 +1383,29 @@ The following example ties several of the above ideas together. Imagine that we 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{students }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_table}\NormalTok{(}\StringTok{"data/CourseData.txt"}\NormalTok{)[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{students}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 70 x 6
+##    College  Year  Hmwk    E1    E2    E3
+##    <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+##  1 NU          1  83.8    79    89    59
+##  2 NU          1  77.1    60    97    63
+##  3 NU          1  94.5    83    88    69
+##  4 NU          1  84.3    91    77    72
+##  5 NU          1  73.4    68    79    76
+##  6 NU          1  94.7    89    96    79
+##  7 NU          1  77.7    76    43    84
+##  8 NU          1  92.9    92    81    84
+##  9 NU          1  95.9    84    85    84
+## 10 NU          1  98.2    99    84    85
+## # ... with 60 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{head}\NormalTok{(students)}
 \end{Highlighting}
 \end{Shaded}
@@ -1485,133 +1515,156 @@ Topics:
 \hypertarget{an-example-2}{%
 \section{An example}\label{an-example-2}}
 
-Reshape data into long form:
+For this example we begin with a subset of the 2009 \href{https://nces.ed.gov/surveys/pisa/}{Program for International Student Assessment (PISA)} data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# load data}
-\FunctionTok{library}\NormalTok{(psych)}
-\FunctionTok{data}\NormalTok{(bfi)}
-\NormalTok{bfi\_trim }\OtherTok{\textless{}{-}}\NormalTok{ bfi }\SpecialCharTok{\%\textgreater{}\%} 
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{matches}\NormalTok{(}\StringTok{\textquotesingle{}\^{}A[1{-}5]|\^{}N\textquotesingle{}}\NormalTok{))}
-
-\DocumentationTok{\#\# Compare the 1 to 3 factor solutions}
-\NormalTok{model1 }\OtherTok{=} \FunctionTok{fa}\NormalTok{(bfi\_trim, }\DecValTok{1}\NormalTok{)}
-\NormalTok{model2 }\OtherTok{=} \FunctionTok{fa}\NormalTok{(bfi\_trim, }\DecValTok{2}\NormalTok{)}
-\NormalTok{model3 }\OtherTok{=} \FunctionTok{fa}\NormalTok{(bfi\_trim, }\DecValTok{3}\NormalTok{)}
-
-\DocumentationTok{\#\# as a matrix}
-\NormalTok{obs }\OtherTok{=} \FunctionTok{cor}\NormalTok{(bfi\_trim, }\AttributeTok{use =} \StringTok{"pairwise.complete.obs"}\NormalTok{) }
-\NormalTok{obs}
+\NormalTok{pisas }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/pisas09\_subset.csv"}\NormalTok{)}
+\NormalTok{pisas}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##             A1          A2          A3           A4          A5          N1
-## A1  1.00000000 -0.34019325 -0.26524705 -0.146424511 -0.18143827  0.16647717
-## A2 -0.34019325  1.00000000  0.48509804  0.335087208  0.39008358 -0.08767439
-## A3 -0.26524705  0.48509804  1.00000000  0.360428299  0.50414114 -0.08410612
-## A4 -0.14642451  0.33508721  0.36042830  1.000000000  0.30753726 -0.09893616
-## A5 -0.18143827  0.39008358  0.50414114  0.307537265  1.00000000 -0.19573473
-## N1  0.16647717 -0.08767439 -0.08410612 -0.098936157 -0.19573473  1.00000000
-## N2  0.13931876 -0.05049870 -0.08830390 -0.143785958 -0.18807886  0.70698096
-## N3  0.10269550 -0.03549215 -0.04147399 -0.070287040 -0.13549734  0.55642509
-## N4  0.05220365 -0.08971128 -0.12824047 -0.166311475 -0.20227344  0.39780585
-## N5  0.01667965  0.01916850 -0.03693212 -0.007078645 -0.07612539  0.37812644
-##            N2          N3          N4           N5
-## A1  0.1393188  0.10269550  0.05220365  0.016679649
-## A2 -0.0504987 -0.03549215 -0.08971128  0.019168496
-## A3 -0.0883039 -0.04147399 -0.12824047 -0.036932115
-## A4 -0.1437860 -0.07028704 -0.16631148 -0.007078645
-## A5 -0.1880789 -0.13549734 -0.20227344 -0.076125391
-## N1  0.7069810  0.55642509  0.39780585  0.378126441
-## N2  1.0000000  0.54910308  0.39157038  0.350612639
-## N3  0.5491031  1.00000000  0.51950432  0.428418658
-## N4  0.3915704  0.51950432  1.00000000  0.397696146
-## N5  0.3506126  0.42841866  0.39769615  1.000000000
+## # A tibble: 475,460 x 5
+##    country sex     math  read weight
+##    <chr>   <chr>  <dbl> <dbl>  <dbl>
+##  1 Albania Male    333.  279.   5.40
+##  2 Albania Male    344.  327.   5.40
+##  3 Albania Male    456.  423.   5.40
+##  4 Albania Female  394.  420.   5.70
+##  5 Albania Female  277.  375.   5.70
+##  6 Albania Male    514.  544.   5.40
+##  7 Albania Female  425.  477.   5.70
+##  8 Albania Female  322.  339.   5.70
+##  9 Albania Male    332.  319.   5.40
+## 10 Albania Male    387.  430.   5.40
+## # ... with 475,450 more rows
 \end{verbatim}
+
+\hypertarget{pivot-to-long-form}{%
+\subsubsection*{Pivot to long form}\label{pivot-to-long-form}}
+\addcontentsline{toc}{subsubsection}{Pivot to long form}
+
+Say we want to compare math and reading scores across a subset of countries. To do so, we will need to reshape our data into long form:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# in long form}
-\NormalTok{obs\_long }\OtherTok{\textless{}{-}}\NormalTok{ obs }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{i =} \FunctionTok{names}\NormalTok{(.)) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \SpecialCharTok{{-}}\NormalTok{i, }\AttributeTok{names\_to =} \StringTok{"j"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"obs"}\NormalTok{)}
-\NormalTok{obs\_long}
+\NormalTok{pisas\_long }\OtherTok{\textless{}{-}}\NormalTok{ pisas }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{sex) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =}\NormalTok{ math}\SpecialCharTok{:}\NormalTok{read, }\AttributeTok{names\_to =} \StringTok{"item"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"score"}\NormalTok{)}
+\NormalTok{pisas\_long}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 100 x 3
-##    i     j         obs
-##    <chr> <chr>   <dbl>
-##  1 A1    A1     1     
-##  2 A1    A2    -0.340 
-##  3 A1    A3    -0.265 
-##  4 A1    A4    -0.146 
-##  5 A1    A5    -0.181 
-##  6 A1    N1     0.166 
-##  7 A1    N2     0.139 
-##  8 A1    N3     0.103 
-##  9 A1    N4     0.0522
-## 10 A1    N5     0.0167
-## # ... with 90 more rows
+## # A tibble: 950,920 x 4
+##    country weight item  score
+##    <chr>    <dbl> <chr> <dbl>
+##  1 Albania   5.40 math   333.
+##  2 Albania   5.40 read   279.
+##  3 Albania   5.40 math   344.
+##  4 Albania   5.40 read   327.
+##  5 Albania   5.40 math   456.
+##  6 Albania   5.40 read   423.
+##  7 Albania   5.70 math   394.
+##  8 Albania   5.70 read   420.
+##  9 Albania   5.70 math   277.
+## 10 Albania   5.70 read   375.
+## # ... with 950,910 more rows
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# add model residuals}
-\NormalTok{fa\_models }\OtherTok{\textless{}{-}}\NormalTok{ obs\_long }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{resid1 =} \FunctionTok{c}\NormalTok{(model1}\SpecialCharTok{$}\NormalTok{residual),}
-         \AttributeTok{resid2 =} \FunctionTok{c}\NormalTok{(model2}\SpecialCharTok{$}\NormalTok{residual),}
-         \AttributeTok{resid3 =} \FunctionTok{c}\NormalTok{(model3}\SpecialCharTok{$}\NormalTok{residual)) }
-\NormalTok{fa\_models}
+\NormalTok{pisas\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(country }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Finland"}\NormalTok{, }\StringTok{"United States"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ score, }\AttributeTok{weight =}\NormalTok{ weight, }\AttributeTok{fill =}\NormalTok{ country)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{item) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#69cadf"}\NormalTok{, }\StringTok{"\#f4602a"}\NormalTok{, }\StringTok{"\#fbb03b"}\NormalTok{, }\StringTok{"\#3273c2"}\NormalTok{)[}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{)]) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of PISA 2009 Scores"}\NormalTok{, }\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{_main_files/figure-latex/unnamed-chunk-49-1.pdf}
+
+\hypertarget{pivot-to-wide-form}{%
+\subsubsection*{Pivot to wide form}\label{pivot-to-wide-form}}
+\addcontentsline{toc}{subsubsection}{Pivot to wide form}
+
+Say we want to plot male math scores against female math scores. To do so, we will need to summarize our data and then reshape our data into a wider format:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# in wide form}
+\NormalTok{pisas\_wide }\OtherTok{\textless{}{-}}\NormalTok{ pisas }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{read) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(country, sex) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{math =} \FunctionTok{weighted.mean}\NormalTok{(math, weight, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ sex, }\AttributeTok{values\_from =}\NormalTok{ math) }
+  
+\NormalTok{pisas\_wide}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 100 x 6
-##    i     j         obs  resid1  resid2     resid3
-##    <chr> <chr>   <dbl>   <dbl>   <dbl>      <dbl>
-##  1 A1    A1     1       0.942   0.856   0.826    
-##  2 A1    A2    -0.340  -0.280  -0.0899 -0.0782   
-##  3 A1    A3    -0.265  -0.196   0.0122  0.00741  
-##  4 A1    A4    -0.146  -0.0820  0.0377  0.0328   
-##  5 A1    A5    -0.181  -0.0919  0.0573  0.0522   
-##  6 A1    N1     0.166  -0.0138  0.0469 -0.00378  
-##  7 A1    N2     0.139  -0.0369  0.0235 -0.0136   
-##  8 A1    N3     0.103  -0.0638  0.0130  0.0335   
-##  9 A1    N4     0.0522 -0.0919 -0.0588  0.0000186
-## 10 A1    N5     0.0167 -0.0977 -0.0309  0.000117 
-## # ... with 90 more rows
+## # A tibble: 65 x 4
+## # Groups:   country [65]
+##    country    Female  Male  `NA`
+##    <chr>       <dbl> <dbl> <dbl>
+##  1 Albania      382.  372.    NA
+##  2 Argentina    383.  393.    NA
+##  3 Australia    510.  519.    NA
+##  4 Austria      486.  505.    NA
+##  5 Azerbaijan   426.  436.    NA
+##  6 Belgium      505.  526.    NA
+##  7 Brazil       378.  395.    NA
+##  8 Bulgaria     431.  425.    NA
+##  9 Canada       520.  532.    NA
+## 10 Chile        410.  431.    NA
+## # ... with 55 more rows
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# pivot to long form}
-\NormalTok{fa\_models\_long }\OtherTok{\textless{}{-}}\NormalTok{ fa\_models }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =}\NormalTok{ resid1}\SpecialCharTok{:}\NormalTok{resid3, }\AttributeTok{names\_to =} \StringTok{"model"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"resid"}\NormalTok{)}
-\NormalTok{fa\_models\_long}
+\FunctionTok{ggplot}\NormalTok{(pisas\_wide, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Female, }\AttributeTok{y =}\NormalTok{ Male)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"PISA 2009 in Math {-} Gender Gap"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"PISA 2009 Math score for girls"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"PISA 2015 Math score for boys"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_light}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 300 x 5
-##    i     j        obs model     resid
-##    <chr> <chr>  <dbl> <chr>     <dbl>
-##  1 A1    A1     1     resid1  0.942  
-##  2 A1    A1     1     resid2  0.856  
-##  3 A1    A1     1     resid3  0.826  
-##  4 A1    A2    -0.340 resid1 -0.280  
-##  5 A1    A2    -0.340 resid2 -0.0899 
-##  6 A1    A2    -0.340 resid3 -0.0782 
-##  7 A1    A3    -0.265 resid1 -0.196  
-##  8 A1    A3    -0.265 resid2  0.0122 
-##  9 A1    A3    -0.265 resid3  0.00741
-## 10 A1    A4    -0.146 resid1 -0.0820 
-## # ... with 290 more rows
-\end{verbatim}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-50-1.pdf}
+
+\hypertarget{additional-resources}{%
+\section*{Additional Resources}\label{additional-resources}}
+\addcontentsline{toc}{section}{Additional Resources}
+
+\begin{itemize}
+\item
+  \href{https://r4ds.had.co.nz/}{R for Data Science}
+\item
+  \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{R Markdown Cookbook}
+\item
+  \href{https://bookdown.org/yihui/bookdown/}{bookdown: Authoring Books and Technical Documents with R Markdown}
+\item
+  \href{https://stat480-at-isu.github.io/schedule.html}{Applied Statistical Computing}.
+\item
+  \href{https://people.stat.sc.edu/habing/RforQM/RforQM.htm}{An Introduction to R for Quantitative Methods}
+\item
+  \href{https://socviz.co/}{Data Visualization: A Practical Introduction}
+\item
+  \href{https://clauswilke.com/dataviz/index.html}{Fundamentals of Data Visualization}
+\item
+  \href{https://rstats.wtf/}{What They Forgot to Teach You About R}
+\item
+  \href{https://www.tmwr.org/}{Tidy Modeling with R}
+\end{itemize}
 
 \hypertarget{packages-1}{%
 \section*{Packages}\label{packages-1}}
@@ -1628,8 +1681,6 @@ Reshape data into long form:
 ## dplyr         dplyr        1.0.10
 ## forcats     forcats         0.5.1
 ## ggplot2     ggplot2         3.4.0
-## MASS           MASS      7.3-58.3
-## psych         psych         2.2.9
 ## purrr         purrr         1.0.1
 ## readr         readr         2.1.2
 ## stringr     stringr         1.4.1

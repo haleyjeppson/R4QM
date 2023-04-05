@@ -78,6 +78,7 @@ The following example ties several of the above ideas together. Imagine that we 
 
 ```{r}
 students <- readr::read_table("data/CourseData.txt")[, -1]
+students
 head(students)
 tail(students)
 ```
@@ -129,47 +130,55 @@ Topics:
 
 ## An example
 
-Reshape data into long form:
+For this example we begin with a subset of the 2009 [Program for International Student Assessment (PISA)](https://nces.ed.gov/surveys/pisa/) data. 
 
 ```{r}
 ## load data
-library(psych)
-data(bfi)
-bfi_trim <- bfi %>% 
-  dplyr::select(matches('^A[1-5]|^N'))
-
-## Compare the 1 to 3 factor solutions
-model1 = fa(bfi_trim, 1)
-model2 = fa(bfi_trim, 2)
-model3 = fa(bfi_trim, 3)
-
-## as a matrix
-obs = cor(bfi_trim, use = "pairwise.complete.obs") 
-obs
+pisas <- readr::read_csv("data/pisas09_subset.csv")
+pisas
 ```
 
+#### Pivot to long form {-}
+
+Say we want to compare math and reading scores across a subset of countries. To do so, we will need to reshape our data into long form:
 
 ```{r}
 ## in long form
-obs_long <- obs %>% 
-  as_tibble() %>% 
-  mutate(i = names(.)) %>% 
-  pivot_longer(cols = -i, names_to = "j", values_to = "obs")
-obs_long
+pisas_long <- pisas %>% 
+  select(-sex) %>% 
+  pivot_longer(cols = math:read, names_to = "item", values_to = "score")
+pisas_long
 
-## add model residuals
-fa_models <- obs_long %>% 
-  mutate(resid1 = c(model1$residual),
-         resid2 = c(model2$residual),
-         resid3 = c(model3$residual)) 
-fa_models
-
-## pivot to long form
-fa_models_long <- fa_models %>% 
-  pivot_longer(cols = resid1:resid3, names_to = "model", values_to = "resid")
-fa_models_long
+pisas_long %>% 
+  filter(country %in% c("Finland", "United States")) %>%
+  ggplot(aes(x = score, weight = weight, fill = country)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~item) +
+  theme_bw() +
+  scale_fill_manual(values = c("#69cadf", "#f4602a", "#fbb03b", "#3273c2")[c(3,1)]) +
+  labs(title = "Distribution of PISA 2009 Scores", x = NULL, y = NULL)
 ```
 
+#### Pivot to wide form {-}
 
+Say we want to plot male math scores against female math scores. To do so, we will need to summarize our data and then reshape our data into a wider format:
 
+```{r}
+## in wide form
+pisas_wide <- pisas %>% 
+  select(-read) %>% 
+  group_by(country, sex) %>% 
+  summarise(math = weighted.mean(math, weight, na.rm = TRUE)) %>% 
+  pivot_wider(names_from = sex, values_from = math) 
+  
+pisas_wide
+
+ggplot(pisas_wide, aes(x = Female, y = Male)) +
+  geom_abline(alpha = 0.2) +
+  geom_point() +
+  labs(title = "PISA 2009 in Math - Gender Gap",
+       x = "PISA 2009 Math score for girls",
+       y = "PISA 2015 Math score for boys") +
+  theme_light()
+```
 

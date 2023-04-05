@@ -1,13 +1,13 @@
-fig:unnamed-chunk-9
+fig:unnamed-chunk-13
 fig:unnamed-chunk-39
 an-introduction
+packages
 objects
 arithmetic-and-parentheses
 help
 functions
 vectors-matrices-and-arrays
 data-frames-lists-and-attributes
-packages
 rmarkdown
 graphics
 an-example

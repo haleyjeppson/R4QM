@@ -2,6 +2,31 @@
 # References {-}
 '`
 
+## Additional Resources {-}
+
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+- [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+
+- [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
+
+- [Applied Statistical Computing](https://stat480-at-isu.github.io/schedule.html).
+
+- [An Introduction to R for Quantitative Methods](https://people.stat.sc.edu/habing/RforQM/RforQM.htm)
+
+- [Data Visualization: A Practical Introduction](https://socviz.co/)
+
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/index.html)
+
+- [What They Forgot to Teach You About R](https://rstats.wtf/)
+
+- [Tidy Modeling with R](https://www.tmwr.org/)
+
+
+
+
+
 ## Packages {-}
 
 ```{r }
