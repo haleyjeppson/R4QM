@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.1)  5 APR 2023 11:14
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.1)  5 APR 2023 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -802,229 +802,219 @@ Underfull \hbox (badness 10000) in paragraph at lines 377--378
 
 [11] [12]
 Overfull \hbox (38.25pt too wide) in paragraph at lines 465--465
-[]\TU/lmtt/m/n/10 ##  [1]  0.8632073  0.2382018 -0.4352959 -1.5022096  1.4102233  1.2333492[] 
+[]\TU/lmtt/m/n/10 ##  [1] -0.7619405  0.4161386 -2.1680395 -0.4675213  0.2461323 -0.2923226[] 
  []
 
 [13]
-Overfull \hbox (59.25pt too wide) in paragraph at lines 509--509
-[]\TU/lmtt/m/n/10 ##  [1]  4.009843 -2.283745 10.798616 -2.250932  3.196857 -1.716489  3.286121[] 
+Overfull \hbox (38.25pt too wide) in paragraph at lines 509--509
+[]\TU/lmtt/m/n/10 ##  [1]  1.5702870 -5.2994532  5.8759032 -6.5844055  2.8785251  1.3775731[] 
  []
 
 
 Overfull \hbox (69.75pt too wide) in paragraph at lines 522--522
-[]\TU/lmtt/m/n/10 ##  [1] 3.728657 3.594066 5.096575 4.486254 3.091988 4.643227 3.828985 4.696059[] 
+[]\TU/lmtt/m/n/10 ##  [1] 2.823548 2.965551 5.745427 4.459195 3.457288 3.962843 5.443968 3.354950[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ##  [1]  0.204201413  0.609197634  0.195927383 -0.032587203 -0.600146853[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ##  [1]  0.34470966  0.68275198  1.52934949 -1.89849113  0.81200638  0.42172147[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ##  [6]  0.688211311 -0.261624302 -0.227742847 -1.393837835 -0.449825474[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ##  [7]  0.44409132  0.11513841  0.51825510  2.25059324  1.28197819 -0.34478198[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [11]  0.613381708 -0.587425914 -1.475433871 -0.912554638 -0.206787678[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [13]  0.13536659  0.14938146  2.62587704 -0.31244415  0.50498242 -0.63054361[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [16]  0.007724026  0.222924842  0.368407064 -0.716983986 -0.363461313[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [19] -0.01083312 -0.75179013  0.46678403  0.92560002 -1.45277056 -0.44074904[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [21]  0.077582276 -0.360237477 -0.430394260 -0.413357347  0.089295973[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [25] -0.39708162 -0.10599941  0.61939431  0.87091029 -1.12939255  0.10836347[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [26]  0.755307573  1.546019792 -0.178308999 -1.192350602  1.176871714[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [31] -1.04756063 -0.48592628 -0.89385922  1.32826729  2.08696535  0.43627006[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [31] -0.672992519 -2.343170884  0.407870484  0.497986437  1.372690137[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [37] -0.48096872  0.32959631  0.85176856  1.49640418 -0.16447693 -0.67755595[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [36] -0.048124349 -1.962751271  0.693303815  0.966928578 -0.497809627[] 
- []
-
-
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [41]  0.702331673  0.794193954  0.755596981  0.582415638  0.529907006[] 
- []
-
-
-Overfull \hbox (33.0pt too wide) in paragraph at lines 546--546
-[]\TU/lmtt/m/n/10 ## [46] -1.547080493  0.465462992  0.243385632 -0.268113858 -0.816895795[] 
+Overfull \hbox (69.75pt too wide) in paragraph at lines 545--545
+[]\TU/lmtt/m/n/10 ## [43]  0.35357588  0.49081719 -0.55024593 -0.79627255  0.24799520 -0.68581568[] 
  []
 
 [14]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 596.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 595.
 [15] [16]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 792--792
+Overfull \hbox (27.75pt too wide) in paragraph at lines 791--791
 []\TU/lmtt/m/n/10 ## Error in c(nums, lttrs) + 2: non-numeric argument to binary operator[] 
  []
 
 [17] [18]
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ##   County Region Births Death InfMort Minor~1 Over65 PopChng PopDens Urban Income[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ##   <chr>  <chr>   <dbl> <dbl>   <dbl>   <dbl>  <dbl>   <dbl>   <dbl> <dbl>  <dbl>[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 1 Abbev~ Upsta~   12.5  10.3    15.1    31.7   14.7     9.7    51.5  23.4  32635[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 2 Aiken  Midla~   12.1   9.8     9.6    28.6   12.8    17.8   133.   60.9  37889[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 3 Allen~ LowCo~   14.8  12.1    18.5    72.6   12.7    -4.4    27.5  59    20898[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 4 Ander~ Upsta~   13    10.7    10.3    18.4   13.7    14.2   231.   58.3  36807[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 5 Bambe~ Midla~   11.5   9.9    21.7    63.5   13.9    -1.4    42.4  45.7  24007[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (90.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## 6 Barnw~ Midla~   14    10.9    21.4    44.8   12.6    15.7    42.8  14.9  28591[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 965--965
+Overfull \hbox (64.5pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## # ... with 16 more variables: ConsInc <dbl>, FarmInc <dbl>, ManIncom <dbl>,[] 
  []
 
 
-Overfull \hbox (69.75pt too wide) in paragraph at lines 965--965
+Overfull \hbox (69.75pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## #   RetInc <dbl>, FdStmps <dbl>, MoblHms <dbl>, NoCar <dbl>, PlumProb <dbl>,[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 965--965
+Overfull \hbox (54.0pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## #   PoorChild <dbl>, Unemp <dbl>, Coll4 <dbl>, Crime <dbl>, HSGrad <dbl>,[] 
  []
 
 
-Overfull \hbox (80.25pt too wide) in paragraph at lines 965--965
+Overfull \hbox (80.25pt too wide) in paragraph at lines 964--964
 []\TU/lmtt/m/n/10 ## #   JuvDel <dbl>, MVDeath <dbl>, SchlSpnd <dbl>, and abbreviated variable name[] 
  []
 
 [19]
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ##   County Region Births Death InfMort Minor~1 Over65 PopChng PopDens Urban Income[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ##   <chr>  <chr>   <dbl> <dbl>   <dbl>   <dbl>  <dbl>   <dbl>   <dbl> <dbl>  <dbl>[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 1 Saluda Midla~   11.2  11.3     4.7    34.2   14.5    16.7    42.5  18.7  35774[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 2 Spart~ Upsta~   13.1   9.8     7.9    24.9   12.5    11.9   313.   64.8  37579[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 3 Sumter Midla~   15.6   8.9     8.5    50     11.2     3.3   157.   62.1  33278[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 4 Union  Upsta~   10.7  13.2    12.8    32.2   15.6    -1.5    58.1  35.7  31441[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 5 Willi~ Peedee   12.6  11.8     8.8    67.3   13       1.1    39.8  15.1  24214[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (90.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## 6 York   Upsta~   13.4   7.7     7.6    22.7   10.4    25.2   241.   64.3  44539[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 988--988
+Overfull \hbox (64.5pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## # ... with 16 more variables: ConsInc <dbl>, FarmInc <dbl>, ManIncom <dbl>,[] 
  []
 
 
-Overfull \hbox (69.75pt too wide) in paragraph at lines 988--988
+Overfull \hbox (69.75pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## #   RetInc <dbl>, FdStmps <dbl>, MoblHms <dbl>, NoCar <dbl>, PlumProb <dbl>,[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 988--988
+Overfull \hbox (54.0pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## #   PoorChild <dbl>, Unemp <dbl>, Coll4 <dbl>, Crime <dbl>, HSGrad <dbl>,[] 
  []
 
 
-Overfull \hbox (80.25pt too wide) in paragraph at lines 988--988
+Overfull \hbox (80.25pt too wide) in paragraph at lines 987--987
 []\TU/lmtt/m/n/10 ## #   JuvDel <dbl>, MVDeath <dbl>, SchlSpnd <dbl>, and abbreviated variable name[] 
  []
 
 [20]
-Overfull \hbox (85.5pt too wide) in paragraph at lines 1057--1057
+Overfull \hbox (85.5pt too wide) in paragraph at lines 1056--1056
 []\TU/lmtt/m/n/10 ##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 1057--1057
+Overfull \hbox (22.5pt too wide) in paragraph at lines 1056--1056
 []\TU/lmtt/m/n/10 ## [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46[] 
  []
 
 
-Overfull \hbox (85.5pt too wide) in paragraph at lines 1091--1091
+Overfull \hbox (85.5pt too wide) in paragraph at lines 1090--1090
 []\TU/lmtt/m/n/10 ##  [1] 12.5 12.1 14.8 13.0 11.5 14.0 15.8 14.4 11.5 14.5 13.3 12.3 12.1 12.3 13.0[] 
  []
 
 
-Overfull \hbox (85.5pt too wide) in paragraph at lines 1091--1091
+Overfull \hbox (85.5pt too wide) in paragraph at lines 1090--1090
 []\TU/lmtt/m/n/10 ## [16] 12.4 15.6 12.9 10.3 12.8 15.3 12.7 14.0 12.6 13.9 12.7 14.3 12.8 12.2 11.6[] 
  []
 
 
-Overfull \hbox (85.5pt too wide) in paragraph at lines 1091--1091
+Overfull \hbox (85.5pt too wide) in paragraph at lines 1090--1090
 []\TU/lmtt/m/n/10 ## [31] 12.9 14.0  7.6 13.8 11.9 12.5 11.7 13.8 11.2 13.3 11.2 13.1 15.6 10.7 12.6[] 
  []
 
 [21]
-Overfull \hbox (43.5pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (43.5pt too wide) in paragraph at lines 1130--1130
 []\TU/lmtt/m/n/10 ##  [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (48.75pt too wide) in paragraph at lines 1130--1130
 []\TU/lmtt/m/n/10 ##  [6] "null.value"  "stderr"      "alternative" "method"      "data.name"[] 
  []
 
@@ -1032,17 +1022,17 @@ Overfull \hbox (48.75pt too wide) in paragraph at lines 1131--1131
 File: img/rmarkdown_wizards.png Graphic file (type bmp)
 <img/rmarkdown_wizards.png>
 
-Overfull \hbox (497.24153pt too wide) in paragraph at lines 1173--1173
+Overfull \hbox (497.24153pt too wide) in paragraph at lines 1172--1172
 [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.0477pt on input line 1174.
+LaTeX Warning: Float too large for page by 24.0477pt on input line 1173.
 
 File: img/rmarkdown.png Graphic file (type bmp)
 <img/rmarkdown.png>
 
-Overfull \hbox (364.92433pt too wide) in paragraph at lines 1178--1179
+Overfull \hbox (364.92433pt too wide) in paragraph at lines 1177--1178
 [][] 
  []
 
@@ -1053,7 +1043,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: img/hello-rmarkdown.png Graphic file (type bmp)
 <img/hello-rmarkdown.png>
 
-Overfull \hbox (535.02095pt too wide) in paragraph at lines 1201--1202
+Overfull \hbox (535.02095pt too wide) in paragraph at lines 1200--1201
 [][] 
  []
 
@@ -1075,14 +1065,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 Chapter 3.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1329.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1328.
 [33] [34] [35] [36
 
 ]
 Chapter 4.
 
 LaTeX Font Warning: Font shape `TU/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/sl' tried instead on input line 1525.
+(Font)              Font shape `TU/lmtt/b/sl' tried instead on input line 1524.
 
 [37]
 File: _main_files/figure-latex/unnamed-chunk-49-1.pdf Graphic file (type pdf)
@@ -1097,10 +1087,10 @@ File: _main_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type pdf)
 No file _main.bbl.
 [41] (./_main.aux) ) 
 Here is how much of TeX's memory you used:
- 19422 strings out of 478703
- 359322 string characters out of 5849017
+ 19420 strings out of 478703
+ 359294 string characters out of 5849017
  1861966 words of memory out of 5000000
- 39195 multiletter control sequences out of 15000+600000
+ 39193 multiletter control sequences out of 15000+600000
  519747 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,8n,121p,1002b,513s stack positions out of 10000i,1000n,20000p,200000b,200000s

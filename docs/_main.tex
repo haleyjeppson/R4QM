@@ -460,8 +460,8 @@ The other use of parentheses in R are to indicate that you attempting to run a f
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.8632073  0.2382018 -0.4352959 -1.5022096  1.4102233  1.2333492
-##  [7] -0.9588226  0.1236636 -1.2291702  0.7018118
+##  [1] -0.7619405  0.4161386 -2.1680395 -0.4675213  0.2461323 -0.2923226
+##  [7] -1.1759515 -0.3178633 -0.4420994 -0.8192365
 \end{verbatim}
 
 runs the function \texttt{rnorm()} with the argument \texttt{10}. In this case it is generating a random sample of 10 values from a normal distribution.
@@ -504,8 +504,8 @@ It is always safest to enter the values of functions using the names of the argu
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  4.009843 -2.283745 10.798616 -2.250932  3.196857 -1.716489  3.286121
-##  [8]  5.233096  1.243692  4.683152
+##  [1]  1.5702870 -5.2994532  5.8759032 -6.5844055  2.8785251  1.3775731
+##  [7] -0.1624202 -1.9564146 -5.7549390  3.2382378
 \end{verbatim}
 
 rather than trusting that the argument you want happens to be first in the list:
@@ -517,8 +517,8 @@ rather than trusting that the argument you want happens to be first in the list:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 3.728657 3.594066 5.096575 4.486254 3.091988 4.643227 3.828985 4.696059
-##  [9] 4.292898 4.968745
+##  [1] 2.823548 2.965551 5.745427 4.459195 3.457288 3.962843 5.443968 3.354950
+##  [9] 3.864604 3.381425
 \end{verbatim}
 
 Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).
@@ -533,16 +533,15 @@ Note that these values we generated have not been saved as an object, and exist 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  0.204201413  0.609197634  0.195927383 -0.032587203 -0.600146853
-##  [6]  0.688211311 -0.261624302 -0.227742847 -1.393837835 -0.449825474
-## [11]  0.613381708 -0.587425914 -1.475433871 -0.912554638 -0.206787678
-## [16]  0.007724026  0.222924842  0.368407064 -0.716983986 -0.363461313
-## [21]  0.077582276 -0.360237477 -0.430394260 -0.413357347  0.089295973
-## [26]  0.755307573  1.546019792 -0.178308999 -1.192350602  1.176871714
-## [31] -0.672992519 -2.343170884  0.407870484  0.497986437  1.372690137
-## [36] -0.048124349 -1.962751271  0.693303815  0.966928578 -0.497809627
-## [41]  0.702331673  0.794193954  0.755596981  0.582415638  0.529907006
-## [46] -1.547080493  0.465462992  0.243385632 -0.268113858 -0.816895795
+##  [1]  0.34470966  0.68275198  1.52934949 -1.89849113  0.81200638  0.42172147
+##  [7]  0.44409132  0.11513841  0.51825510  2.25059324  1.28197819 -0.34478198
+## [13]  0.13536659  0.14938146  2.62587704 -0.31244415  0.50498242 -0.63054361
+## [19] -0.01083312 -0.75179013  0.46678403  0.92560002 -1.45277056 -0.44074904
+## [25] -0.39708162 -0.10599941  0.61939431  0.87091029 -1.12939255  0.10836347
+## [31] -1.04756063 -0.48592628 -0.89385922  1.32826729  2.08696535  0.43627006
+## [37] -0.48096872  0.32959631  0.85176856  1.49640418 -0.16447693 -0.67755595
+## [43]  0.35357588  0.49081719 -0.55024593 -0.79627255  0.24799520 -0.68581568
+## [49]  0.99131449 -0.50639798
 \end{verbatim}
 
 \hypertarget{common-statistical-functions}{%
@@ -630,7 +629,7 @@ After entering or new function, it works like any built in function, except that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.06682444
+## [1] -0.005984199
 \end{verbatim}
 
 \hypertarget{common-mathematical-functions}{%
@@ -1103,13 +1102,13 @@ This is particularly useful when trying to access a portion of the output of a f
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -0.5785, df = 49, p-value = 0.5656
+## t = 1.469, df = 49, p-value = 0.1482
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.3035775  0.1678626
+##  -0.07106282  0.45731371
 ## sample estimates:
-##   mean of x 
-## -0.06785747
+## mean of x 
+## 0.1931254
 \end{verbatim}
 
 If you only want the part called the ``p-value'' for later use we can pull that out of the output.
@@ -1137,7 +1136,7 @@ If you only want the part called the ``p-value'' for later use we can pull that 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5655744
+## [1] 0.1482164
 \end{verbatim}
 
 We could then save the resulting value as part of a vector or matrix of other p-values, for example.
@@ -1645,9 +1644,7 @@ Say we want to plot male math scores against female math scores. To do so, we wi
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-50-1.pdf}
 
-\hypertarget{additional-resources}{%
-\section*{Additional Resources}\label{additional-resources}}
-\addcontentsline{toc}{section}{Additional Resources}
+This book pulls from many sources, including:
 
 \begin{itemize}
 \item
