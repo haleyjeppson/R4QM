@@ -356,8 +356,8 @@ Figure 1.1:  Image via Jenny Bryan’s ‘What They Forgot to Teach You About R�
 <p>Notice that the former returns an error about looking for a function called <code>X</code>, while the latter does the arithmetic to return the value <code>40</code>.</p>
 <p>The other use of parentheses in R are to indicate that you attempting to run a function, and, if the function has any options it will contain those. The command:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="an-introduction.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.7317619  0.4092581  1.3625572  0.2407417  0.4339118 -0.7249484
-##  [7]  0.4224713 -0.4877504 -1.7860737 -0.1379035</code></pre>
+<pre><code>##  [1]  1.8878954  0.6322454  0.7183861  1.4761695  1.2620103  0.7197049
+##  [7]  0.5090196 -0.3619615 -0.3187370 -0.4025442</code></pre>
 <p>runs the function <code>rnorm()</code> with the argument <code>10</code>. In this case it is generating a random sample of 10 values from a normal distribution.</p>
 </div>
 <div id="help" class="section level2 hasAnchor" number="1.4">
@@ -375,25 +375,26 @@ Figure 1.1:  Image via Jenny Bryan’s ‘What They Forgot to Teach You About R�
 <span id="cb29-2"><a href="an-introduction.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">do_that</span>(to_this, to_that, with_those)</span></code></pre></div>
 <p>It is always safest to enter the values of functions using the names of the arguments:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="an-introduction.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##  [1] -1.2794157 -5.4301170  1.6199153  0.7474597 -1.8497954 -3.5798803
-##  [7] -4.3275122 -6.5073132 -3.7764945 -1.8543262</code></pre>
+<pre><code>##  [1] -0.3790528  0.7861841 -7.1632380 -1.5314011 -2.0492422  1.5052918
+##  [7] -2.3352767  7.3514672 -5.9212688  6.0056887</code></pre>
 <p>rather than trusting that the argument you want happens to be first in the list:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="an-introduction.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##  [1] 4.231438 2.798004 5.093157 4.511367 2.950468 5.745889 5.523671 3.012290
-##  [9] 3.794026 3.899724</code></pre>
+<pre><code>##  [1] 1.842428 3.014836 5.866371 3.934232 4.188539 5.041615 4.612346 3.349354
+##  [9] 4.060865 3.556998</code></pre>
 <p>Notice the former puts 4 in for the standard deviation, while the latter is putting it in for the second overall argument, the mean (as seen in the help file).</p>
 <p>Note that these values we generated have not been saved as an object, and exist solely on the screen. To save the values we could have assigned the output of our function to an object.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="an-introduction.html#cb34-1" aria-hidden="true" tabindex="-1"></a>normal.sample <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
 <span id="cb34-2"><a href="an-introduction.html#cb34-2" aria-hidden="true" tabindex="-1"></a>normal.sample</span></code></pre></div>
-<pre><code>##  [1] -0.75528293  0.34711198 -1.69117550  0.84450898 -0.72997360 -0.57796940
-##  [7]  2.14017829 -0.82987924  0.31155054 -0.98686303 -1.68246023 -0.91913805
-## [13]  1.10502030  1.30220595  1.61500061  0.07452079 -0.40189328 -0.40968400
-## [19] -1.46428979 -0.94250700  0.59831063 -0.08235190 -0.14308176  0.25816991
-## [25]  0.66608279 -0.94121230 -1.62418278  0.02319946 -0.00966107  1.02881425
-## [31]  0.94391521 -0.15318605  1.44346819 -2.27044254  0.39944462 -0.51549491
-## [37] -1.41964997 -0.28916582  0.24248362 -0.54380369 -0.47673891 -1.11199465
-## [43]  0.92847021 -0.50439518  0.59438282 -0.94914228 -0.68002148  0.80969775
-## [49] -0.38017562  1.64037290</code></pre>
+<pre><code>##  [1] -0.657315521 -0.160955273  1.036603648  0.659080126 -0.079563714
+##  [6] -0.923549934  1.155224626 -0.958920842  0.774719700 -0.051748151
+## [11] -0.033709757  0.331843183 -0.303004359  0.434918033 -2.226721931
+## [16]  0.426601807  1.425302785  1.355292522  0.118394199 -0.493144526
+## [21] -0.490162834  0.111780677  0.618223767 -0.298698261  0.332890781
+## [26] -0.568395526 -0.195307474  0.772448841 -0.898356108 -0.038237328
+## [31] -0.429642800 -0.662179395 -0.205809374 -0.906685941  0.619784918
+## [36] -1.155524274  0.435646683  0.964037617  0.006933506  0.690698078
+## [41] -1.707633203  0.070972828 -1.196988421  0.551246869 -0.719058562
+## [46] -0.642679359  1.469032215 -1.217842245  0.225518950  0.256150299</code></pre>
 <div id="common-statistical-functions" class="section level3 unnumbered hasAnchor">
 <h3>Common statistical functions<a href="an-introduction.html#common-statistical-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A few common statistical functions include:</p>
@@ -427,7 +428,7 @@ Figure 1.1:  Image via Jenny Bryan’s ‘What They Forgot to Teach You About R�
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="an-introduction.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Skew</span>()</span></code></pre></div>
 <pre><code>## Error in mean(x): argument &quot;x&quot; is missing, with no default</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="an-introduction.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Skew</span>(normal.sample)</span></code></pre></div>
-<pre><code>## [1] 0.09925054</code></pre>
+<pre><code>## [1] -0.01435454</code></pre>
 </div>
 <div id="common-mathematical-functions" class="section level3 unnumbered hasAnchor">
 <h3>Common mathematical functions<a href="an-introduction.html#common-mathematical-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -637,13 +638,13 @@ Figure 1.1:  Image via Jenny Bryan’s ‘What They Forgot to Teach You About R�
 ##  One Sample t-test
 ## 
 ## data:  normal.sample
-## t = -0.88537, df = 49, p-value = 0.3803
+## t = -0.41638, df = 49, p-value = 0.679
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -0.4034152  0.1566589
+##  -0.2771565  0.1820170
 ## sample estimates:
-##  mean of x 
-## -0.1233781</code></pre>
+##   mean of x 
+## -0.04756977</code></pre>
 <p>If you only want the part called the “p-value” for later use we can pull that out of the output.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="an-introduction.html#cb96-1" aria-hidden="true" tabindex="-1"></a>t.out <span class="ot">&lt;-</span> <span class="fu">t.test</span>(normal.sample)</span>
 <span id="cb96-2"><a href="an-introduction.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(t.out)</span></code></pre></div>
@@ -654,7 +655,7 @@ Figure 1.1:  Image via Jenny Bryan’s ‘What They Forgot to Teach You About R�
 ## $class
 ## [1] &quot;htest&quot;</code></pre>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="an-introduction.html#cb98-1" aria-hidden="true" tabindex="-1"></a>t.out<span class="sc">$</span>p.value</span></code></pre></div>
-<pre><code>## [1] 0.380279</code></pre>
+<pre><code>## [1] 0.6789512</code></pre>
 <p>We could then save the resulting value as part of a vector or matrix of other p-values, for example.</p>
 <p>The <code>$</code> is also used to access named parts of lists, which we will see can be used to store a variety of kinds of information in a single object.</p>
 </div>

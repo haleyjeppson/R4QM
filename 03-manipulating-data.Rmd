@@ -180,7 +180,7 @@ ggplot(pisas_wide, aes(x = Female, y = Male)) +
   geom_point() +
   labs(title = "PISA 2009 in Math - Gender Gap",
        x = "PISA 2009 Math score for girls",
-       y = "PISA 2015 Math score for boys") +
+       y = "PISA 2009 Math score for boys") +
   theme_light()
 ```
 
