@@ -41,7 +41,8 @@ The data is a stratified sample of 70 students from a large section course. The 
 
 ```{r}
 library(ggplot2)
-students <- readr::read_table("data/CourseData.txt")[, -1]
+url <- "https://raw.githubusercontent.com/haleyjeppson/R4QM/main/data/CourseData.txt"
+students <- readr::read_table(url)[, -1]
 students
 ```
 

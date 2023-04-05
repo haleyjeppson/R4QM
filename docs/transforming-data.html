@@ -284,8 +284,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="an-example-1" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> An example<a href="transforming-data.html#an-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The following example ties several of the above ideas together. Imagine that we have a set of grades from a course that we would like to convert to letter grades using a particular weighting and letter-grade cut-offs.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="transforming-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(<span class="st">&quot;data/CourseData.txt&quot;</span>)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb104-2"><a href="transforming-data.html#cb104-2" aria-hidden="true" tabindex="-1"></a>students</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="transforming-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/haleyjeppson/R4QM/main/data/CourseData.txt&quot;</span></span>
+<span id="cb104-2"><a href="transforming-data.html#cb104-2" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(url)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb104-3"><a href="transforming-data.html#cb104-3" aria-hidden="true" tabindex="-1"></a>students</span></code></pre></div>
 <pre><code>## # A tibble: 70 × 6
 ##    College  Year  Hmwk    E1    E2    E3
 ##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;

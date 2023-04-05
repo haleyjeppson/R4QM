@@ -242,8 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> An example<a href="reshaping-data.html#an-example-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For this example we begin with a subset of the 2009 <a href="https://nces.ed.gov/surveys/pisa/">Program for International Student Assessment (PISA)</a> data.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="reshaping-data.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="do">## load data</span></span>
-<span id="cb112-2"><a href="reshaping-data.html#cb112-2" aria-hidden="true" tabindex="-1"></a>pisas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/pisas09_subset.csv&quot;</span>)</span>
-<span id="cb112-3"><a href="reshaping-data.html#cb112-3" aria-hidden="true" tabindex="-1"></a>pisas</span></code></pre></div>
+<span id="cb112-2"><a href="reshaping-data.html#cb112-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/haleyjeppson/R4QM/main/data/pisas09_subset.csv&quot;</span></span>
+<span id="cb112-3"><a href="reshaping-data.html#cb112-3" aria-hidden="true" tabindex="-1"></a>pisas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(url)</span>
+<span id="cb112-4"><a href="reshaping-data.html#cb112-4" aria-hidden="true" tabindex="-1"></a>pisas</span></code></pre></div>
 <pre><code>## # A tibble: 475,460 × 5
 ##    country sex     math  read weight
 ##    &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;

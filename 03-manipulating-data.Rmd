@@ -77,7 +77,8 @@ Topics:
 The following example ties several of the above ideas together. Imagine that we have a set of grades from a course that we would like to convert to letter grades using a particular weighting and letter-grade cut-offs.
 
 ```{r}
-students <- readr::read_table("data/CourseData.txt")[, -1]
+url <- "https://raw.githubusercontent.com/haleyjeppson/R4QM/main/data/CourseData.txt"
+students <- readr::read_table(url)[, -1]
 students
 head(students)
 tail(students)
@@ -134,7 +135,8 @@ For this example we begin with a subset of the 2009 [Program for International S
 
 ```{r}
 ## load data
-pisas <- readr::read_csv("data/pisas09_subset.csv")
+url <- "https://raw.githubusercontent.com/haleyjeppson/R4QM/main/data/pisas09_subset.csv"
+pisas <- readr::read_csv(url)
 pisas
 ```
 
